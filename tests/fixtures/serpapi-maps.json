@@ -1,0 +1,154 @@
+{
+ "local_results": [
+  {
+   "position": 1,
+   "title": "Bouldering Project - Springdale",
+   "place_id": "ChIJUckS5Xi2RIYRvwB4-ZZ7Gto",
+   "data_id": "0x8644b678e512c951:0xda1a7b96f97800bf",
+   "gps_coordinates": {
+    "latitude": 30.263260199999998,
+    "longitude": -97.6964809
+   },
+   "rating": 4.8,
+   "reviews": 1922,
+   "type": "Rock climbing gym",
+   "types": [
+    "Rock climbing gym",
+    "Coworking space",
+    "Fitness center",
+    "Personal trainer",
+    "Physical fitness program",
+    "Sauna",
+    "Yoga studio"
+   ],
+   "address": "979 Springdale Rd, Austin, TX 78702",
+   "open_state": "Closed · Opens 8 AM",
+   "hours": "Closed · Opens 8 AM",
+   "operating_hours": {
+    "sunday": "8 AM–10 PM",
+    "monday": "6 AM–11 PM",
+    "tuesday": "6 AM–11 PM",
+    "wednesday": "6 AM–11 PM",
+    "thursday": "6 AM–11 PM",
+    "friday": "6 AM–11 PM",
+    "saturday": "8 AM–10 PM"
+   },
+   "phone": "(512) 645-4633",
+   "website": "https://boulderingproject.com/location/springdale/",
+   "thumbnail": "https://lh3.googleusercontent.com/grass-cs/AABkmLcYZXVZv8-HZsg8QnhQlU7wUfymTW5bN7xY1flQ_xrmdKQzI4SW1jO8-Tb9pxC1GjJGYV_nlMnoGd-P4jja-DX0Z_WgerPOgquSpcCwexejlHrt5Nxj5_z0i2npWFbiMDWgMKLv=w1000-h1000-c-n"
+  },
+  {
+   "position": 2,
+   "title": "Crux Climbing Center Central - Yoga & Fitness",
+   "place_id": "ChIJVcBlPzPLRIYRbsrqypBHPA0",
+   "data_id": "0x8644cb333f65c055:0xd3c4790caeaca6e",
+   "gps_coordinates": {
+    "latitude": 30.326017,
+    "longitude": -97.7171073
+   },
+   "rating": 4.7,
+   "reviews": 408,
+   "type": "Rock climbing gym",
+   "types": [
+    "Rock climbing gym",
+    "Fitness center",
+    "Gym",
+    "Sauna",
+    "Yoga instructor",
+    "Yoga studio"
+   ],
+   "address": "6015 Dillard Cir #B, Austin, TX 78752",
+   "open_state": "Closed · Opens 10 AM",
+   "hours": "Closed · Opens 10 AM",
+   "operating_hours": {
+    "sunday": "10 AM–10 PM",
+    "monday": "6 AM–11 PM",
+    "tuesday": "6 AM–11 PM",
+    "wednesday": "6 AM–11 PM",
+    "thursday": "6 AM–11 PM",
+    "friday": "6 AM–11 PM",
+    "saturday": "10 AM–7 PM"
+   },
+   "phone": "(512) 931-3911",
+   "website": "https://www.cruxclimbingcenter.com/central-austin",
+   "thumbnail": "https://lh3.googleusercontent.com/grass-cs/AABkmLepcyBZsIjsqTw1sszxnS6feCCpkr-tstucuTwjp6CopfNLkLy6cEd4Dk3TINxs5PybRGTA3e64GRJMfoB8QLNNuL5jbod8A19dgeXVT566mijWrXOq4BD0SKILalmrkgWFuzM2=w1000-h1000-c-n"
+  },
+  {
+   "position": 3,
+   "title": "Austin Bouldering Club",
+   "place_id": "ChIJ97EuVxq3RIYRGyUgd84eJmM",
+   "data_id": "0x8644b71a572eb1f7:0x63261ece7720251b",
+   "gps_coordinates": {
+    "latitude": 30.263403399999998,
+    "longitude": -97.6963878
+   },
+   "rating": 4.5,
+   "reviews": 2,
+   "type": "Fitness center",
+   "types": [
+    "Fitness center"
+   ],
+   "address": "979 Springdale Rd, Austin, TX 78702",
+   "open_state": "Closed · Opens 9 AM",
+   "hours": "Closed · Opens 9 AM",
+   "operating_hours": {
+    "sunday": "9 AM–9 PM",
+    "monday": "9 AM–9 PM",
+    "tuesday": "9 AM–9 PM",
+    "wednesday": "9 AM–9 PM",
+    "thursday": "9 AM–9 PM",
+    "friday": "9 AM–9 PM",
+    "saturday": "9 AM–9 PM"
+   },
+   "website": "https://sweatpals.com/austinboulderingclub",
+   "thumbnail": "https://lh3.googleusercontent.com/grass-cs/AABkmLes9P0P6dMfjMk5RhwuwLfcbRpT4FeCUv4JsmzeJgvS-qqzNXaCG60PW8IDJQ8YBRgQkMVqXKw6vCTIM1aeN21OBEErk0HO842KIPERcb8dW5PYx6gLSNspU5h6o2fbo_ki0w5Ra7baeCy-=w1000-h1000-c-n"
+  },
+  {
+   "position": 4,
+   "title": "The Enclave",
+   "place_id": "ChIJ62NMiypLW4YRCqTFHCHLRic",
+   "data_id": "0x865b4b2a8b4c63eb:0x2746cb211cc5a40a",
+   "gps_coordinates": {
+    "latitude": 30.256163899999997,
+    "longitude": -97.7932878
+   },
+   "type": "Rock climbing",
+   "types": [
+    "Rock climbing"
+   ],
+   "address": "1781 Spyglass Dr, Austin, TX 78746",
+   "thumbnail": "https://lh3.googleusercontent.com/grass-cs/AABkmLfZD_ndB1PEvwdb3WGJgciU1PP9N24t1fiX98jWuM6xG_SgganXFpC9fXvWyBc5dsedoGVuxgvqXWgqJzGcaXL9CbwoVZzGB_gq6ZbsZbgBC009K7BwEz4RPB_y39t2yxF_8xg=w1000-h1000-c-n"
+  },
+  {
+   "position": 5,
+   "title": "Mesa Rim Climbing Center",
+   "place_id": "ChIJgx8vsKbJRIYRNE_t7iSYRsk",
+   "data_id": "0x8644c9a6b02f1f83:0xc9469824eeed4f34",
+   "gps_coordinates": {
+    "latitude": 30.3430201,
+    "longitude": -97.6853861
+   },
+   "rating": 4.6,
+   "reviews": 429,
+   "type": "Rock climbing gym",
+   "types": [
+    "Rock climbing gym"
+   ],
+   "address": "1205 Sheldon Cove Bldg 3, Austin, TX 78753",
+   "open_state": "Closed · Opens 8 AM",
+   "hours": "Closed · Opens 8 AM",
+   "operating_hours": {
+    "sunday": "8 AM–9 PM",
+    "monday": "6 AM–11 PM",
+    "tuesday": "6 AM–11 PM",
+    "wednesday": "6 AM–11 PM",
+    "thursday": "6 AM–11 PM",
+    "friday": "6 AM–11 PM",
+    "saturday": "8 AM–9 PM"
+   },
+   "phone": "(512) 284-9043",
+   "website": "https://mesarim.com/austin/",
+   "thumbnail": "https://lh3.googleusercontent.com/grass-cs/AABkmLekUV5MSNzDvk9z2UAjOK1MQ7_P6FhyJFGzdTfUbVXmWCQchOlmGwrX45JBD1iJppYiprXX8IFDHSD-sxq8MWuRBCwEYS7Trl3lL4nes9T5s5Xr8RiWKqwC-Dt0IRSG0pTcKfxnLA=w1000-h1000-c-n"
+  }
+ ]
+}

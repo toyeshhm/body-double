@@ -3,12 +3,14 @@
 // and results land through updateRoom like any other write. Any AI failure falls back to the stub fake.
 import { setTimeout as sleep } from "node:timers/promises";
 import { waitUntil } from "@vercel/functions";
+import { findPlace } from "../ai/places";
 import { learnStyle, moderate, paintPoster, writeFake, writePlans, writeRecap } from "../ai/prompts";
 import { log } from "../log";
+import { takeBudget } from "./budget";
 import { currentRound, deliverFake, deliverPlans, deliverRecap, list, skipAnswer } from "./machine";
 import { updateRoom } from "./store";
 import { fakeAnswer, stubPlans, stubRecap } from "./stubs";
-import type { Phase, Player, Room } from "./types";
+import type { Phase, Place, Plans, Player, Room } from "./types";
 
 const DRESS_MS = 2400; // the "Wolf is dressing" beat always plays, even when the stub answers instantly
 // Room for one provider timeout plus the fallback (or ~3 calls of the local Claude CLI). The machine's
@@ -53,16 +55,15 @@ export function afterWrite(from: { phase: Phase; round: number }, room: Room): v
   const fakes = room.phase === "GENERATING" && (from.phase !== "GENERATING" || n !== from.round) ? writeFakes(room) : null;
   if (fakes) background("fakes", fakes);
   const batch =
-    from.phase === "WARMUP" && room.phase !== "WARMUP"
-      ? 0
-      : from.phase === "ANSWERING" && (room.phase !== "ANSWERING" || n !== from.round)
-        ? from.round
-        : null;
+    from.phase === "WARMUP" && room.phase !== "WARMUP" ? 0 : from.phase === "ANSWERING" && (room.phase !== "ANSWERING" || n !== from.round) ? from.round : null;
   if (batch === null) return;
   // Profiles wait for the fakes so they never compete with them for the provider's rate limit.
   // A fakes failure is already logged by its own background() above.
   const afterFakes = fakes ? fakes.catch(() => undefined) : Promise.resolve();
-  background("style", afterFakes.then(() => learnStyles(room, batch)));
+  background(
+    "style",
+    afterFakes.then(() => learnStyles(room, batch)),
+  );
 }
 
 /** Spec 6b + 8 for every target of the current round. Each fake is written the moment it is ready. */
@@ -149,20 +150,10 @@ async function writeEnding(room: Room): Promise<void> {
       return stubPlans(room);
     });
     const out = await updateRoom(code, (r) => ({ result: null, dirty: deliverPlans(r, plans) }));
-    // Paint whichever plans the room ended up showing: the Wolf's, or the stub if the host moved on first.
-    const prompt = out?.room.phase === "ENDED" ? undefined : out?.room.plans?.groupPlan.posterPrompt;
-    if (!prompt) return;
-    const url = await paintPoster(prompt).catch((err: unknown) => {
-      log.warn("wolf.poster", { ok: false, error: describe(err) });
-      return null;
-    });
-    if (!url) return;
-    await updateRoom(code, (r) => {
-      const plan = r.phase === "ENDED" ? undefined : r.plans?.groupPlan;
-      if (plan?.posterPrompt !== prompt) return { result: null, dirty: false };
-      plan.posterUrl = url;
-      return { result: null, dirty: true };
-    });
+    // Paint and place whichever plans the room ended up showing: the Wolf's, or the stub if the host moved on first.
+    const shown = out?.room.phase === "ENDED" ? undefined : out?.room.plans;
+    if (!shown) return;
+    await Promise.all([placeQuests(code, shown), poster(code, shown.groupPlan.posterPrompt)]);
   };
   const recap = async (): Promise<void> => {
     const story = await within(ENDING_BUDGET_MS, writeRecap(room)).catch((err: unknown) => {
@@ -172,4 +163,47 @@ async function writeEnding(room: Room): Promise<void> {
     await updateRoom(code, (r) => ({ result: null, dirty: deliverRecap(r, story) }));
   };
   await Promise.all([plansThenPoster(), recap()]);
+}
+
+async function poster(code: string, prompt: string): Promise<void> {
+  const url = await paintPoster(prompt).catch((err: unknown) => {
+    log.warn("wolf.poster", { ok: false, error: describe(err) });
+    return null;
+  });
+  if (!url) return;
+  await updateRoom(code, (r) => {
+    const plan = r.phase === "ENDED" ? undefined : r.plans?.groupPlan;
+    if (plan?.posterPrompt !== prompt) return { result: null, dirty: false };
+    plan.posterUrl = url;
+    return { result: null, dirty: true };
+  });
+}
+
+/** A real spot for each quest that wants one: one SerpApi search each, inside tonight's budget. Never blocks the game. */
+async function placeQuests(code: string, plans: Plans): Promise<void> {
+  const wanted = [...plans.pairPlans.map((p, i) => ({ i, query: p.placeQuery })), { i: -1, query: plans.groupPlan.placeQuery }];
+  const found = await Promise.all(
+    wanted.map(async ({ i, query }): Promise<{ i: number; query: string; place: Place } | null> => {
+      if (!query || !(await takeBudget("places"))) return null;
+      const place = await findPlace(query).catch((err: unknown) => {
+        log.warn("wolf.place", { ok: false, error: describe(err) });
+        return null;
+      });
+      return place ? { i, query, place } : null;
+    }),
+  );
+  const hits = found.filter((f) => f !== null);
+  log.info("wolf.places", { room: code, wanted: wanted.length, found: hits.length });
+  if (hits.length === 0) return;
+  await updateRoom(code, (r) => {
+    const shown = r.phase === "ENDED" ? null : r.plans;
+    let dirty = false;
+    for (const { i, query, place } of hits) {
+      const plan = i < 0 ? shown?.groupPlan : shown?.pairPlans[i];
+      if (plan?.placeQuery !== query || plan.place) continue; // the room moved on to other plans
+      plan.place = place;
+      dirty = true;
+    }
+    return { result: null, dirty };
+  });
 }

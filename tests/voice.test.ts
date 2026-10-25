@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { POST as transcribeRoute } from "../app/api/rooms/[code]/transcribe/route";
 import { encodeWav, wavInfo } from "../lib/ai/wav";
-import { MAX_VOICE_PER_NIGHT, takeVoiceBudget } from "../lib/game/budget";
+import { NIGHTLY, takeBudget } from "../lib/game/budget";
 import { authHeaders, type Auth } from "../lib/game/events";
 import { MAX_VOICE_PER_PLAYER, MAX_VOICE_PER_ROOM } from "../lib/game/http";
 import { BASE, host, phone } from "./screen";
@@ -80,9 +80,9 @@ void test("the transcribe route: players only, answer pages only, WAV only, 30s 
 
 void test("tonight's voice budget is shared by every game, and a fresh room can't get around it", async () => {
   let taken = 0;
-  while (await takeVoiceBudget()) taken++; // earlier tests in this file already spent some
-  assert.ok(taken <= MAX_VOICE_PER_NIGHT);
-  assert.equal(await takeVoiceBudget(), false, "spent stays spent");
+  while (await takeBudget("voice")) taken++; // earlier tests in this file already spent some
+  assert.ok(taken <= NIGHTLY.voice);
+  assert.equal(await takeBudget("voice"), false, "spent stays spent");
 
   const board = await host();
   const night = await phone(board.code, "Night");

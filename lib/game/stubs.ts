@@ -55,6 +55,8 @@ export function stubPlans(room: Room): Plans {
       sharedInterest: sharedInterest(room, a, b),
       evidence: [...lastWords(room, a), ...lastWords(room, b)],
       plan: "Tacos on Thursday at 9pm, and each of you picks one song for the walk there.",
+      placeQuery: "late night tacos",
+      place: null,
     })),
     groupPlan: {
       title: "Lantern Night at Zilker",
@@ -62,6 +64,8 @@ export function stubPlans(room: Room): Plans {
       plan: "Saturday at sunset: blankets, one dish each, and a round of Body Double played out loud.",
       posterPrompt: "storybook illustration, watercolor, warm lantern light, picnic blankets in a meadow at dusk",
       posterUrl: null,
+      placeQuery: "Zilker Park",
+      place: null,
     },
     superlatives: top ? [{ title: "Sharpest eyes in the village", playerId: top.id }] : [],
   };

@@ -10,6 +10,7 @@ import { BASE, Screen, host, joinRaw, phone } from "./screen";
 delete process.env.MUSE_API_KEY;
 delete process.env.GEMINI_API_KEY;
 delete process.env.AI_PROVIDER;
+delete process.env.SERPAPI_API_KEY;
 
 /** Chapter I of the anonymous Wolf curve (totals across every village, so tests compare before and after). */
 async function chapterOne(): Promise<{ votes: number; fooled: number }> {
@@ -143,6 +144,8 @@ void test("a full tale: lobby, warmup, rounds, reveal, tells, map, plans, recap,
   assert.equal(board.state.phase, "PLANS");
   assert.ok((board.state.plans?.pairPlans.length ?? 0) > 0, "PLANS never waits on the Wolf: stub when the AI isn't ready");
   assert.ok(board.state.plans?.pairPlans.every((p) => p.evidence.every((e) => !e.includes("(stub)"))));
+  assert.equal(board.state.plans?.groupPlan.placeQuery, "Zilker Park", "every quest knows what to search for");
+  assert.equal(board.state.plans.groupPlan.place, null, "and without SerpApi the quests still play, with no place");
   await board.send({ type: "host:next" });
   assert.equal(board.state.phase, "RECAP");
   assert.ok(board.state.recap?.story.startsWith("Once upon a time"), "RECAP never waits either");

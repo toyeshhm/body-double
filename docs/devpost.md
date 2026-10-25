@@ -3,10 +3,10 @@
 Paste each section into the matching Devpost field. Links to fill in before submitting are marked TODO.
 
 - **Tagline (60 chars):** An AI Wolf learns to text like your friends. Can you tell?
-- **Try it:** https://body-double-hacktx.vercel.app
+- **Try it:** https://bodydouble.tech
 - **Code:** https://github.com/toyeshhm/body-double (make it public before submitting)
 - **Demo video:** TODO (2 to 3 minutes, see docs/demo-script.md)
-- **Tracks:** Meta (main), Tiger Data, Gemini, Most Entertaining, Best Overall
+- **Tracks:** Meta (main), Tiger Data, Gemini, SerpApi, .Tech, Most Entertaining, Best Overall
 
 ---
 
@@ -25,7 +25,7 @@ Body Double is a storybook party game for a room of friends (best with 4 to 10):
 - **It learns from getting caught.** After the reveal, players who spotted the fake say what gave it away ("too many commas"). The Wolf avoids those tells next time. From chapter 3 it targets whoever the room knows least: "The Wolf noticed nobody really knows Maya yet."
 - **Every vote maps the friendships.** A correct vote means you know that person's voice. The forest map draws who knows whom.
 - **The Wolf opens its notebook.** Its first fake sits next to its last, with what it knew each time and how many it fooled, under a headline like "It learned. Chapter I fooled 50% of you. Chapter IV fooled 75%." Then it reads its notes on each of you.
-- **The night ends with quests.** The Wolf turns the map into real plans: one for each pair who barely know each other, built on things they actually wrote ("you both mentioned late-night tacos"), plus a group plan with an illustrated poster.
+- **The night ends with quests.** The Wolf turns the map into real plans: one for each pair who barely know each other, built on things they actually wrote ("you both mentioned late-night tacos"), plus a group plan with an illustrated poster. Every quest gets a real place near UT Austin from Google Maps (via SerpApi), with its rating, an "Open in Maps" button and an "Add to calendar" button on each phone.
 - **Then it forgets everything.** A recap story and a picture to save, and every answer is deleted.
 
 ## Role of AI
@@ -44,6 +44,7 @@ Each model falls back to the other, and if both are down the game still plays wi
 - **Next.js 14, React, TypeScript (strict), Tailwind** on **Vercel.** Phones and the host screen stay in sync by polling a serverless API. The game is a timer-free state machine: deadlines and bot moves are stored on the room and applied on the next request, so nothing needs a long-running server. Optimistic versioning keeps a room full of simultaneous votes consistent.
 - **Tiger Data (TimescaleDB on Tiger Cloud)** stores live rooms and an anonymous time series of every vote (time, chapter, fooled or not). A hypertable with a continuous aggregate powers the live "Is the Wolf getting smarter?" chart: the fooled rate per chapter across every village that night.
 - **Muse** (text, image, voice transcription) and **Gemini 2.5 Flash** sit behind one adapter with a 12 second timeout and automatic fallback.
+- **SerpApi** (Google Maps) turns each quest into a real place. The Wolf writes a short search like "climbing gym" (never names or answers), and the server picks the most relevant well-reviewed spot near UT Austin.
 - **Design:** we didn't want it to look AI-generated. The Storybook Stickers style uses die-cut sticker SVG filters, gold foil, Fraunces and Figtree type, and 28 hand-built fantasy icons. The vote happens in a magic mirror, and timers are clock towers.
 - **Tests:** integration tests drive the real API routes through every phase with no mocks and no AI keys, to prove the game never waits on a model.
 
@@ -68,7 +69,6 @@ Each model falls back to the other, and if both are down the game still plays wi
 
 ## What's next
 
-- Real places in the quests: attach a nearby venue, hours and a calendar invite to each plan.
 - A no-TV mode: friends already join from anywhere, but the map, notebook and quests only show on the host's screen. Putting those moments on every phone would make it work without a shared screen or a screen share.
 
 ## Built with

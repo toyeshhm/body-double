@@ -2,7 +2,7 @@
 
 **A party game where an AI Wolf learns to text like your friends, and the night ends with a plan to hang out.**
 
-Play it: **https://body-double-hacktx.vercel.app** (open it on a TV or laptop, then everyone joins on their phone by scanning the QR code).
+Play it: **https://bodydouble.tech** (open it on a TV or laptop, then everyone joins on their phone by scanning the QR code).
 
 Built at HackTX 2026.
 
@@ -16,7 +16,7 @@ Built at HackTX 2026.
 6. **The Wolf gets smarter.** From chapter 3 it goes after whoever the room knows least. From chapter 4 it also sees the room's answers and the tells that caught it.
 7. **The forest map.** Every vote is a data point about who knows whom. The map draws it.
 8. **The Wolf's notebook.** The Wolf shows its first fake next to its last one, with what it knew each time and how many it fooled, then reads its notes on each villager: interests, humor, slang, how they type, and the tell that caught it. Each phone shows only its owner's page.
-9. **Quests.** The Wolf turns what it learned into real plans: one for each pair who barely know each other, built on things they actually wrote, plus a group plan with an illustrated poster.
+9. **Quests.** The Wolf turns what it learned into real plans: one for each pair who barely know each other, built on things they actually wrote, plus a group plan with an illustrated poster. Each quest comes with a real place near UT Austin (name, address, rating), and phones get "Open in Maps" and "Add to calendar".
 10. **The tale.** A recap story, village heroes, and a picture to save. Then the book closes and every answer is deleted.
 
 ## Where the AI is
@@ -32,6 +32,7 @@ The AI is the opponent, not a feature bolted on. Without it there is no game.
 | Paint the group poster | Muse (`muse-image-1.0`), Gemini fallback | `paintPoster` |
 | Write the recap story | Muse | `writeRecap` |
 | Turn a spoken answer into text | Muse Voice Transcribe, Gemini fallback | `transcribe` in `lib/ai/provider.ts` |
+| Find a real place for each quest (the Wolf writes the search, never names or answers) | SerpApi Google Maps | `findPlace` in `lib/ai/places.ts` |
 
 Difficulty rises each chapter. Chapter 1 sees warmup answers only. Chapters 2 and 3 add every earlier answer and the style profile. Chapter 4 and later add the tells that caught it and the other players' answers, so the fake fits the room.
 
@@ -43,7 +44,7 @@ Every revealed vote becomes one anonymous row: the time, the chapter, and whethe
 
 Live rooms are stored in the same database, one row per village, deleted when the tale ends and swept after 2 hours idle.
 
-Spoken answers are capped three ways so nobody can drain the AI credits: 20 per player and 120 per room each game, and 300 a night across every game. The nightly count is one Tiger row per day, taken in a single statement so parallel games can't overshoot.
+Spoken answers are capped three ways so nobody can drain the AI credits: 20 per player and 120 per room each game, and 300 a night across every game. Place searches have a nightly cap of 100. Each nightly count is one Tiger row per day, taken in a single statement so parallel games can't overshoot.
 
 ## Privacy
 

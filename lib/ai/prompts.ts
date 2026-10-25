@@ -37,9 +37,9 @@ const Verdict = z.object({ blocked: z.array(z.number().int()) });
 const Style = z.object({ humor: text(80), slang: list(5, 40), punctuation: text(80), interests: list(6, 40) });
 const PlansReply = z.object({
   pairPlans: z.array(
-    z.object({ a: z.string(), b: z.string(), why: text(240), sharedInterest: text(60), evidence: list(3, 160), plan: text(300) }),
+    z.object({ a: z.string(), b: z.string(), why: text(240), sharedInterest: text(60), evidence: list(3, 160), plan: text(300), placeQuery: text(60).nullish() }),
   ),
-  groupPlan: z.object({ title: text(60), why: text(240), plan: text(300), posterPrompt: text(500) }),
+  groupPlan: z.object({ title: text(60), why: text(240), plan: text(300), posterPrompt: text(500), placeQuery: text(60).nullish() }),
   superlatives: z.array(z.object({ title: text(50), playerId: z.string() })),
 });
 const RecapReply = z.object({ title: text(80), story: text(900) });
@@ -191,7 +191,7 @@ export async function writePlans(room: Room): Promise<Plans> {
     : "Nobody has voted on anyone yet: pick pairs who seem least alike but share a real interest.";
   const out = await ask(
     PlansReply,
-    'You plan real-world hangouts at the end of a party game where friends tried to spot each other\'s real answers. Every plan must cite real evidence: quote or closely paraphrase what players actually typed. Plans must be specific and doable this week (a day, a time, a place type). Keep everything kind. Write one pair plan for each weak pair, one group plan, and 2 or 3 playful superlatives like "Hardest to fake". Keep it short: why is one sentence under 25 words, sharedInterest is 2 to 5 words, evidence is up to 3 short quotes, plan is under 40 words, title is under 6 words. Use player ids exactly as given. posterPrompt describes a scene for an illustrated poster: no people\'s faces, no text. Never use em dashes. Reply with JSON only: {"pairPlans": [{"a": id, "b": id, "why": string, "sharedInterest": string, "evidence": string[], "plan": string}], "groupPlan": {"title": string, "why": string, "plan": string, "posterPrompt": string}, "superlatives": [{"title": string, "playerId": id}]}.',
+    'You plan real-world hangouts at the end of a party game where friends tried to spot each other\'s real answers. Every plan must cite real evidence: quote or closely paraphrase what players actually typed. Plans must be specific and doable this week (a day, a time, a place type). Keep everything kind. Write one pair plan for each weak pair, one group plan, and 2 or 3 playful superlatives like "Hardest to fake". Keep it short: why is one sentence under 25 words, sharedInterest is 2 to 5 words, evidence is up to 3 short quotes, plan is under 40 words, title is under 6 words. Use player ids exactly as given. posterPrompt describes a scene for an illustrated poster: no people\'s faces, no text. placeQuery is a short Google Maps search for the kind of place the plan happens at near UT Austin, like "taco truck", "climbing gym" or "Zilker Park": never a person\'s name or anything personal, and null if the plan needs no place. Never use em dashes. Reply with JSON only: {"pairPlans": [{"a": id, "b": id, "why": string, "sharedInterest": string, "evidence": string[], "plan": string, "placeQuery": string or null}], "groupPlan": {"title": string, "why": string, "plan": string, "posterPrompt": string, "placeQuery": string or null}, "superlatives": [{"title": string, "playerId": id}]}.',
     // ponytail: Austin time, where HackTX runs; take the room's timezone if this ever ships wider.
     lines([`Today is ${new Date().toLocaleDateString("en-US", { timeZone: "America/Chicago", weekday: "long", month: "long", day: "numeric" })}.`, `Players:\n\n${roster(room)}`, knows]),
     0.7,
@@ -206,14 +206,14 @@ export async function writePlans(room: Room): Promise<Plans> {
     const key = [a, b].sort().join("|");
     if (!a || !b || a === b || seen.has(key)) return [];
     seen.add(key);
-    return [{ ...p, a, b }];
+    return [{ ...p, a, b, placeQuery: p.placeQuery ?? null, place: null }];
   });
   if (pairPlans.length === 0 && ids.length >= 2) throw new Error("plans named no real pair");
   const superlatives = out.superlatives.flatMap((s) => {
     const playerId = resolve(s.playerId);
     return playerId ? [{ title: s.title, playerId }] : [];
   });
-  return { pairPlans: pairPlans.slice(0, 3), groupPlan: { ...out.groupPlan, posterUrl: null }, superlatives: superlatives.slice(0, 4) };
+  return { pairPlans: pairPlans.slice(0, 3), groupPlan: { ...out.groupPlan, posterUrl: null, placeQuery: out.groupPlan.placeQuery ?? null, place: null }, superlatives: superlatives.slice(0, 4) };
 }
 
 /** Spec 6e: the group poster. The title is overlaid in HTML, so the image carries no text. */

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { heroes, playerById, wolfRate } from "@/components/ui/format";
+import { PlaceActions } from "@/components/ui/Place";
 import { SaveImage } from "@/components/ui/SaveImage";
 import { Icon, Token } from "@/components/ui/Villager";
 import type { ClientState, MeView } from "@/lib/game/types";
@@ -109,6 +110,7 @@ function Quests({ state, me }: { state: ClientState; me: MeView }) {
             <p className="mt-3 text-[0.95rem] font-medium text-ink-soft">
               Shared interest: {q.sharedInterest}. {q.why}
             </p>
+            {q.place && <PlaceActions place={q.place} title={`Quest with ${friend?.name ?? "a villager"}`} plan={q.plan} />}
           </article>
         );
       })}
@@ -119,6 +121,7 @@ function Quests({ state, me }: { state: ClientState; me: MeView }) {
         </h2>
         <p className="mt-2 font-medium leading-relaxed text-ink">{group.plan}</p>
         <p className="mt-3 text-[0.95rem] font-medium text-ink-soft">{group.why}</p>
+        {group.place && <PlaceActions place={group.place} title={group.title} plan={group.plan} />}
       </article>
     </div>
   );

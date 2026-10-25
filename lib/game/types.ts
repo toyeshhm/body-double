@@ -90,6 +90,9 @@ export type Settings = {
   demoMode: boolean;
 };
 
+/** A real spot for a quest: SerpApi's Google Maps search near UT Austin (lib/ai/places.ts). */
+export type Place = { name: string; address: string; rating: number | null; reviews: number | null; openState: string | null; mapsUrl: string };
+
 export type PairPlan = {
   a: string;
   b: string;
@@ -97,8 +100,20 @@ export type PairPlan = {
   sharedInterest: string;
   evidence: string[];
   plan: string;
+  /** What to search Maps for ("climbing gym"). Never names or answers. Null when the plan needs no place. */
+  placeQuery: string | null;
+  /** Filled in by the background lookup after the plans land; null until then, or if nothing fits. */
+  place: Place | null;
 };
-export type GroupPlan = { title: string; why: string; plan: string; posterPrompt: string; posterUrl: string | null };
+export type GroupPlan = {
+  title: string;
+  why: string;
+  plan: string;
+  posterPrompt: string;
+  posterUrl: string | null;
+  placeQuery: string | null;
+  place: Place | null;
+};
 export type Plans = {
   pairPlans: PairPlan[];
   groupPlan: GroupPlan;

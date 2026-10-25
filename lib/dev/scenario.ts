@@ -4,7 +4,7 @@ import { PROMPTS } from "../../data/prompts";
 import { giveConsent, joinPlayer } from "../game/lobby";
 import { advance, currentRound, startGame, submitAnswer, submitTell, submitVote } from "../game/machine";
 import { newRoom } from "../game/store";
-import type { Phase, Player, Role, Room, StyleProfile } from "../game/types";
+import type { Phase, Place, Player, Role, Room, StyleProfile } from "../game/types";
 
 const CAST: { name: string; avatar: string; role: Role }[] = [
   { name: "Maya", avatar: "slipper", role: "bard" },
@@ -23,6 +23,23 @@ const LONG = {
   fake: "overthinking a single text for forty whole minutes, rewriting it nine times, then just sending 'k' and turning my phone over",
 };
 const OTHERS = ["telling everyone my plans then cancelling", "eating the last slice and leaving the box", "replying with voice notes only", "starting 4 books at once"];
+// Real SerpApi results for the backup quests' searches, so the quests preview shows places without spending searches.
+const TACOS: Place = {
+  name: "Las Trancas Taco Stand",
+  address: "1210 E Cesar Chavez St, Austin, TX 78702",
+  rating: 4.7,
+  reviews: 2794,
+  openState: "Closed · Opens 11 AM",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Las+Trancas+Taco+Stand%2C+1210+E+Cesar+Chavez+St%2C+Austin%2C+TX+78702&query_place_id=ChIJjwraDq61RIYRl2V3r3ME2N4",
+};
+const ZILKER: Place = {
+  name: "Zilker Metropolitan Park",
+  address: "Austin, TX 78746",
+  rating: 4.8,
+  reviews: 6328,
+  openState: "Closed · Opens 5 AM",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Zilker+Metropolitan+Park%2C+Austin%2C+TX+78746&query_place_id=ChIJ22j54Ia1RIYRunKXejw_UJs",
+};
 // Chapter II, notebook preview only: the Wolf wears Jordan's voice and does better.
 const JORDAN = { real: "ngl watering my plants and pretending they missed me", fake: "my plants perking up when i walk in lol" };
 // What learnStyle (Gemini) would have written down by the end. Theo is left to the computed stats.
@@ -98,6 +115,8 @@ export function scenario(phase: (typeof SCENARIO_PHASES)[number], long = false):
   if (phase === "MAP") return { room, ids };
   advance(room); // NOTEBOOK (the two-chapter notebook preview is built above)
   advance(room); // PLANS
+  for (const p of room.plans?.pairPlans ?? []) p.place = TACOS;
+  if (room.plans) room.plans.groupPlan.place = ZILKER;
   if (phase === "PLANS") return { room, ids };
   advance(room);
   if (phase === "RECAP") return { room, ids };

@@ -4,6 +4,7 @@
 //   wolf_votes  an anonymous time series: one row per vote, just (time, chapter, fooled). No names,
 //               no answers, no room code. It powers the "the Wolf gets smarter each chapter" curve.
 //   voice_budget  one row per day (Austin time): spoken answers sent to speech-to-text across every game.
+//   place_budget  the same for SerpApi place searches behind the quests.
 import postgres from "postgres";
 import { log } from "../log";
 
@@ -32,6 +33,10 @@ create table if not exists wolf_votes (
   fooled boolean not null
 );
 create table if not exists voice_budget (
+  day date primary key,
+  uses integer not null default 0
+);
+create table if not exists place_budget (
   day date primary key,
   uses integer not null default 0
 );`;

@@ -52,8 +52,8 @@ Meta's rubric, and where the video earns each part:
 > "Then the Wolf opens its notebook: its first fake next to its last, and what it learned about each of you. It got better."
 
 **2:05 to 2:20: quests** (host)
-- A pair plan with its quoted evidence, then the group plan and poster.
-> "So it ends the night by planning real hangouts for the pairs who barely know each other, built on things they actually wrote."
+- A pair plan with its real place (name, rating), then the group plan and poster. PHONE: tap "Open in Maps" on a quest.
+> "So it ends the night by planning real hangouts for the pairs who barely know each other, built on things they actually wrote, at a real place you can walk to tonight."
 
 **2:20 to 2:32: the tale and the privacy promise** (host recap, then "The End")
 > "A story of the night, a picture to save, and then the book closes and every answer is deleted."
