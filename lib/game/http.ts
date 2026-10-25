@@ -1,10 +1,12 @@
 // Request handling for the room API routes (app/api/rooms/**). Server-only.
 import { networkInterfaces } from "node:os";
+import { transcribe } from "../ai/provider";
+import { MAX_SECONDS, wavInfo } from "../ai/wav";
 import { log } from "../log";
 import { Action, HEADER, JoinInput } from "./events";
 import { giveConsent, joinPlayer, updateSettings } from "./lobby";
-import { advance, startGame, submitAnswer, submitTell, submitVote, tick, vetoFake } from "./machine";
-import { createRoom, updateRoom } from "./store";
+import { MAX_ANSWER, advance, startGame, submitAnswer, submitTell, submitVote, tick, vetoFake } from "./machine";
+import { createRoom, loadRoom, updateRoom } from "./store";
 import type { Phase, Room } from "./types";
 import { viewFor } from "./view";
 import { afterWrite } from "./wolf";
@@ -135,6 +137,32 @@ export async function handleAction(req: Request, code: string): Promise<Response
   if (error) return fail(422, error);
   if (out.room.phase === "ENDED") log.info("room_wiped", { room: out.room.code });
   return ok(viewFor(out.room, who === "host" ? null : who, joinBase(req), out.version));
+}
+
+const MAX_AUDIO_BYTES = 2_000_000; // 30s of 16 kHz mono WAV is about 960 KB
+
+/**
+ * POST audio/wav from a phone (lib/ai/wav.ts format): the spoken answer as text, which the player edits and
+ * submits as usual, so moderation still runs on what they send. Read-only: the audio is never stored or logged.
+ */
+export async function handleTranscribe(req: Request, code: string): Promise<Response> {
+  if (Number(req.headers.get("content-length") ?? "0") > MAX_AUDIO_BYTES) return fail(413, "Keep it under 30 seconds.");
+  const stored = await loadRoom(code);
+  if (!stored) return fail(404, "That village is gone. Scan the code again.");
+  const who = caller(stored.room, req);
+  if (!who || who === "host") return fail(401, "This phone isn't part of that village.");
+  if (stored.room.phase !== "WARMUP" && stored.room.phase !== "ANSWERING") return fail(409, "That page has already turned.");
+  const audio = new Uint8Array(await req.arrayBuffer());
+  if (audio.length > MAX_AUDIO_BYTES) return fail(413, "Keep it under 30 seconds."); // a body sent without content-length
+  const wav = wavInfo(audio);
+  if (!wav || wav.seconds > MAX_SECONDS + 1) return fail(400, "The Wolf couldn't make out that recording. Try again, or type it.");
+  try {
+    const text = await transcribe({ audio, mime: "audio/wav" });
+    log.info("transcribe", { room: stored.room.code, seconds: Math.round(wav.seconds), heard: text.length > 0 });
+    return ok({ text: text.slice(0, MAX_ANSWER) });
+  } catch {
+    return fail(503, "The Wolf can't listen right now. Type your answer instead."); // provider failures are logged in lib/ai/provider.ts
+  }
 }
 
 async function readJson(req: Request): Promise<unknown> {

@@ -1,4 +1,5 @@
 "use client";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { Icon } from "@/components/ui/Villager";
 import type { MeView, Prompt } from "@/lib/game/types";
@@ -18,6 +19,7 @@ export function Warmup({
   onAnswer: (promptId: string, text: string) => void;
 }) {
   const [drafts, setDrafts] = useState<Record<string, string>>({});
+  const { code } = useParams<{ code?: string }>(); // /play/[code]; absent in /preview, which hides the mic
   const done = prompts.every((p) => me.answeredPromptIds.includes(p.id));
   const ready = prompts.every((p) => (drafts[p.id] ?? "").trim().length > 0);
 
@@ -56,6 +58,7 @@ export function Warmup({
             value={drafts[p.id] ?? ""}
             max={MAX}
             rows={2}
+            voiceRoom={code}
             onChange={(text) => {
               setDrafts((d) => ({ ...d, [p.id]: text }));
             }}

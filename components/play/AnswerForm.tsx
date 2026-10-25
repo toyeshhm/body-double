@@ -88,7 +88,17 @@ export function AnswerForm({
           </div>
         ) : (
           <>
-            <Scribe id="answer" label="Your answer" hideLabel value={draft} onChange={setDraft} max={MAX} rows={4} placeholder="Type it the way you'd text it" />
+            <Scribe
+              id="answer"
+              label="Your answer"
+              hideLabel
+              value={draft}
+              onChange={setDraft}
+              max={MAX}
+              rows={4}
+              placeholder="Type it the way you'd text it, or say it"
+              voiceRoom={state.code}
+            />
             <Dock>
               <button type="submit" className="btn btn-primary w-full text-[1.15rem]" disabled={!draft.trim()}>
                 Tuck it away

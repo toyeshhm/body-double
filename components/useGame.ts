@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { z } from "zod";
+import { loadIdentity } from "@/components/play/identity";
 import { type Action, type Auth, authHeaders } from "@/lib/game/events";
 import type { ClientState } from "@/lib/game/types";
 
@@ -11,6 +12,7 @@ const POLL_MS = 900;
 const ErrorBody = z.object({ error: z.string() });
 const Created = z.object({ code: z.string().length(4), hostKey: z.string().min(8) });
 const Joined = z.object({ playerId: z.string().min(1), playerKey: z.string().min(1) });
+const Heard = z.object({ text: z.string() });
 
 /** Our own API's state payload. A shallow check: the server is the one that built it. */
 function isState(v: unknown): v is ClientState {
@@ -42,6 +44,23 @@ export async function joinVillage(
     return { ok: true, ...Joined.parse(await res.json()) };
   } catch {
     return { ok: false, status: 0, error: "Couldn't reach the village. Check your connection." };
+  }
+}
+
+/** A spoken answer (16 kHz mono WAV) back as text. Uses the keys this phone saved when it joined. */
+export async function transcribeVoice(code: string, wav: Blob): Promise<{ ok: true; text: string } | { ok: false; error: string }> {
+  const me = loadIdentity(code);
+  if (!me?.playerId || !me.playerKey) return { ok: false, error: "The Wolf can't listen on this phone. Type it instead." };
+  try {
+    const res = await fetch(`/api/rooms/${code}/transcribe`, {
+      method: "POST",
+      headers: { ...authHeaders({ role: "player", id: me.playerId, key: me.playerKey }), "content-type": "audio/wav" },
+      body: wav,
+    });
+    if (!res.ok) return { ok: false, error: await errorOf(res) };
+    return { ok: true, text: Heard.parse(await res.json()).text };
+  } catch {
+    return { ok: false, error: "Couldn't reach the village. Check your connection." };
   }
 }
 
