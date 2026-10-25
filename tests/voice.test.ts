@@ -14,10 +14,12 @@ delete process.env.AI_PROVIDER;
 
 const spoken = new Uint8Array(readFileSync(new URL("./fixtures/spoken.wav", import.meta.url)));
 
-async function send(code: string, auth: Auth, body: Uint8Array<ArrayBuffer>): Promise<{ status: number; body: unknown }> {
+/** Like a phone's fetch, which always declares the size. `sized: false` sends a body without one. */
+async function send(code: string, auth: Auth, body: Uint8Array<ArrayBuffer>, sized = true): Promise<{ status: number; body: unknown }> {
+  const length: Record<string, string> = sized ? { "content-length": String(body.length) } : {};
   const req = new Request(`${BASE}/api/rooms/${code}/transcribe`, {
     method: "POST",
-    headers: { ...authHeaders(auth), "content-type": "audio/wav" },
+    headers: { ...authHeaders(auth), "content-type": "audio/wav", ...length },
     body,
   });
   const res = await transcribeRoute(req, { params: { code } });
@@ -50,6 +52,7 @@ void test("the transcribe route: players only, answer pages only, WAV only, 30s 
   assert.equal((await send("ZZZZ", player, short)).status, 404);
   assert.equal((await send(board.code, player, new TextEncoder().encode("hello"))).status, 400, "not a WAV");
   assert.equal((await send(board.code, player, encodeWav(new Float32Array(16_000 * 70)))).status, 413, "over 2 MB");
+  assert.equal((await send(board.code, player, short, false)).status, 411, "no declared size: never buffered");
   assert.equal((await send(board.code, player, encodeWav(new Float32Array(16_000 * 35)))).status, 400, "over 30s");
   const out = await send(board.code, player, spoken);
   assert.equal(out.status, 503, "no keys: the phone is told to type instead");

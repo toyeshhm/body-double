@@ -146,14 +146,17 @@ const MAX_AUDIO_BYTES = 2_000_000; // 30s of 16 kHz mono WAV is about 960 KB
  * submits as usual, so moderation still runs on what they send. Read-only: the audio is never stored or logged.
  */
 export async function handleTranscribe(req: Request, code: string): Promise<Response> {
-  if (Number(req.headers.get("content-length") ?? "0") > MAX_AUDIO_BYTES) return fail(413, "Keep it under 30 seconds.");
+  // Check the declared size before reading anything: phones always send it (fetch with a Blob body), and the
+  // server holds the body to that length, so a huge or unsized upload is never buffered.
+  const size = Number(req.headers.get("content-length"));
+  if (!size) return fail(411, "The Wolf couldn't make out that recording. Try again, or type it.");
+  if (size > MAX_AUDIO_BYTES) return fail(413, "Keep it under 30 seconds.");
   const stored = await loadRoom(code);
   if (!stored) return fail(404, "That village is gone. Scan the code again.");
   const who = caller(stored.room, req);
   if (!who || who === "host") return fail(401, "This phone isn't part of that village.");
   if (stored.room.phase !== "WARMUP" && stored.room.phase !== "ANSWERING") return fail(409, "That page has already turned.");
   const audio = new Uint8Array(await req.arrayBuffer());
-  if (audio.length > MAX_AUDIO_BYTES) return fail(413, "Keep it under 30 seconds."); // a body sent without content-length
   const wav = wavInfo(audio);
   if (!wav || wav.seconds > MAX_SECONDS + 1) return fail(400, "The Wolf couldn't make out that recording. Try again, or type it.");
   try {
