@@ -2,6 +2,7 @@
 // real Request objects against the in-memory store, through every phase of spec section 4. No mocks.
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { GET as curveRoute } from "../app/api/curve/route";
 import { loadRoom, sweepIdle } from "../lib/game/store";
 import { BASE, Screen, host, joinRaw, phone } from "./screen";
 
@@ -10,7 +11,15 @@ delete process.env.MUSE_API_KEY;
 delete process.env.GEMINI_API_KEY;
 delete process.env.AI_PROVIDER;
 
+/** Chapter I of the anonymous Wolf curve (totals across every village, so tests compare before and after). */
+async function chapterOne(): Promise<{ votes: number; fooled: number }> {
+  const body = (await (await curveRoute()).json()) as { points: { chapter: number; votes: number; fooled: number }[] };
+  const p = body.points.find((x) => x.chapter === 1);
+  return { votes: p?.votes ?? 0, fooled: p?.fooled ?? 0 };
+}
+
 void test("a full tale: lobby, warmup, rounds, reveal, tells, map, plans, recap, ended", async () => {
+  const curveBefore = await chapterOne();
   const board = await host();
   const code = board.code;
   assert.match(code, /^[A-Z]{4}$/);
@@ -76,6 +85,12 @@ void test("a full tale: lobby, warmup, rounds, reveal, tells, map, plans, recap,
   assert.equal(score(targetId), 50);
   assert.deepEqual(reveal.wolf, { fooled: 1, total: 2 });
   assert.equal(reveal.edges.length, 2);
+  const curveAfter = await chapterOne();
+  assert.deepEqual(
+    { votes: curveAfter.votes - curveBefore.votes, fooled: curveAfter.fooled - curveBefore.fooled },
+    { votes: 2, fooled: 1 },
+    "each revealed vote lands once in the anonymous Wolf curve",
+  );
 
   assert.match((await wrong.send({ type: "player:tell", targetId, text: "guessing" })).error ?? "", /spotted the Wolf/);
   await right.send({ type: "player:tell", targetId, text: "too many commas" });

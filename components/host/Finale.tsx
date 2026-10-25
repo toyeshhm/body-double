@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { playerById, wolfRate } from "@/components/ui/format";
 import { SaveImage } from "@/components/ui/SaveImage";
+import { WolfCurve } from "@/components/ui/WolfCurve";
 import { Icon } from "@/components/ui/Villager";
 import type { ClientState } from "@/lib/game/types";
 import { HeroesCard } from "./Heroes";
@@ -11,18 +12,24 @@ export function Recap({ state }: { state: ClientState }) {
   const superlatives = state.plans?.superlatives ?? [];
   return (
     <div className="grid flex-1 items-start gap-x-[clamp(28px,4vw,64px)] gap-y-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]">
-      <article ref={card} className="card p-[clamp(22px,3vw,48px)]">
-        <div className="flex items-center gap-4">
-          <Icon id="storybook" className="w-[clamp(3.5rem,6vw,5.5rem)] -rotate-6" />
-          <h2 className="break-words font-display text-[clamp(2rem,3.4vw,3.4rem)] font-bold leading-tight [font-variation-settings:'SOFT'_100]">{recap?.title ?? "The Tale"}</h2>
-        </div>
-        <p className="dropcap mt-6 font-display text-[clamp(1.25rem,1.8vw,1.9rem)] leading-[1.55] [font-variation-settings:'SOFT'_50]">
-          {recap?.story ?? "Once upon a time, a village gathered at the edge of the woods."}
-        </p>
-        <p className="mt-8 border-t-2 border-dashed border-gold/60 pt-5 font-display text-[clamp(1.4rem,2.2vw,2.2rem)] font-bold [font-variation-settings:'SOFT'_100]">
-          The Wolf fooled the village <span className="text-rasp-deep">{wolfRate(state)}%</span> of the time.
-        </p>
-      </article>
+      <div className="space-y-3">
+        <article ref={card} className="card p-[clamp(22px,3vw,48px)]">
+          <div className="flex items-center gap-4">
+            <Icon id="storybook" className="w-[clamp(3.5rem,6vw,5.5rem)] -rotate-6" />
+            <h2 className="break-words font-display text-[clamp(2rem,3.4vw,3.4rem)] font-bold leading-tight [font-variation-settings:'SOFT'_100]">
+              {recap?.title ?? "The Tale"}
+            </h2>
+          </div>
+          <p className="dropcap mt-5 font-display text-[clamp(1.25rem,1.8vw,1.9rem)] leading-[1.55] [font-variation-settings:'SOFT'_50]">
+            {recap?.story ?? "Once upon a time, a village gathered at the edge of the woods."}
+          </p>
+          <p className="mt-6 border-t-2 border-dashed border-gold/60 pt-4 font-display text-[clamp(1.4rem,2.2vw,2.2rem)] font-bold [font-variation-settings:'SOFT'_100]">
+            The Wolf fooled the village <span className="text-rasp-deep">{wolfRate(state)}%</span> of the time.
+          </p>
+        </article>
+        {/* Shown only where it fits beside the tale without scrolling (checked 720p to 1440p). */}
+        <WolfCurve row className="[@media(max-height:879px)]:hidden [@media(max-height:999px)_and_(min-aspect-ratio:17/10)]:hidden" />
+      </div>
       <aside className="space-y-6">
         <HeroesCard state={state} className="rotate-[1.2deg]" />
         {superlatives.length > 0 && (

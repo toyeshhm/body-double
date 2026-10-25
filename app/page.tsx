@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Icon } from "@/components/ui/Villager";
+import { WolfCurve } from "@/components/ui/WolfCurve";
 
 export default function Landing() {
   const router = useRouter();
@@ -68,6 +69,8 @@ export default function Landing() {
             </Link>
             <span className="text-[0.95rem] font-medium text-ink-soft">on the laptop or projector everyone can see</span>
           </div>
+
+          <WolfCurve className="max-w-md" />
 
           <p className="text-sm font-medium text-ink-soft">18+ only. Everything is deleted when the game ends.</p>
         </div>

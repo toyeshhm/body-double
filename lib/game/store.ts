@@ -1,10 +1,12 @@
 // Where rooms live between requests.
 // - Local dev / single server: process memory (no database at all).
-// - Vercel: a Supabase table (set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY), because serverless
-//   instances share nothing. Either way a room is wiped when the tale ends and deleted after 2 hours idle.
+// - Vercel: Postgres on Tiger Data (set DATABASE_URL), because serverless instances share nothing.
+// Either way a room is wiped when the tale ends and deleted after 2 hours idle.
 // Writes use optimistic versioning so two phones voting at the same instant can't overwrite each other.
 import { randomUUID } from "node:crypto";
 import { log } from "../log";
+import { db, ensureSchema } from "./db";
+import { recordVotes, revealedVotes, snapshot } from "./metrics";
 import type { Room } from "./types";
 
 const LETTERS = "ABCDEFGHJKMNPQRSTUVWXYZ"; // no I, L, O: hard to read off a projector
@@ -46,51 +48,41 @@ const memoryBackend: Backend = {
   },
 };
 
-// ---- Supabase backend (PostgREST over fetch; table in supabase/migrations)
+// ---- Postgres backend (Tiger Data in production; any Postgres works)
 
-function supabaseBackend(url: string, key: string): Backend {
-  const rest = `${url.replace(/\/$/, "")}/rest/v1/rooms`;
-  const headers: Record<string, string> = { apikey: key, "content-type": "application/json" };
-  if (key.startsWith("eyJ")) headers.authorization = `Bearer ${key}`; // legacy JWT service_role key
-  const call = async (path: string, method: string, extra: Record<string, string> = {}, body?: string): Promise<Response> => {
-    const res = await fetch(`${rest}${path}`, { method, headers: { ...headers, ...extra }, body, cache: "no-store" });
-    if (!res.ok && res.status !== 409) throw new Error(`supabase ${method} ${String(res.status)}`);
-    return res;
-  };
+function postgresBackend(sql: NonNullable<ReturnType<typeof db>>): Backend {
   return {
     load: async (code) => {
-      const rows = (await (await call(`?code=eq.${code}&select=version,state`, "GET")).json()) as {
-        version: number;
-        state: Room;
-      }[];
+      await ensureSchema(sql);
+      const rows = await sql<{ version: number; state: Room }[]>`select version, state from rooms where code = ${code}`;
       const row = rows[0];
       return row ? { room: row.state, version: row.version } : null;
     },
     save: async (room, version) => {
-      const res = await call(
-        `?code=eq.${room.code}&version=eq.${String(version)}`,
-        "PATCH",
-        { prefer: "return=representation" },
-        JSON.stringify({ state: room, version: version + 1, updated_at: new Date().toISOString() }),
-      );
-      return ((await res.json()) as unknown[]).length === 1;
+      const rows = await sql`
+        update rooms set state = ${JSON.stringify(room)}::text::jsonb, version = version + 1, updated_at = now()
+        where code = ${room.code} and version = ${version} returning code`;
+      return rows.length === 1;
     },
     insert: async (room) => {
-      const res = await call("", "POST", { prefer: "return=minimal" }, JSON.stringify({ code: room.code, version: 0, state: room }));
-      return res.status !== 409;
+      await ensureSchema(sql);
+      const rows = await sql`
+        insert into rooms (code, version, state) values (${room.code}, 0, ${JSON.stringify(room)}::text::jsonb)
+        on conflict (code) do nothing returning code`;
+      return rows.length === 1;
     },
     sweep: async (olderThan) => {
-      await call(`?updated_at=lt.${new Date(olderThan).toISOString()}`, "DELETE");
+      await ensureSchema(sql);
+      await sql`delete from rooms where updated_at < ${new Date(olderThan)}`;
     },
   };
 }
 
 function pickBackend(): Backend {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (url && key) return supabaseBackend(url, key);
+  const sql = db();
+  if (sql) return postgresBackend(sql);
   // Serverless instances don't share memory: rooms would vanish between requests.
-  if (process.env.VERCEL) throw new Error("On Vercel, set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (see .env.example).");
+  if (process.env.VERCEL) throw new Error("On Vercel, set DATABASE_URL to the Tiger Data connection string (see .env.example).");
   return memoryBackend;
 }
 
@@ -154,9 +146,14 @@ export async function updateRoom<T>(
   for (let attempt = 0; attempt < 6; attempt++) {
     const stored = await loadRoom(code);
     if (!stored) return null;
+    const before = snapshot(stored.room);
     const { result, dirty } = change(stored.room);
     if (!dirty) return { ...stored, result };
-    if (await store().save(stored.room, stored.version)) return { room: stored.room, version: stored.version + 1, result };
+    if (await store().save(stored.room, stored.version)) {
+      // Only the attempt that actually saved reports its reveal, so retries never double count.
+      await recordVotes(revealedVotes(before, stored.room));
+      return { room: stored.room, version: stored.version + 1, result };
+    }
   }
   log.warn("room_write_contended", { room: code });
   throw new Error("The village is busy. Try again.");
