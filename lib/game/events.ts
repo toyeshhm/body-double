@@ -17,6 +17,9 @@ export const JoinInput = z.object({
   name: z.string().trim().min(1).max(20),
   avatar: z.enum(AVATARS),
   role: z.enum(ROLES),
+  /** Proof for rejoining: the id and key this phone got when it first joined. */
+  playerId: z.string().max(64).optional(),
+  playerKey: z.string().max(64).optional(),
 });
 
 const TargetId = z.string().min(1).max(64);

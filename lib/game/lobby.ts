@@ -6,14 +6,19 @@ import type { Player, Role, Room, Settings } from "./types";
 
 const MAX_PLAYERS = 40;
 
-/** Join, or rejoin by name (spec 10: players keep their score across reconnects and devices). */
+/**
+ * Join, or rejoin and keep your score (spec 10). Rejoining needs the id and key this phone was given,
+ * so knowing someone's name and the room code is not enough to take over their villager.
+ */
 export function joinPlayer(
   room: Room,
-  input: { name: string; avatar: string; role: Role },
+  input: { name: string; avatar: string; role: Role; playerId?: string | undefined; playerKey?: string | undefined },
 ): { player: Player } | { error: string } {
   const now = Date.now();
   const existing = list(room).find((p) => !p.isBot && p.name.toLowerCase() === input.name.toLowerCase());
   if (existing) {
+    if (input.playerId !== existing.id || input.playerKey !== existing.key)
+      return { error: "Someone in the village already goes by that name. Pick another." };
     existing.avatar = input.avatar;
     existing.role = input.role;
     existing.lastSeen = now;

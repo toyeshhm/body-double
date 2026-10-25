@@ -20,9 +20,12 @@ export default function PlayPage({ params }: { params: { code: string } }) {
     async (identity: Identity, mode: "submitting" | "rejoining"): Promise<void> => {
       setGate(mode);
       setJoinError(null);
-      const res = await joinVillage(code, identity);
+      // Re-entering the same name on this phone reuses its saved key, so the server knows it's really you.
+      const saved = loadIdentity(code);
+      const proof = saved?.name.toLowerCase() === identity.name.toLowerCase() ? { playerId: saved.playerId, playerKey: saved.playerKey } : {};
+      const res = await joinVillage(code, { ...identity, ...proof });
       if (res.ok) {
-        saveIdentity(code, identity);
+        saveIdentity(code, { ...identity, playerId: res.playerId, playerKey: res.playerKey });
         setAuth({ role: "player", id: res.playerId, key: res.playerKey });
         return;
       }

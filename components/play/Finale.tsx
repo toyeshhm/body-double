@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import { heroes, playerById, wolfRate } from "@/components/ui/format";
+import { SaveImage } from "@/components/ui/SaveImage";
 import { Icon, Token } from "@/components/ui/Villager";
 import type { ClientState, MeView } from "@/lib/game/types";
 import { Lede, Pause, Title, Voice } from "./bits";
@@ -89,6 +91,7 @@ function Quests({ state, me }: { state: ClientState; me: MeView }) {
 }
 
 function Story({ state, me }: { state: ClientState; me: MeView }) {
+  const card = useRef<HTMLElement>(null);
   const ranked = heroes(state);
   const rank = ranked.findIndex((p) => p.id === me.id) + 1;
   return (
@@ -104,7 +107,7 @@ function Story({ state, me }: { state: ClientState; me: MeView }) {
         The Wolf fooled the village <span className="font-sans font-extrabold tabular-nums text-rasp-deep">{wolfRate(state)}%</span> of the time.
       </Lede>
       {state.recap && (
-        <article className="card p-6">
+        <article ref={card} className="card p-6">
           <div className="flex items-center gap-3">
             <Icon id="storybook" cut="sm" className="size-12 shrink-0" />
             <h2 className="font-display text-[1.4rem] font-bold leading-tight text-ink" style={SOFT}>
@@ -115,6 +118,7 @@ function Story({ state, me }: { state: ClientState; me: MeView }) {
           <p className="mt-4 text-sm font-medium text-ink-soft">Anything the Wolf wrote was AI-written, never a real quote.</p>
         </article>
       )}
+      {state.recap && <SaveImage target={card} fileName={`body-double-${state.code}.png`} />}
     </div>
   );
 }

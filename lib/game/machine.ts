@@ -10,12 +10,12 @@ import { knownBy } from "./map";
 import { pickOne, shuffle } from "./random";
 import { fakeAnswer, stubPlans, stubRecap } from "./stubs";
 import { SKIPPED, updateStyleStats } from "./style";
-import type { Choice, Phase, Player, Room, Round } from "./types";
+import type { Choice, Phase, Plans, Player, Recap, Room, Round } from "./types";
 
 const PROMPT_MS = 4500;
 // Fallback only: lib/game/wolf.ts writes the fakes in the background. If that work is lost (a killed
 // serverless instance), the stub fakes go up after this long so the game never stalls.
-const GENERATING_MS = 15_000;
+const GENERATING_MS = 25_000;
 const STALE_MS = 20_000; // a phone silent this long no longer holds up answering or voting
 export const MAX_ANSWER = 140;
 export const MAX_TELL = 80;
@@ -138,10 +138,10 @@ function enter(room: Room, phase: Phase): void {
       scoreActive(room);
       break;
     case "PLANS":
-      room.plans = stubPlans(room);
+      room.plans ??= stubPlans(room); // the Wolf's plans if they landed during MAP, else the stub: never block the host
       break;
     case "RECAP":
-      room.recap = stubRecap(room);
+      room.recap ??= stubRecap(room);
       break;
     case "ENDED":
       forgetEverything(room);
@@ -311,6 +311,20 @@ export function deliverFake(room: Room, n: number, targetId: string, text: strin
   if (room.phase !== "GENERATING" || round?.n !== n || round.fakes[targetId] !== undefined) return false;
   setFake(round, targetId, text);
   tick(room); // the last fake in moves the room to VOTING
+  return true;
+}
+
+/** Spec 6d plans from the background. Only taken while the room is still on the map; after that the stub stands. */
+export function deliverPlans(room: Room, plans: Plans): boolean {
+  if (room.phase !== "MAP" || room.plans) return false;
+  room.plans = plans;
+  return true;
+}
+
+/** The AI recap, taken until the RECAP page opens. */
+export function deliverRecap(room: Room, recap: Recap): boolean {
+  if ((room.phase !== "MAP" && room.phase !== "PLANS") || room.recap) return false;
+  room.recap = recap;
   return true;
 }
 

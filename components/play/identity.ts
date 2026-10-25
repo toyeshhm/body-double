@@ -2,7 +2,7 @@ import { JoinInput } from "@/lib/game/events";
 import type { Avatar, Role } from "@/lib/game/types";
 
 const IdentitySchema = JoinInput.omit({ code: true });
-export type Identity = { name: string; avatar: Avatar; role: Role };
+export type Identity = { name: string; avatar: Avatar; role: Role; playerId?: string | undefined; playerKey?: string | undefined };
 
 const key = (code: string): string => `bd:join:${code}`;
 

@@ -1,17 +1,19 @@
 // Server-only: runs inside the Node custom server, never in the browser.
 // Privacy: never log prompts or model output. They contain players' answers.
+import { spawn } from "node:child_process";
 import OpenAI from "openai";
 import { log } from "../log";
 
-type Provider = "muse" | "gemini";
+type Provider = "muse" | "gemini" | "claude";
 
 const TIMEOUT_MS = 12_000;
+const CLAUDE_CLI_TIMEOUT_MS = 30_000; // local testing only: the CLI's own startup eats several seconds
 const GEMINI_BASE = "https://generativelanguage.googleapis.com";
 
 // ponytail: `||` on purpose, so the blank `KEY=` lines from .env.example fall back to the default.
 const env = (name: string, fallback: string): string => process.env[name] || fallback;
 
-function client(provider: Provider, apiKey: string): OpenAI {
+function client(provider: "muse" | "gemini", apiKey: string): OpenAI {
   const baseURL =
     provider === "muse" ? env("MUSE_BASE_URL", "https://api.meta.ai/v1") : `${GEMINI_BASE}/v1beta/openai/`;
   return new OpenAI({ apiKey, baseURL, maxRetries: 0, timeout: TIMEOUT_MS });
@@ -26,11 +28,13 @@ async function withFallback(
   kind: "text" | "image",
   call: (provider: Provider, apiKey: string) => Promise<string>,
 ): Promise<string> {
-  const order: Provider[] = process.env.AI_PROVIDER === "gemini" ? ["gemini", "muse"] : ["muse", "gemini"];
+  const choice = process.env.AI_PROVIDER;
+  const order: Provider[] =
+    choice === "claude" && kind === "text" ? ["claude"] : choice === "gemini" ? ["gemini", "muse"] : ["muse", "gemini"];
   const failures: string[] = [];
   for (const provider of order) {
-    const apiKey = env(provider === "muse" ? "MUSE_API_KEY" : "GEMINI_API_KEY", "");
-    if (!apiKey) {
+    const apiKey = provider === "claude" ? "" : env(provider === "muse" ? "MUSE_API_KEY" : "GEMINI_API_KEY", "");
+    if (provider !== "claude" && !apiKey) {
       log.warn("ai.skip", { provider, kind, reason: "no_api_key" });
       failures.push(`${provider}: no API key`);
       continue;
@@ -47,7 +51,7 @@ async function withFallback(
     }
   }
   log.error("ai.failed", { kind });
-  throw new Error(`AI ${kind} failed on both providers (${failures.join("; ")})`);
+  throw new Error(`AI ${kind} failed (${failures.join("; ")})`);
 }
 
 export async function generateText(opts: {
@@ -57,6 +61,7 @@ export async function generateText(opts: {
   temperature?: number;
 }): Promise<string> {
   return withFallback("text", async (provider, apiKey) => {
+    if (provider === "claude") return claudeText(opts.system, opts.user);
     const res = await client(provider, apiKey).chat.completions.create(
       {
         model:
@@ -77,6 +82,29 @@ export async function generateText(opts: {
     const text = res.choices[0]?.message.content;
     if (!text) throw new Error("empty completion");
     return text;
+  });
+}
+
+/**
+ * Local testing with no API keys (AI_PROVIDER=claude, text only): the signed-in Claude Code CLI is the model.
+ * Never used on Vercel. Answers go in on stdin, not argv; no session is saved to disk (spec 8);
+ * user settings, hooks, tools and MCP servers are all skipped so a call takes about 5s.
+ */
+function claudeText(system: string, user: string): Promise<string> {
+  const args = ["-p", "--model", env("CLAUDE_TEXT_MODEL", "haiku"), "--system-prompt", system, "--output-format", "text"];
+  args.push("--no-session-persistence", "--setting-sources", "", "--strict-mcp-config", "--tools", "", "--disable-slash-commands");
+  return new Promise((resolve, reject) => {
+    const child = spawn("claude", args, { timeout: CLAUDE_CLI_TIMEOUT_MS, stdio: ["pipe", "pipe", "ignore"] });
+    let out = "";
+    child.stdout.on("data", (chunk: Buffer) => {
+      out += chunk.toString();
+    });
+    child.on("error", reject);
+    child.on("close", (code) => {
+      if (code === 0 && out.trim()) resolve(out);
+      else reject(new Error(`claude CLI exited with ${String(code)}`));
+    });
+    child.stdin.end(user);
   });
 }
 

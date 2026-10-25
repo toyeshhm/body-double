@@ -1,10 +1,11 @@
-// ponytail: M1 stand-ins for every AI call. M2 swaps fakeAnswer for the two-pass pipeline (spec 6b),
-// M3 swaps plans/recap for spec 6d/6e. Signatures are what the machine expects; keep them.
+// The fallbacks for every AI call (lib/game/wolf.ts): used whenever the Wolf is late, fails, or has no keys.
+// Signatures are what the machine expects; keep them.
 import { friendshipEdges } from "./map";
 import { pickOne } from "./random";
+import { SKIPPED } from "./style";
 import type { Player, Plans, Recap, Room } from "./types";
 
-const STOCK_FAKES = [
+export const STOCK_FAKES = [
   "honestly anything with a good playlist and zero plans",
   "Probably sleeping in, then pretending to be productive.",
   "tacos. the answer is always tacos",
@@ -28,6 +29,17 @@ function nameOf(room: Room, id: string): string {
   return room.players[id]?.name ?? "a villager";
 }
 
+/** Shown on screen whenever the Wolf's plans are late, so its evidence is only what villagers really typed. */
+function lastWords(room: Room, id: string): string[] {
+  const said = room.players[id]?.answers.filter((a) => a.text !== SKIPPED).at(-1)?.text;
+  return said ? [`${nameOf(room, id)}: "${said}"`] : [];
+}
+
+function sharedInterest(room: Room, a: string, b: string): string {
+  const theirs = room.players[b]?.style.interests.map((i) => i.toLowerCase()) ?? [];
+  return room.players[a]?.style.interests.find((i) => theirs.includes(i.toLowerCase())) ?? "getting to know each other";
+}
+
 export function stubPlans(room: Room): Plans {
   const ids = Object.keys(room.players);
   const weakest = friendshipEdges(room)
@@ -40,13 +52,13 @@ export function stubPlans(room: Room): Plans {
       a,
       b,
       why: `The village barely knows how ${nameOf(room, a)} and ${nameOf(room, b)} think yet.`,
-      sharedInterest: "late-night tacos",
-      evidence: ["(stub) both mentioned food after dark"],
+      sharedInterest: sharedInterest(room, a, b),
+      evidence: [...lastWords(room, a), ...lastWords(room, b)],
       plan: "Tacos on Thursday at 9pm, and each of you picks one song for the walk there.",
     })),
     groupPlan: {
       title: "Lantern Night at Zilker",
-      why: "(stub) Half the village said their perfect Saturday happens outside.",
+      why: "Everyone played tonight. The easiest next step is doing something together, outside the game.",
       plan: "Saturday at sunset: blankets, one dish each, and a round of Body Double played out loud.",
       posterPrompt: "storybook illustration, watercolor, warm lantern light, picnic blankets in a meadow at dusk",
       posterUrl: null,

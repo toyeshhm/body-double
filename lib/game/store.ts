@@ -94,7 +94,12 @@ function pickBackend(): Backend {
   return memoryBackend;
 }
 
-const backend = pickBackend();
+// Chosen on first use, not at import: `next build` imports the routes and must not need runtime secrets.
+let chosen: Backend | null = null;
+function store(): Backend {
+  chosen ??= pickBackend();
+  return chosen;
+}
 
 // ---- public API
 
@@ -123,11 +128,11 @@ export function newRoom(code: string, now = Date.now()): Room {
 
 export async function createRoom(): Promise<Room> {
   const now = Date.now();
-  await backend.sweep(now - IDLE_MS);
+  await store().sweep(now - IDLE_MS);
   for (;;) {
     const code = Array.from({ length: 4 }, () => LETTERS[Math.floor(Math.random() * LETTERS.length)]).join("");
     const room = newRoom(code, now);
-    if (await backend.insert(room)) {
+    if (await store().insert(room)) {
       log.info("room_created", { room: code });
       return room;
     }
@@ -135,7 +140,7 @@ export async function createRoom(): Promise<Room> {
 }
 
 export async function loadRoom(code: string): Promise<Stored | null> {
-  return backend.load(code.trim().toUpperCase());
+  return store().load(code.trim().toUpperCase());
 }
 
 /**
@@ -151,7 +156,7 @@ export async function updateRoom<T>(
     if (!stored) return null;
     const { result, dirty } = change(stored.room);
     if (!dirty) return { ...stored, result };
-    if (await backend.save(stored.room, stored.version)) return { room: stored.room, version: stored.version + 1, result };
+    if (await store().save(stored.room, stored.version)) return { room: stored.room, version: stored.version + 1, result };
   }
   log.warn("room_write_contended", { room: code });
   throw new Error("The village is busy. Try again.");
@@ -159,5 +164,5 @@ export async function updateRoom<T>(
 
 /** Test hook for the idle rule: runs the same sweep createRoom does, at a chosen time. */
 export async function sweepIdle(now: number): Promise<void> {
-  await backend.sweep(now - IDLE_MS);
+  await store().sweep(now - IDLE_MS);
 }

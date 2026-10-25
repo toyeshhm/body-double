@@ -2,89 +2,13 @@
 // real Request objects against the in-memory store, through every phase of spec section 4. No mocks.
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import type { z } from "zod";
-import { GET as readRoute, POST as actRoute } from "../app/api/rooms/[code]/route";
-import { POST as joinRoute } from "../app/api/rooms/[code]/join/route";
-import { POST as createRoute } from "../app/api/rooms/route";
-import { type Action, type Auth, authHeaders } from "../lib/game/events";
 import { loadRoom, sweepIdle } from "../lib/game/store";
-import type { ClientState, Phase } from "../lib/game/types";
-
-const BASE = "http://village.test";
+import { BASE, Screen, host, joinRaw, phone } from "./screen";
 
 // The game must play end to end with no AI at all: every fake falls back to the stub (tests/live covers real calls).
 delete process.env.MUSE_API_KEY;
 delete process.env.GEMINI_API_KEY;
-
-class Screen {
-  latest: ClientState | null = null;
-  constructor(
-    readonly code: string,
-    readonly auth: Auth,
-  ) {}
-
-  get state(): ClientState {
-    assert.ok(this.latest, "no state yet");
-    return this.latest;
-  }
-
-  async poll(version = -1): Promise<Response> {
-    const req = new Request(`${BASE}/api/rooms/${this.code}?v=${String(version)}`, { headers: authHeaders(this.auth) });
-    const res = await readRoute(req, { params: { code: this.code } });
-    if (res.status === 200) this.latest = (await res.json()) as ClientState;
-    return res;
-  }
-
-  async send(action: z.input<typeof Action>): Promise<{ status: number; error: string | null }> {
-    const req = new Request(`${BASE}/api/rooms/${this.code}`, {
-      method: "POST",
-      headers: { ...authHeaders(this.auth), "content-type": "application/json" },
-      body: JSON.stringify(action),
-    });
-    const res = await actRoute(req, { params: { code: this.code } });
-    const body = (await res.json()) as ClientState | { error: string };
-    if ("error" in body) return { status: res.status, error: body.error };
-    this.latest = body;
-    return { status: res.status, error: null };
-  }
-
-  async until(pred: (s: ClientState) => boolean, ms = 8000): Promise<ClientState> {
-    const end = Date.now() + ms;
-    for (;;) {
-      await this.poll();
-      if (pred(this.state)) return this.state;
-      if (Date.now() > end) throw new Error(`timed out; last phase ${this.state.phase}`);
-      await new Promise((r) => setTimeout(r, 100));
-    }
-  }
-
-  phase(p: Phase, ms?: number): Promise<ClientState> {
-    return this.until((s) => s.phase === p, ms);
-  }
-}
-
-async function host(): Promise<Screen> {
-  const res = await createRoute();
-  const { code, hostKey } = (await res.json()) as { code: string; hostKey: string };
-  const screen = new Screen(code, { role: "host", key: hostKey });
-  await screen.poll();
-  return screen;
-}
-
-async function joinRaw(code: string, body: unknown): Promise<Response> {
-  return joinRoute(new Request(`${BASE}/api/rooms/${code}/join`, { method: "POST", body: JSON.stringify(body) }), {
-    params: { code },
-  });
-}
-
-async function phone(code: string, name: string, canBeTarget = true): Promise<Screen> {
-  const res = await joinRaw(code, { name, avatar: "slipper", role: "bard" });
-  assert.equal(res.status, 200, `join failed for ${name}`);
-  const { playerId, playerKey } = (await res.json()) as { playerId: string; playerKey: string };
-  const screen = new Screen(code, { role: "player", id: playerId, key: playerKey });
-  assert.equal((await screen.send({ type: "player:consent", agree: true, canBeTarget })).error, null);
-  return screen;
-}
+delete process.env.AI_PROVIDER;
 
 void test("a full tale: lobby, warmup, rounds, reveal, tells, map, plans, recap, ended", async () => {
   const board = await host();
@@ -163,13 +87,16 @@ void test("a full tale: lobby, warmup, rounds, reveal, tells, map, plans, recap,
   assert.equal(target.state.round?.pair?.vetoed, true);
   assert.equal(target.state.round.pair[fakeSlot], null, "vetoed fake is hidden");
 
-  // Rejoin by name from a new device keeps the same villager and score (spec 10).
+  // Rejoining with this phone's saved id and key keeps the same villager and score (spec 10).
   const names = new Map([
     [ana, "Ana"],
     [ben, "Ben"],
     [cat, "Cat"],
   ]);
-  const again = await joinRaw(code, { name: names.get(right), avatar: "lamp", role: "knight" });
+  const impostor = await joinRaw(code, { name: names.get(right), avatar: "lamp", role: "knight" });
+  assert.equal(impostor.status, 409, "a name alone can't take over a villager");
+  const proof = right.auth.role === "player" ? { playerId: right.auth.id, playerKey: right.auth.key } : {};
+  const again = await joinRaw(code, { name: names.get(right), avatar: "lamp", role: "knight", ...proof });
   assert.equal(((await again.json()) as { playerId: string }).playerId, right.state.me?.id);
 
   await board.send({ type: "host:next" });
@@ -181,9 +108,12 @@ void test("a full tale: lobby, warmup, rounds, reveal, tells, map, plans, recap,
   await board.send({ type: "host:next" });
   assert.equal(board.state.phase, "MAP");
   await board.send({ type: "host:next" });
-  assert.ok((board.state.plans?.pairPlans.length ?? 0) > 0);
+  assert.equal(board.state.phase, "PLANS");
+  assert.ok((board.state.plans?.pairPlans.length ?? 0) > 0, "PLANS never waits on the Wolf: stub when the AI isn't ready");
+  assert.ok(board.state.plans?.pairPlans.every((p) => p.evidence.every((e) => !e.includes("(stub)"))));
   await board.send({ type: "host:next" });
-  assert.match(board.state.recap?.story ?? "", /^Once upon a time/);
+  assert.equal(board.state.phase, "RECAP");
+  assert.ok(board.state.recap?.story.startsWith("Once upon a time"), "RECAP never waits either");
   await board.send({ type: "host:next" });
   assert.equal(board.state.phase, "ENDED");
 

@@ -73,7 +73,8 @@ export function viewFor(room: Room, viewerId: string | null, joinUrl: string, ve
     round: roundView,
     edges: friendshipEdges(room),
     wolf: room.wolf,
-    plans: room.plans,
+    // The poster can be a large data URL and only the host screen draws it, so phones never download it.
+    plans: room.plans && viewerId !== null ? { ...room.plans, groupPlan: { ...room.plans.groupPlan, posterUrl: null } } : room.plans,
     recap: room.recap,
     me: me
       ? {

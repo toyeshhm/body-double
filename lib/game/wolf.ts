@@ -3,15 +3,19 @@
 // and results land through updateRoom like any other write. Any AI failure falls back to the stub fake.
 import { setTimeout as sleep } from "node:timers/promises";
 import { waitUntil } from "@vercel/functions";
-import { learnStyle, moderate, writeFake } from "../ai/prompts";
+import { learnStyle, moderate, paintPoster, writeFake, writePlans, writeRecap } from "../ai/prompts";
 import { log } from "../log";
-import { currentRound, deliverFake, list, skipAnswer } from "./machine";
+import { currentRound, deliverFake, deliverPlans, deliverRecap, list, skipAnswer } from "./machine";
 import { updateRoom } from "./store";
-import { fakeAnswer } from "./stubs";
+import { fakeAnswer, stubPlans, stubRecap } from "./stubs";
 import type { Phase, Player, Room } from "./types";
 
 const DRESS_MS = 2400; // the "Wolf is dressing" beat always plays, even when the stub answers instantly
-const FAKE_BUDGET_MS = 12_000; // both passes plus moderation; the machine's 15s deadline is the backstop
+// Room for one provider timeout plus the fallback (or ~3 calls of the local Claude CLI). The machine's
+// 25s GENERATING deadline is the backstop if this work is lost entirely.
+const BUDGET_MS = 20_000;
+// Plans and recap start when MAP opens. Whatever isn't ready when the host turns the page is replaced by the stub.
+const ENDING_BUDGET_MS = 45_000;
 
 function describe(err: unknown): string {
   return (err instanceof Error ? `${err.name}: ${err.message}` : String(err)).slice(0, 200);
@@ -39,12 +43,13 @@ function within<T>(ms: number, work: Promise<T>): Promise<T> {
 
 /**
  * Called after every saved room write with the phase it started from. Kicks off spec 6a after each
- * answer batch (warmup, then each round) and spec 6b on entering GENERATING. Only the request whose
- * write made the change sees it, so each job starts once.
+ * answer batch (warmup, then each round), 6b on entering GENERATING, and 6d/6e plus the recap on
+ * entering MAP. Only the request whose write made the change sees it, so each job starts once.
  */
 export function afterWrite(from: { phase: Phase; round: number }, room: Room): void {
   const n = room.rounds.length;
   if (room.phase === "ENDED") return;
+  if (room.phase === "MAP" && from.phase !== "MAP") background("ending", writeEnding(room));
   const fakes = room.phase === "GENERATING" && (from.phase !== "GENERATING" || n !== from.round) ? writeFakes(room) : null;
   if (fakes) background("fakes", fakes);
   const batch =
@@ -91,7 +96,7 @@ async function fakeOrStub(target: Player, real: string, write: () => Promise<str
   const started = Date.now();
   try {
     const fake = await within(
-      FAKE_BUDGET_MS,
+      BUDGET_MS,
       write().then(async (text) => ((await moderate([text]))[0] ? null : text)),
     );
     log.info("wolf.fake", { source: fake === null ? "stub_blocked" : "ai", ms: Date.now() - started });
@@ -114,7 +119,7 @@ async function learnStyles(room: Room, round: number): Promise<void> {
   const profiles = await Promise.all(
     writers.map(async (p) => {
       try {
-        return { id: p.id, profile: await learnStyle(p.answers.filter((a) => !isBlocked(p, a))) };
+        return { id: p.id, profile: await learnStyle({ ...p, answers: p.answers.filter((a) => !isBlocked(p, a)) }) };
       } catch (err) {
         log.warn("wolf.style", { ok: false, error: describe(err) });
         return null;
@@ -133,4 +138,38 @@ async function learnStyles(room: Room, round: number): Promise<void> {
     }
     return { result: null, dirty: true };
   });
+}
+
+/** M3: plans then poster (spec 6d, 6e) and the recap, written while the room looks at the map. */
+async function writeEnding(room: Room): Promise<void> {
+  const code = room.code;
+  const plansThenPoster = async (): Promise<void> => {
+    const plans = await within(ENDING_BUDGET_MS, writePlans(room)).catch((err: unknown) => {
+      log.warn("wolf.plans", { source: "stub_fallback", error: describe(err) });
+      return stubPlans(room);
+    });
+    const out = await updateRoom(code, (r) => ({ result: null, dirty: deliverPlans(r, plans) }));
+    // Paint whichever plans the room ended up showing: the Wolf's, or the stub if the host moved on first.
+    const prompt = out?.room.phase === "ENDED" ? undefined : out?.room.plans?.groupPlan.posterPrompt;
+    if (!prompt) return;
+    const url = await paintPoster(prompt).catch((err: unknown) => {
+      log.warn("wolf.poster", { ok: false, error: describe(err) });
+      return null;
+    });
+    if (!url) return;
+    await updateRoom(code, (r) => {
+      const plan = r.phase === "ENDED" ? undefined : r.plans?.groupPlan;
+      if (plan?.posterPrompt !== prompt) return { result: null, dirty: false };
+      plan.posterUrl = url;
+      return { result: null, dirty: true };
+    });
+  };
+  const recap = async (): Promise<void> => {
+    const story = await within(ENDING_BUDGET_MS, writeRecap(room)).catch((err: unknown) => {
+      log.warn("wolf.recap", { source: "stub_fallback", error: describe(err) });
+      return stubRecap(room);
+    });
+    await updateRoom(code, (r) => ({ result: null, dirty: deliverRecap(r, story) }));
+  };
+  await Promise.all([plansThenPoster(), recap()]);
 }

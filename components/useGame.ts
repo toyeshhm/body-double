@@ -30,7 +30,7 @@ export async function createVillage(): Promise<z.infer<typeof Created>> {
 
 export async function joinVillage(
   code: string,
-  identity: { name: string; avatar: string; role: string },
+  identity: { name: string; avatar: string; role: string; playerId?: string | undefined; playerKey?: string | undefined },
 ): Promise<{ ok: true; playerId: string; playerKey: string } | { ok: false; status: number; error: string }> {
   try {
     const res = await fetch(`/api/rooms/${code}/join`, {

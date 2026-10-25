@@ -1,14 +1,17 @@
+import { useRef } from "react";
 import { playerById, wolfRate } from "@/components/ui/format";
+import { SaveImage } from "@/components/ui/SaveImage";
 import { Icon } from "@/components/ui/Villager";
 import type { ClientState } from "@/lib/game/types";
 import { HeroesCard } from "./Heroes";
 
 export function Recap({ state }: { state: ClientState }) {
+  const card = useRef<HTMLElement>(null);
   const recap = state.recap;
   const superlatives = state.plans?.superlatives ?? [];
   return (
     <div className="grid flex-1 items-start gap-x-[clamp(28px,4vw,64px)] gap-y-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]">
-      <article className="card p-[clamp(22px,3vw,48px)]">
+      <article ref={card} className="card p-[clamp(22px,3vw,48px)]">
         <div className="flex items-center gap-4">
           <Icon id="storybook" className="w-[clamp(3.5rem,6vw,5.5rem)] -rotate-6" />
           <h2 className="break-words font-display text-[clamp(2rem,3.4vw,3.4rem)] font-bold leading-tight [font-variation-settings:'SOFT'_100]">{recap?.title ?? "The Tale"}</h2>
@@ -32,6 +35,7 @@ export function Recap({ state }: { state: ClientState }) {
           </ul>
         )}
         <p className="text-[1rem] font-semibold text-ink-soft">Every Wolf answer tonight was written by an AI, never a real quote.</p>
+        <SaveImage target={card} fileName={`body-double-${state.code}.png`} className="max-w-sm" />
       </aside>
     </div>
   );

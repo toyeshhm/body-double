@@ -105,7 +105,7 @@ export function Showdown({ state }: { state: ClientState }) {
 
       <div className="mx-auto mt-[clamp(6px,1.5vh,20px)] grid w-full max-w-[1320px] grid-cols-1 gap-x-[clamp(24px,5vw,96px)] gap-y-10 md:grid-cols-2">
         {(["A", "B"] as const).map((slot) => (
-          <div key={slot} className="mx-auto w-[min(100%,calc((100dvh-28.5rem)*1.266))] min-w-[16rem]">
+          <div key={slot} className="mx-auto w-[min(100%,calc((77dvh-17rem)*1.266))] min-w-[16rem]">
             <Mirror label={slot} text={pair[slot]} ownerName={name} ownerAvatar={avatarOf(owner)} verdict={verdict(slot)} size="stage">
               {reveal ? (
                 <VoteDrop state={state} ids={reveal.votes[slot]} slot={slot} real={truth ? slot === reveal.real : null} ownerName={name} />
