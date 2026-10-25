@@ -22,4 +22,5 @@ void test("the notebook sets the first fake beside the last, and phones see only
   const mine = notebookFor(room, ids.priya ?? "");
   assert.deepEqual(mine, { pages: [{ playerId: ids.priya, style: room.players[ids.priya ?? ""]?.style, fooled: 0, votes: 0 }], first: null, last: null });
   assert.equal(notebookFor(scenario("MAP").room, null), null, "nothing outside the notebook page");
+  for (const phase of ["PLANS", "RECAP", "ENDED"] as const) assert.equal(scenario(phase).room.phase, phase, "previews land on the phase they name");
 });

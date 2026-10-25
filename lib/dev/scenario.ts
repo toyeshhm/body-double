@@ -96,7 +96,8 @@ export function scenario(phase: (typeof SCENARIO_PHASES)[number], long = false):
 
   advance(room); // one-round game: straight to MAP
   if (phase === "MAP") return { room, ids };
-  advance(room);
+  advance(room); // NOTEBOOK (the two-chapter notebook preview is built above)
+  advance(room); // PLANS
   if (phase === "PLANS") return { room, ids };
   advance(room);
   if (phase === "RECAP") return { room, ids };
