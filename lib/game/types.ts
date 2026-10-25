@@ -61,6 +61,8 @@ export type Player = {
   consented: boolean;
   canBeTarget: boolean;
   score: number;
+  /** Spoken answers sent to speech-to-text this game, capped so one phone can't burn the AI credits. */
+  voiceUses: number;
   answers: { promptId: string; text: string; round: number }[];
   style: StyleProfile;
 };

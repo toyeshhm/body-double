@@ -70,6 +70,7 @@ export function makeBots(): Player[] {
     consented: true,
     canBeTarget: true,
     score: 0,
+    voiceUses: 0,
     answers: [],
     style: emptyStyle(),
   }));

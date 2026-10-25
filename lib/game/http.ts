@@ -140,6 +140,9 @@ export async function handleAction(req: Request, code: string): Promise<Response
 }
 
 const MAX_AUDIO_BYTES = 2_000_000; // 30s of 16 kHz mono WAV is about 960 KB
+// ponytail: a flat cap per player per game. The default game has 9 answers (3 warmup + 6 chapters), so this
+// allows about two tries each; raise it if long games (up to 12 chapters) hit it in practice.
+export const MAX_VOICE_PER_PLAYER = 20;
 
 /**
  * POST audio/wav from a phone (lib/ai/wav.ts format): the spoken answer as text, which the player edits and
@@ -159,6 +162,17 @@ export async function handleTranscribe(req: Request, code: string): Promise<Resp
   const audio = new Uint8Array(await req.arrayBuffer());
   const wav = wavInfo(audio);
   if (!wav || wav.seconds > MAX_SECONDS + 1) return fail(400, "The Wolf couldn't make out that recording. Try again, or type it.");
+  // Counted before the model call, so failed attempts count too. Optimistic versioning keeps parallel uploads honest.
+  const counted = await updateRoom(code, (room) => {
+    const player = room.players[who];
+    if (!player) return { result: "gone" as const, dirty: false };
+    if (player.voiceUses >= MAX_VOICE_PER_PLAYER) return { result: "spent" as const, dirty: false };
+    player.voiceUses += 1;
+    return { result: "ok" as const, dirty: true };
+  });
+  if (counted?.result !== "ok") {
+    return counted?.result === "spent" ? fail(429, "The Wolf has listened enough for one night. Type the rest.") : fail(409, "That page has already turned.");
+  }
   try {
     const text = await transcribe({ audio, mime: "audio/wav" });
     log.info("transcribe", { room: stored.room.code, seconds: Math.round(wav.seconds), heard: text.length > 0 });

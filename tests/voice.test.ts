@@ -6,6 +6,7 @@ import { test } from "node:test";
 import { POST as transcribeRoute } from "../app/api/rooms/[code]/transcribe/route";
 import { encodeWav, wavInfo } from "../lib/ai/wav";
 import { authHeaders, type Auth } from "../lib/game/events";
+import { MAX_VOICE_PER_PLAYER } from "../lib/game/http";
 import { BASE, host, phone } from "./screen";
 
 delete process.env.MUSE_API_KEY;
@@ -38,7 +39,7 @@ void test("encodeWav writes the one format Muse accepts, and wavInfo reads it ba
     assert.equal(wavInfo(bad), null);
 });
 
-void test("the transcribe route: players only, answer pages only, WAV only, 30s cap, 503 with no provider", async () => {
+void test("the transcribe route: players only, answer pages only, WAV only, 30s cap, 503 with no provider, per-game limit", async () => {
   const board = await host();
   const ana = await phone(board.code, "Ana");
   await phone(board.code, "Ben");
@@ -57,4 +58,12 @@ void test("the transcribe route: players only, answer pages only, WAV only, 30s 
   const out = await send(board.code, player, spoken);
   assert.equal(out.status, 503, "no keys: the phone is told to type instead");
   assert.match(JSON.stringify(out.body), /Type your answer/);
+
+  // Only recordings that pass every check count, failed ones included (the one above was the first).
+  for (let used = 1; used < MAX_VOICE_PER_PLAYER; used++) assert.equal((await send(board.code, player, short)).status, 503);
+  const spent = await send(board.code, player, short);
+  assert.equal(spent.status, 429, "one phone can't burn the AI credits");
+  assert.match(JSON.stringify(spent.body), /Type the rest/);
+  const other = (await phone(board.code, "Cy")).auth;
+  assert.equal((await send(board.code, other, short)).status, 503, "the limit is per player, not per room");
 });

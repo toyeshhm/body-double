@@ -39,6 +39,7 @@ export function joinPlayer(
     consented: false,
     canBeTarget: true,
     score: 0,
+    voiceUses: 0,
     answers: [],
     style: emptyStyle(),
   };
