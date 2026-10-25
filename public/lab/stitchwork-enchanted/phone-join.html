@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Double · Enter the village (Fantasy: Night Quilt Enchanted)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Figtree:wght@500..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { --moon-x: 90%; --moon-y: 0%; }
+  .castle { position: absolute; right: 6px; top: 70px; width: 112px; z-index: 4; transform: rotate(3deg); }
+  h1 { position: relative; z-index: 6; font-size: 38px; margin: 24px 0 0 2px; }
+  .sec { margin-top: 24px; }
+  .who { display: flex; align-items: center; gap: 12px; }
+  .who .tok { width: 60px; height: 60px; margin: -4px 0 -4px -4px; }
+  .field { flex: 1; height: 58px; display: flex; align-items: center; padding: 0 22px; border-radius: 3px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 2px 0 rgba(0,0,0,.35), 0 10px 18px rgba(2,3,10,.45);
+    font-size: 22px; font-weight: 700; color: var(--ink); --sti: url(art/run-indigo.svg); --si: 5px; --sw: 10px; }
+  .caret { display: inline-block; width: 2.5px; height: 26px; margin-left: 2px; background: var(--wine); animation: breathe 1s steps(2) infinite; }
+  /* sixteen felt patches, laid out like a honeycomb sampler */
+  .patches .row { display: flex; justify-content: center; gap: 4px; }
+  .patches .row + .row { margin-top: -6px; }
+  .pt { position: relative; width: 53px; height: 53px; border: 0; padding: 0; background: none; cursor: pointer; border-radius: 50%; }
+  .pt img { display: block; width: 53px; height: 53px; }
+  .pt.on { z-index: 2; transform: translateY(-3px) scale(1.16); }
+  .pt.on::before { content: ""; position: absolute; inset: -14px; border-radius: 50%; background: radial-gradient(circle, rgba(242, 190, 70, .65), rgba(242, 182, 50, .18) 55%, transparent 72%); }
+  .pt.on::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 2.4px dashed var(--gold-hi); }
+  .pt.on img { position: relative; }
+  .picked-name { margin: 10px 0 0; text-align: center; font-family: var(--display); font-style: italic; font-weight: 600; font-size: 17px; color: var(--cream); font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .picked-name b { color: var(--gold-hi); font-weight: 700; }
+  .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+  .chip { height: 52px; border: 0; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;
+    font-family: var(--sans); font-size: 15.5px; font-weight: 700; color: var(--cream);
+    background-color: #2c3566; background-image: url(art/felt.png); background-size: 420px; background-blend-mode: overlay;
+    box-shadow: 0 2px 0 rgba(0,0,0,.4), 0 8px 12px rgba(2,3,10,.35); --sti: url(art/run-cream.svg); --si: 2px; --sw: 8px; }
+  .chip.on { background-color: var(--lantern); color: var(--ink); font-weight: 800; box-shadow: 0 2px 0 #8f5a0a, 0 8px 14px rgba(2,3,10,.4), 0 0 26px rgba(242,182,50,.35); --sti: url(art/run-indigo.svg); }
+  .chip.on svg { width: 14px; height: 14px; }
+  .go { margin-top: auto; }
+  .fineprint { margin-top: 14px; }
+</style>
+</head>
+<body class="phone">
+<img class="full quilt" src="art/quilt-phone-join.svg" width="390" height="844" alt="">
+<img class="castle patch" src="art/p/castle.svg" alt="">
+<div class="inner">
+  <header class="top">
+    <span class="brandmark"><img src="art/star4.svg" alt="">Body Double</span>
+    <span class="code-tab velvet st">Village <b>HXQR</b></span>
+  </header>
+  <h1 class="p-h">Enter the<br><em>village</em></h1>
+  <div class="sec">
+    <p class="p-label">Your name</p>
+    <div class="who"><img class="tok" src="art/tok/slipper.svg" alt="Your patch: glass slipper"><div class="field muslin st">Maya<span class="caret"></span></div></div>
+  </div>
+  <div class="sec">
+    <p class="p-label">Pick your patch</p>
+    <div class="patches">
+      <div class="row">
+        <button class="pt" aria-label="Potion"><img src="art/tok/potion.svg" alt=""></button>
+        <button class="pt" aria-label="Eat me cake"><img src="art/tok/eat-me.svg" alt=""></button>
+        <button class="pt" aria-label="Wishing lamp"><img src="art/tok/lamp.svg" alt=""></button>
+        <button class="pt on" aria-label="Glass slipper, selected" aria-pressed="true"><img src="art/tok/slipper.svg" alt=""></button>
+        <button class="pt" aria-label="Magic mirror"><img src="art/tok/mirror.svg" alt=""></button>
+        <button class="pt" aria-label="Enchanted tree"><img src="art/tok/tree.svg" alt=""></button>
+      </div>
+      <div class="row">
+        <button class="pt" aria-label="Poison apple"><img src="art/tok/apple.svg" alt=""></button>
+        <button class="pt" aria-label="Spindle"><img src="art/tok/spindle.svg" alt=""></button>
+        <button class="pt" aria-label="Frog prince"><img src="art/tok/frog-prince.svg" alt=""></button>
+        <button class="pt" aria-label="Pumpkin"><img src="art/tok/pumpkin.svg" alt=""></button>
+        <button class="pt" aria-label="Golden egg"><img src="art/tok/golden-egg.svg" alt=""></button>
+      </div>
+      <div class="row">
+        <button class="pt" aria-label="Beanstalk"><img src="art/tok/beanstalk.svg" alt=""></button>
+        <button class="pt" aria-label="Crystal ball"><img src="art/tok/crystal-ball.svg" alt=""></button>
+        <button class="pt" aria-label="Red hood"><img src="art/tok/red-hood.svg" alt=""></button>
+        <button class="pt" aria-label="Wand"><img src="art/tok/wand.svg" alt=""></button>
+        <button class="pt" aria-label="Golden key"><img src="art/tok/key.svg" alt=""></button>
+      </div>
+    </div>
+    <p class="picked-name">You'll be sewn in as the <b>Glass Slipper</b></p>
+  </div>
+  <div class="sec">
+    <p class="p-label">Your role</p>
+    <div class="roles">
+      <button class="chip st">woodcutter</button>
+      <button class="chip st">baker</button>
+      <button class="chip on st" aria-pressed="true"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 0 L8.2 5.8 L14 7 L8.2 8.2 L7 14 L5.8 8.2 L0 7 L5.8 5.8Z" fill="#131931"/></svg>bard</button>
+      <button class="chip st">knight</button>
+      <button class="chip st">witch</button>
+      <button class="chip st">fairy</button>
+    </div>
+  </div>
+  <button class="btn go st">
+    <svg class="ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M6 27 V13 L15 5 L24 13 V27Z" fill="none" stroke="#131931" stroke-width="2.6" stroke-linejoin="round"/><path d="M12 27 V19 a3 3 0 0 1 6 0 V27" fill="#131931"/></svg>
+    Enter the village
+  </button>
+  <p class="fineprint">18+ only. Everything is deleted when the game ends.</p>
+</div>
+<img class="full binding" src="art/binding-phone.svg" width="390" height="844" alt="">
+</body>
+</html>

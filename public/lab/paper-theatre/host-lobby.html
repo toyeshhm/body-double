@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440, initial-scale=1">
+<title>Body Double · The Village</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .sign .code { font: 400 152px/0.92 var(--f-display); color: var(--ink); letter-spacing: .07em; margin: 4px 0 2px .07em;
+    text-shadow: 0 2px 0 rgba(212, 162, 55, .55); }
+  .sign .count { font: italic 24px/1 var(--f-story); color: var(--ink-soft); margin: 4px 0 0; }
+  .qr-patch { align-self: center; width: 236px; height: 236px; padding: 12px; background: #fbf4e2; border: 2px solid var(--ink); outline: 2px solid var(--ink); outline-offset: 4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.05); }
+  .qr-patch img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  .url { margin: 18px 0 0; text-align: center; font: 600 22px/1.25 var(--f-ui); color: var(--ink); }
+  .url b { display: block; font-weight: 800; color: var(--red); letter-spacing: .04em; }
+  .settings { margin: 0; padding: 0; list-style: none; }
+  .settings li { display: flex; align-items: baseline; gap: 8px; font: 500 22px/1 var(--f-ui); padding: 9px 0; color: var(--ink); }
+  .settings li::after { content: none; }
+  .settings .dots { flex: 1; border-bottom: 2px dotted rgba(74, 58, 44, .55); transform: translateY(-5px); }
+  .settings .val { font-weight: 800; color: var(--teal); }
+  .settings .val.off { color: var(--ink-soft); font-weight: 700; padding: 2px 8px; border: 1.5px solid currentColor; border-radius: 3px; font-size: 19px; font-style: italic; font-family: var(--f-story); transform: rotate(-4deg); color: var(--red); }
+  .playbill .go { margin-top: auto; }
+</style>
+</head>
+<body class="host">
+<svg class="sr-defs" aria-hidden="true">
+  <filter id="rough" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" seed="5"/>
+    <feDisplacementMap in="SourceGraphic" scale="7"/>
+  </filter>
+</svg>
+
+<main class="theatre" aria-label="The Village stage">
+  <div class="stage" aria-hidden="true">
+    <div class="backcloth"></div>
+    <img class="flat wing l" src="art/flat-wing.svg" alt="">
+    <img class="flat wing r" src="art/flat-wing.svg" alt="">
+    <img class="flat far" src="art/flat-far.svg" alt="">
+    <div class="eyes" style="left:92px; top:252px"><i></i><i></i></div>
+  </div>
+
+  <!-- villagers ride on sticks between the ground rows; they live in theatre space so tags can overlap the curtains -->
+  <div class="stage" style="overflow:visible; z-index:2">
+    <div class="puppet" style="left:76px; top:290px; --tilt:-4deg; --tint:#2f6670"><span class="stick"></span><div class="roundel-wrap"><div class="roundel"><span class="emo">🦉</span></div></div><div class="tag paper"><b>Maya</b><i>the bard</i></div></div>
+    <div class="puppet" style="left:202px; top:314px; --tilt:3deg; --tint:#f3e6c8"><span class="stick"></span><div class="roundel-wrap"><div class="roundel"><span class="emo">🦊</span></div></div><div class="tag paper"><b>Jordan</b><i>the woodcutter</i></div></div>
+    <div class="puppet" style="left:326px; top:286px; --tilt:-2deg; --tint:#d4a237"><span class="stick"></span><div class="roundel-wrap"><div class="roundel"><span class="emo">🍄</span></div></div><div class="tag paper"><b>Priya</b><i>the witch</i></div></div>
+    <div class="puppet" style="left:450px; top:310px; --tilt:4deg; --tint:#1d4a52"><span class="stick"></span><div class="roundel-wrap"><div class="roundel"><span class="emo">🐻</span></div></div><div class="tag paper"><b>Sam</b><i>the baker</i></div></div>
+    <div class="puppet" style="left:574px; top:292px; --tilt:-3deg; --tint:#8f1d22"><span class="stick"></span><div class="roundel-wrap"><div class="roundel"><span class="emo">🐸</span></div></div><div class="tag paper"><b>Theo</b><i>the knight</i></div></div>
+  </div>
+
+  <div class="stage" aria-hidden="true" style="z-index:3">
+    <img class="flat near" src="art/flat-near.svg" alt="">
+    <div class="footlights"></div>
+  </div>
+
+  <img class="frame" src="art/proscenium.png" alt="">
+  <div class="cartouche"><div><span>Body</span><span>Double</span></div></div>
+
+  <section class="sign paper" aria-label="Village code">
+    <span class="string s1"></span><span class="string s2"></span>
+    <span class="grommet g1"></span><span class="grommet g2"></span>
+    <div class="trim"></div>
+    <div class="body">
+      <p class="title">The Village</p>
+      <p class="code">HXQR</p>
+      <p class="count">Five villagers have arrived</p>
+    </div>
+  </section>
+</main>
+
+<aside class="playbill paper" aria-label="Join and settings">
+  <span class="pin p1"></span><span class="pin p2"></span>
+  <h2>Enter the village</h2>
+  <p class="lede">Scan with your phone</p>
+  <div class="qr-patch"><img src="../_shared/qr.svg" alt="QR code to join village HXQR"></div>
+  <p class="url">bodydouble.tech/play/<b>HXQR</b></p>
+  <svg class="rule" viewBox="0 0 220 22" aria-hidden="true"><path d="M4 11H86M134 11H216" stroke="#8f1d22" stroke-width="2"/><path d="M110 3l8 8-8 8-8-8z" fill="#d4a237" stroke="#8f1d22" stroke-width="1.5"/><path d="M92 11c4-7 10-7 10 0M128 11c-4-7-10-7-10 0" fill="none" stroke="#8f1d22" stroke-width="1.8"/></svg>
+  <h3>The programme</h3>
+  <ul class="settings">
+    <li>Chapters<span class="dots"></span><span class="val">6</span></li>
+    <li>Answer time<span class="dots"></span><span class="val">60s</span></li>
+    <li>Vote time<span class="dots"></span><span class="val">20s</span></li>
+    <li>Demo mode<span class="dots"></span><span class="val off">off</span></li>
+  </ul>
+  <div class="go ticket-wrap"><button class="ticket" type="button">Begin the tale</button></div>
+</aside>
+</body>
+</html>

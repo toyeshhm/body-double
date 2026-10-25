@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Body Double · Enter the village (Stitchwork)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@600;700;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .title { display: block; margin: 18px 0 8px -4px; }
+  .band { height: 34px; margin: 0 -4px 16px; background: url(art/band-village.svg) -2px 0/auto 34px repeat-x; }
+  .field { display: flex; align-items: center; height: 58px; padding: 0 20px; border-radius: 6px; margin-bottom: 18px;
+    background: #fffaf0; box-shadow: inset 0 2px 4px rgba(90, 70, 40, .18), 0 1px 0 rgba(255,255,255,.6);
+    font-weight: 800; font-size: 22px; color: var(--charcoal); --st-inset: 4px; --st-w: 7px; }
+  .field .caret { width: 2px; height: 26px; background: var(--tomato); margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .avatars { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 8.4px; margin: 20px 0 18px; }
+  .avatars button { width: 48px; height: 48px; border: 0; font-size: 25px; cursor: pointer; }
+  .avatars button.on { box-shadow: 0 0 0 4px #f3e9d2, 0 0 0 9px #d9a462, 0 0 0 10.5px #8a5a2b, 0 6px 10px 8px rgba(0,0,0,.18); z-index: 2; transform: scale(1.04); }
+  .avatars button.on::before { content: ""; position: absolute; top: -17px; left: 50%; margin-left: -8px; width: 16px; height: 9px; border-radius: 3px; background: linear-gradient(#fff1b8, #b8902c); box-shadow: 0 0 0 1px #6b4a0c; }
+
+  .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+  .roles button { position: relative; height: 48px; border: 0; border-radius: 4px; padding-left: 4px; font-family: var(--body); font-weight: 800; font-size: 15px; color: var(--charcoal);
+    background: #fffaf0; box-shadow: 0 2px 0 rgba(90,70,40,.2), 0 4px 8px rgba(90,70,40,.12);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 7px 50%); cursor: pointer; }
+  .roles button::after { content: ""; position: absolute; inset: 5px 6px 5px 12px; border: 2px dashed rgba(90,127,208,.6); border-radius: 2px; }
+  .roles button.on { background: var(--mustard) url(art/felt-mustard.svg); color: var(--charcoal); font-weight: 900; }
+  .roles button.on::after { border-color: rgba(43,39,36,.65); }
+
+  .fineprint { margin-top: 12px; }
+</style>
+</head>
+<body class="phone">
+<svg class="defs" aria-hidden="true">
+  <filter id="felt" x="-5%" y="-10%" width="110%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <pattern id="pm" patternUnits="userSpaceOnUse" width="240" height="240"><image href="art/felt-mustard.svg" width="240" height="240"/></pattern>
+  <pattern id="pr" patternUnits="userSpaceOnUse" width="240" height="240"><image href="art/felt-red.svg" width="240" height="240"/></pattern>
+</svg>
+
+<div class="patch"><div class="inner">
+  <div class="top">
+    <div class="woven">Body Double</div>
+    <div class="code-chip felt-forest"><span class="mini-hoop"></span>Village <b>HXQR</b></div>
+  </div>
+
+  <svg class="title applique on-light" width="346" height="56" viewBox="0 0 346 56" aria-label="Enter the village">
+    <text class="back" x="8" y="42" font-size="33">Enter the village</text>
+    <text class="face" x="8" y="42" font-size="33" filter="url(#felt)">Enter the village</text>
+    <text class="seam" x="8" y="42" font-size="33">Enter the village</text>
+  </svg>
+  <div class="band" aria-hidden="true"></div>
+
+  <div class="p-label">Your name</div>
+  <div class="field st st-blue">Maya<span class="caret"></span></div>
+
+  <div class="p-label">Pick your patch</div>
+  <div class="avatars">
+    <button class="coin felt-red" aria-label="fox">🦊</button>
+    <button class="coin felt-mustard on" aria-label="owl" aria-pressed="true">🦉</button>
+    <button class="coin felt-blue" aria-label="frog">🐸</button>
+    <button class="coin felt-forest" aria-label="bear">🐻</button>
+    <button class="coin felt-grey" aria-label="hedgehog">🦔</button>
+    <button class="coin felt-red" aria-label="rabbit">🐰</button>
+    <button class="coin felt-blue" aria-label="deer">🦌</button>
+    <button class="coin felt-forest" aria-label="squirrel">🐿️</button>
+    <button class="coin felt-mustard" aria-label="mushroom">🍄</button>
+    <button class="coin felt-blue" aria-label="sunflower">🌻</button>
+    <button class="coin felt-forest" aria-label="apple">🍎</button>
+    <button class="coin felt-mustard" aria-label="strawberry">🍓</button>
+    <button class="coin felt-red" aria-label="cupcake">🧁</button>
+    <button class="coin felt-grey" aria-label="teapot">🫖</button>
+    <button class="coin felt-forest" aria-label="candle">🕯️</button>
+    <button class="coin felt-blue" aria-label="moon">🌙</button>
+  </div>
+
+  <div class="p-label">Your role</div>
+  <div class="roles">
+    <button>woodcutter</button>
+    <button>baker</button>
+    <button class="on" aria-pressed="true">bard</button>
+    <button>knight</button>
+    <button>witch</button>
+    <button>fairy</button>
+  </div>
+
+  <button class="btn">
+    <svg class="needle" viewBox="0 0 30 30" aria-hidden="true"><path d="M4 26L24 6" stroke="#dfe3e6" stroke-width="3" stroke-linecap="round"/><ellipse cx="23.5" cy="6.5" rx="3" ry="1.4" transform="rotate(-45 23.5 6.5)" fill="none" stroke="#2b2724" stroke-width="1.2"/><path d="M24 6c6 4-2 10 3 16" fill="none" stroke="#e9a823" stroke-width="2" stroke-linecap="round"/></svg>
+    Enter the village
+  </button>
+  <p class="fineprint">18+ only. Everything is deleted when the game ends.</p>
+</div></div>
+
+<svg class="patch-edge" viewBox="0 0 374 828" aria-hidden="true">
+  <rect x="3" y="3" width="368" height="822" rx="24" fill="none" stroke="#d8402a" stroke-width="2.6"/>
+  <rect x="7" y="7" width="360" height="814" rx="21" fill="none" stroke="#d8402a" stroke-width="9" stroke-dasharray="2.6 13"/>
+</svg>
+</body>
+</html>

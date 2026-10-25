@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Body Double · The Village (Stitchwork)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@600;700;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* quilt edge */
+  .quilt-edge { position: absolute; inset: 0; pointer-events: none; z-index: 50; }
+
+  /* hoop */
+  .hoop { left: 58px; top: 24px; width: 530px; z-index: 5; }
+  .hoop img { width: 100%; display: block; }
+  .hoop .code-label {
+    position: absolute; left: 0; right: 0; top: 33.6%; text-align: center;
+    font-family: var(--hand); font-size: 38px; color: var(--forest); line-height: 1;
+  }
+  .hoop .url {
+    position: absolute; left: 0; right: 0; top: 66%; text-align: center;
+    font-weight: 900; font-size: 26px; color: var(--charcoal); letter-spacing: .01em;
+  }
+  .hoop .url b { color: var(--tomato-deep); }
+  .needle-in { position: absolute; left: 70%; top: 70%; width: 220px; height: 200px; filter: drop-shadow(0 3px 2px rgba(0,0,0,.35)); }
+
+  /* title column */
+  .brand { right: 56px; top: 36px; height: 48px; font-size: 25px; transform: rotate(2.5deg); z-index: 6; }
+  .title { left: 668px; top: 84px; z-index: 4; }
+  .lede { left: 684px; top: 214px; width: 660px; font-size: 27px; font-weight: 700; color: var(--cream); line-height: 1.3; }
+  .lede b { color: var(--mustard); font-weight: 900; }
+
+  /* QR patch */
+  .qr-patch { left: 690px; top: 300px; width: 256px; height: 290px; border-radius: 10px; transform: rotate(-2.5deg); z-index: 6;
+    box-shadow: 0 3px 0 rgba(0,0,0,.2), 0 16px 24px rgba(0,0,0,.45); }
+  .qr-patch img.qr { position: absolute; left: 30px; top: 28px; width: 196px; height: 196px; }
+  .qr-patch .cap { position: absolute; left: 0; right: 0; bottom: 24px; text-align: center; font-weight: 900; font-size: 22px; line-height: 1.15; color: var(--charcoal); }
+  .qr-patch .wbtn:nth-of-type(1) { left: -12px; top: -12px; }
+  .qr-patch .wbtn:nth-of-type(2) { right: -12px; top: -12px; }
+
+  /* care label settings */
+  .care { left: 1000px; top: 296px; width: 330px; padding: 44px 30px 24px; transform: rotate(1.5deg); z-index: 6;
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,.025) 0 1px, transparent 1px 4px),
+      linear-gradient(180deg, #fbf7ee, #efe6d3);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 22px), 0 100%);
+    filter: drop-shadow(0 12px 14px rgba(0,0,0,.45));
+  }
+  .care::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 26px; background: rgba(0,0,0,.06); border-bottom: 3px dashed rgba(184,50,31,.6); }
+  .care h3 { font-family: var(--display); font-weight: 400; font-size: 26px; color: var(--tomato-deep); margin-bottom: 10px; }
+  .care dl { display: grid; grid-template-columns: 1fr auto; row-gap: 6px; font-size: 23px; }
+  .care dt { font-weight: 700; color: var(--ink-soft); }
+  .care dd { font-weight: 900; color: var(--charcoal); text-align: right; }
+  .care .icons { display: flex; gap: 12px; margin: 14px 0 22px; }
+  .care .icons svg { width: 34px; height: 30px; }
+
+  /* clothesline villagers */
+  .line { left: 0; top: 0; width: 1440px; height: 900px; z-index: 7; pointer-events: none; }
+  .arrived { left: 136px; top: 604px; font-size: 30px; color: var(--mustard); z-index: 8; }
+  .arrived span { color: var(--cream); }
+  .block { width: 200px; z-index: 8; transform-origin: 50% 0; animation: sway 4s ease-in-out infinite; }
+  .block .fab { position: relative; padding: 8px; border-radius: 6px; box-shadow: 0 12px 18px rgba(0,0,0,.42); }
+  .block .inner { padding: 12px 6px 12px; border-radius: 3px; text-align: center; --st-inset: 4px; --st-w: 8px; }
+  .block .coin { width: 66px; height: 66px; margin: 2px auto 6px; font-size: 38px; }
+  .block .nm { font-weight: 900; font-size: 26px; line-height: 1.05; color: var(--charcoal); }
+  .block .rl { font-weight: 700; font-size: 22px; line-height: 1.15; color: var(--ink-soft); }
+  .block .peg { position: absolute; top: -26px; left: 50%; margin-left: -11px; width: 22px; height: 64px; background: url(art/peg.svg) center/contain no-repeat; z-index: 3; }
+  .gingham { background:
+      repeating-linear-gradient(90deg, rgba(216,64,42,.55) 0 10px, transparent 10px 20px),
+      repeating-linear-gradient(0deg, rgba(216,64,42,.55) 0 10px, transparent 10px 20px), #f6ecd6; }
+  .dots { background: radial-gradient(circle, #f6ecd6 0 3px, transparent 3.5px) 0 0/16px 16px, radial-gradient(circle, #f6ecd6 0 3px, transparent 3.5px) 8px 8px/16px 16px, #5a7fd0 url(art/felt-blue.svg); }
+  .stripe { background: repeating-linear-gradient(45deg, #e9a823 0 9px, #f6ecd6 9px 18px); }
+  .check { background:
+      repeating-linear-gradient(90deg, rgba(31,58,45,.5) 0 6px, transparent 6px 18px),
+      repeating-linear-gradient(0deg, rgba(31,58,45,.5) 0 6px, transparent 6px 18px), #4f8a5f; }
+  .plainred { background: var(--tomato) url(art/felt-red.svg); }
+
+  /* scenery */
+  .pine-a { left: 1076px; top: 556px; width: 124px; z-index: 6; filter: drop-shadow(0 10px 10px rgba(0,0,0,.45)); }
+  .cottage { left: 1194px; top: 566px; width: 204px; z-index: 6; filter: drop-shadow(0 10px 10px rgba(0,0,0,.45)); }
+  .wolf-peek { left: 1318px; top: 520px; width: 132px; transform: rotate(16deg); z-index: 5; filter: drop-shadow(0 8px 8px rgba(0,0,0,.5)); }
+  .hood { left: 548px; top: 392px; width: 116px; z-index: 9; filter: drop-shadow(0 10px 10px rgba(0,0,0,.5)); transform: rotate(-3deg); }
+  .mush { left: 34px; top: 470px; width: 88px; z-index: 6; transform: rotate(-8deg); filter: drop-shadow(0 8px 8px rgba(0,0,0,.45)); }
+
+  .begin { left: 1078px; top: 786px; width: 318px; height: 76px; font-size: 30px; z-index: 12; }
+  .begin small { display: none; }
+</style>
+</head>
+<body class="host">
+<svg class="defs" aria-hidden="true">
+  <filter id="felt" x="-5%" y="-10%" width="110%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <pattern id="pm" patternUnits="userSpaceOnUse" width="240" height="240"><image href="art/felt-mustard.svg" width="240" height="240"/></pattern>
+  <pattern id="pr" patternUnits="userSpaceOnUse" width="240" height="240"><image href="art/felt-red.svg" width="240" height="240"/></pattern>
+</svg>
+
+<!-- quilt edge: running stitch around the whole wall hanging -->
+<svg class="quilt-edge" viewBox="0 0 1440 900" aria-hidden="true">
+  <rect x="16" y="16" width="1408" height="868" rx="22" fill="none" stroke="#e9a823" stroke-width="3.6" stroke-dasharray="16 10" stroke-linecap="round" opacity=".9"/>
+</svg>
+
+<div class="woven brand">Body Double</div>
+
+<!-- the hoop holds the village code -->
+<div class="abs hoop">
+  <img src="art/hoop-hxqr.svg" alt="">
+  <div class="code-label">Village code</div>
+  <div class="url">bodydouble.tech/play/<b>HXQR</b></div>
+  <svg class="needle-in" viewBox="0 0 220 200" aria-hidden="true">
+    <path d="M28 40 L120 132" stroke="#5c6266" stroke-width="5.4" stroke-linecap="round"/>
+    <path d="M28 40 L120 132" stroke="#e8edf0" stroke-width="2.6" stroke-linecap="round"/>
+    <ellipse cx="34" cy="46" rx="6" ry="2.2" transform="rotate(45 34 46)" fill="#2b2724"/>
+    <path d="M34 46 C 10 70, 60 96, 40 128 S 70 190, 120 176 S 190 150, 214 196" fill="none" stroke="#d8402a" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M34 46 C 10 70, 60 96, 40 128 S 70 190, 120 176 S 190 150, 214 196" fill="none" stroke="#ff8a6e" stroke-width="1" stroke-dasharray="2 3" stroke-linecap="round" opacity=".7"/>
+  </svg>
+</div>
+<img class="abs mush" src="art/mushroom.png" alt="">
+
+<svg class="abs title applique" width="720" height="130" viewBox="0 0 720 130" aria-label="The Village">
+  <text class="back" x="14" y="106" font-size="108">The Village</text>
+  <text class="face" x="14" y="106" font-size="108" filter="url(#felt)">The Village</text>
+  <text class="seam" x="14" y="106" font-size="108">The Village</text>
+</svg>
+
+<p class="abs lede">Scan the patch, or type the code on your phone, to <b>enter the village</b>.</p>
+
+<div class="abs qr-patch felt-cream bl-red st">
+  <span class="wbtn"></span><span class="wbtn"></span>
+  <img class="qr" src="../_shared/qr.svg" alt="QR code to join village HXQR">
+  <div class="cap">Scan to enter</div>
+</div>
+
+<div class="abs care">
+  <h3>Tale settings</h3>
+  <dl>
+    <dt>Chapters</dt><dd>6</dd>
+    <dt>Answer time</dt><dd>60s</dd>
+    <dt>Vote time</dt><dd>20s</dd>
+    <dt>Demo mode</dt><dd>off</dd>
+  </dl>
+  <div class="icons" aria-hidden="true">
+    <svg viewBox="0 0 34 30"><path d="M17 3L31 27H3Z" fill="none" stroke="#2b2724" stroke-width="2.4" stroke-linejoin="round"/><circle cx="17" cy="19" r="4" fill="#d8402a"/></svg>
+    <svg viewBox="0 0 34 30"><path d="M22 4a11 11 0 1 0 8 17A10 10 0 0 1 22 4Z" fill="none" stroke="#2b2724" stroke-width="2.4"/></svg>
+    <svg viewBox="0 0 34 30"><path d="M4 8h26l-3 18H7Z" fill="none" stroke="#2b2724" stroke-width="2.4" stroke-linejoin="round"/><path d="M9 14h16" stroke="#2b2724" stroke-width="2" stroke-dasharray="3 3"/></svg>
+    <svg viewBox="0 0 34 30"><path d="M5 26L17 4l12 22" fill="none" stroke="#2b2724" stroke-width="2.4"/><path d="M10 26V17h14v9" fill="none" stroke="#2b2724" stroke-width="2.4"/></svg>
+  </div>
+</div>
+
+<img class="abs hood" src="art/red-hood.png" alt="">
+
+<!-- clothesline -->
+<svg class="abs line" viewBox="0 0 1440 900" aria-hidden="true">
+  <path d="M18 650 Q 560 708 1104 642" fill="none" stroke="#c9b48c" stroke-width="3.2"/>
+  <path d="M18 650 Q 560 708 1104 642" fill="none" stroke="#f3e6c8" stroke-width="1.2" stroke-dasharray="3 4" opacity=".7"/>
+</svg>
+<div class="abs felt-type arrived">Villagers who have arrived <span>(5)</span></div>
+
+<div class="abs block" style="left:46px;top:658px;--sw:1.2deg"><span class="peg"></span>
+  <div class="fab gingham"><div class="inner linen st st-red">
+    <div class="coin felt-mustard">🦉</div><div class="nm">Maya</div><div class="rl">the bard</div>
+  </div></div></div>
+<div class="abs block" style="left:252px;top:674px;--sw:-1deg;animation-delay:-1s"><span class="peg"></span>
+  <div class="fab dots"><div class="inner linen st st-blue">
+    <div class="coin felt-red">🦊</div><div class="nm">Jordan</div><div class="rl">the woodcutter</div>
+  </div></div></div>
+<div class="abs block" style="left:458px;top:680px;--sw:.8deg;animation-delay:-2s"><span class="peg"></span>
+  <div class="fab stripe"><div class="inner linen st st-red">
+    <div class="coin felt-blue">🍄</div><div class="nm">Priya</div><div class="rl">the witch</div>
+  </div></div></div>
+<div class="abs block" style="left:664px;top:674px;--sw:-1.3deg;animation-delay:-3s"><span class="peg"></span>
+  <div class="fab check"><div class="inner linen st st-ink">
+    <div class="coin felt-mustard">🐻</div><div class="nm">Sam</div><div class="rl">the baker</div>
+  </div></div></div>
+<div class="abs block" style="left:870px;top:658px;--sw:1deg;animation-delay:-1.5s"><span class="peg"></span>
+  <div class="fab plainred"><div class="inner linen st st-blue">
+    <div class="coin felt-forest">🐸</div><div class="nm">Theo</div><div class="rl">the knight</div>
+  </div></div></div>
+
+<img class="abs wolf-peek" src="art/wolf-patch.png" alt="">
+<img class="abs cottage" src="art/cottage.png" alt="">
+<img class="abs pine-a" src="art/pine-tall.png" alt="">
+
+<button class="abs btn begin">
+  <svg class="needle" viewBox="0 0 30 30" aria-hidden="true"><path d="M4 26L24 6" stroke="#dfe3e6" stroke-width="3" stroke-linecap="round"/><ellipse cx="23.5" cy="6.5" rx="3" ry="1.4" transform="rotate(-45 23.5 6.5)" fill="none" stroke="#2b2724" stroke-width="1.2"/><path d="M24 6c6 4-2 10 3 16" fill="none" stroke="#e9a823" stroke-width="2" stroke-linecap="round"/></svg>
+  Begin the tale
+</button>
+</body>
+</html>

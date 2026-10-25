@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440, initial-scale=1">
+<title>Body Double · The Village</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Caveat:wght@500..700&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { width: 1440px; height: 900px; --cut: .14; }
+
+  /* the broadside, tacked to the wall of the square */
+  .broadside { position: absolute; left: 46px; top: 34px; width: 916px; height: 834px; padding: 34px 50px 0; transform: rotate(-.6deg); }
+  .broadside .tack.t1 { left: 18px; top: 16px; } .broadside .tack.t2 { right: 20px; top: 14px; }
+  .broadside .tack.t3 { left: 22px; bottom: 18px; } .broadside .tack.t4 { right: 16px; bottom: 22px; }
+  .broadside .reg.r1 { left: 50%; margin-left: -15px; top: 6px; } .broadside .reg.r2 { left: 50%; margin-left: -15px; bottom: 6px; }
+
+  .mast { display: flex; align-items: baseline; justify-content: space-between; }
+  .brand { font-size: 30px; color: var(--red-deep); }
+  .mast .pencil { font-size: 30px; transform: rotate(-2deg); }
+  .headline { font-size: 92px; margin-top: 4px; color: var(--ink); }
+
+  .orn { display: block; width: 100%; height: 20px; margin: 10px 0 14px; color: var(--red); }
+
+  .cut { position: relative; height: 254px; overflow: hidden; }
+  .cut img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 64%; mix-blend-mode: multiply; display: block; }
+  .cut::after { content: ""; position: absolute; inset: 0; border: 4px solid var(--ink); filter: url(#rough); }
+
+  .join { display: grid; grid-template-columns: 1fr 236px; gap: 30px; margin-top: 22px; align-items: start; }
+  .join-label { font-size: 27px; font-weight: 700; letter-spacing: -.005em; }
+  .code { font-size: 262px; color: var(--ink); margin: 4px 0 0 -6px; letter-spacing: .02em; text-shadow: 9px 6px 0 var(--red); }
+  .url { font-size: 27px; font-weight: 500; margin-top: 14px; }
+  .url b { font-weight: 800; }
+
+  .qr { position: relative; width: 236px; padding: 14px; background: var(--paper-hi); border: 4px solid var(--ink); }
+  .qr img { display: block; width: 100%; image-rendering: pixelated; }
+  .qr-cap { font-size: 30px; text-align: center; margin-top: 8px; transform: rotate(-1.5deg); }
+
+  /* right: the drying line of freshly pulled villagers */
+  .press-room { position: absolute; left: 1000px; top: 40px; width: 400px; height: 828px; }
+  .pr-title { display: flex; align-items: center; justify-content: space-between; }
+  .pr-title h2 { font-size: 34px; line-height: 1.02; }
+  .count { display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; border: 5px solid var(--red); color: var(--red); font-size: 58px; transform: rotate(-8deg); }
+  .count span { transform: translateY(3px); }
+
+  .line { position: absolute; left: -16px; width: 432px; height: 40px; overflow: visible; }
+  .row { position: absolute; left: 0; width: 400px; display: flex; gap: 14px; }
+  .print { position: relative; width: 124px; padding: 10px 6px 12px; text-align: center; }
+  .print:nth-child(1) { transform: rotate(-1.6deg); } .print:nth-child(2) { transform: rotate(1.1deg) translateY(6px); } .print:nth-child(3) { transform: rotate(-.4deg) translateY(3px); }
+  .print .stamp { width: 104px; margin: 0 auto; }
+  .print .name { font-family: var(--display); font-size: 22px; margin-top: 6px; line-height: 1.1; }
+  .print .role { font-size: 23px; margin-top: 1px; letter-spacing: -.01em; white-space: nowrap; }
+  .print.empty { height: 188px; border: 3px dashed rgba(233, 220, 195, .45); display: grid; place-items: center; }
+  .print.empty .pencil { color: var(--carved-dim); font-size: 26px; line-height: 1.05; }
+
+  .ticket { position: absolute; left: 0; top: 580px; width: 400px; padding: 16px 22px 14px; background: var(--paper-tex), var(--kraft); transform: rotate(.5deg); box-shadow: 0 8px 14px rgba(0,0,0,.45); }
+  .ticket::before, .ticket::after { content: ""; position: absolute; top: 50%; width: 18px; height: 18px; margin-top: -9px; border-radius: 50%; background: var(--slab); }
+  .ticket::before { left: -9px; } .ticket::after { right: -9px; }
+  .ticket dl { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+  .ticket div { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px dotted rgba(27,23,20,.55); padding-bottom: 4px; }
+  .ticket dt { font-size: 22px; font-weight: 700; font-stretch: 85%; }
+  .ticket dd { font-size: 34px; margin-left: 12px; }
+
+  .begin { position: absolute; left: 0; top: 728px; width: 400px; height: 92px; font-size: 34px; white-space: nowrap; }
+</style>
+</head>
+<body class="slab">
+<!--defs--><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="inked" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .22" numOctaves="3" seed="21" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -18 13.5" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="9" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 22.6" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="inked-lite" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .2" numOctaves="3" seed="31" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -22 17.4" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="13" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 23" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="4" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <symbol id="reg" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="15" cy="15" r="8"/><path d="M15 0v30M0 15h30"/></g></symbol>
+    <symbol id="arrow" viewBox="0 0 40 40"><path fill="currentColor" d="M3 17.5c9-.6 18-1.4 25-1.1l-6.3-7.6 4.6-2.9L39 20.2 26 33.8l-4.4-3.2 6.6-7.3c-7.4.5-16.1.6-25.2.1z"/></symbol>
+    <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0l2.6 7.2L20 10l-7.4 2.8L10 20l-2.6-7.2L0 10l7.4-2.8z"/></symbol>
+  </defs>
+</svg><!--/defs-->
+
+<main class="broadside sheet">
+  <i class="tack t1"></i><i class="tack t2"></i><i class="tack t3"></i><i class="tack t4"></i>
+  <svg class="reg r1"><use href="#reg"/></svg><svg class="reg r2"><use href="#reg"/></svg>
+
+  <header class="mast">
+    <span class="brand display rough">Body Double</span>
+    <span class="pencil">tonight, in the square</span>
+  </header>
+  <h1 class="headline display inked misreg">The Village</h1>
+
+  <svg class="orn" viewBox="0 0 816 20" preserveAspectRatio="none" aria-hidden="true"><g fill="currentColor" filter="url(#rough)"><rect x="0" y="6" width="380" height="3"/><rect x="0" y="12" width="380" height="1.6"/><rect x="436" y="6" width="380" height="3"/><rect x="436" y="12" width="380" height="1.6"/><path d="M408 0l10 10-10 10-10-10zM390 10l5-5 5 5-5 5zM416 10l5-5 5 5-5 5z"/></g></svg>
+
+  <figure class="cut"><img src="art/village.png" alt="A linocut print of the village square at the edge of the pine forest, a girl in a red hood on the path, the Wolf's eyes in the trees"></figure>
+
+  <section class="join">
+    <div>
+      <p class="join-label">Enter the village with this code</p>
+      <p class="code wood inked" aria-label="Village code H X Q R">HXQR</p>
+      <p class="url">or go to <b>bodydouble.tech/play/HXQR</b></p>
+    </div>
+    <div>
+      <div class="qr"><img src="../_shared/qr.svg" alt="QR code to join village HXQR"></div>
+      <p class="qr-cap pencil">scan to enter</p>
+    </div>
+  </section>
+</main>
+
+<aside class="press-room">
+  <div class="pr-title">
+    <h2 class="display carved-type">Arrived in<br>the village</h2>
+    <div class="count wood inked-lite"><span>5</span></div>
+  </div>
+
+  <svg class="line" style="top:118px" viewBox="0 0 432 40" preserveAspectRatio="none"><path d="M0 6 Q216 34 432 8" fill="none" stroke="#CDB48E" stroke-width="2.5"/></svg>
+  <div class="row" style="top:140px">
+    <figure class="print sheet sheet--flat"><i class="peg"></i><img class="stamp" src="art/stamp-owl.png" alt=""><figcaption><p class="name">Maya</p><p class="role pencil">the bard</p></figcaption></figure>
+    <figure class="print sheet sheet--flat"><i class="peg"></i><img class="stamp" src="art/stamp-fox.png" alt=""><figcaption><p class="name">Jordan</p><p class="role pencil">the woodcutter</p></figcaption></figure>
+    <figure class="print sheet sheet--flat"><i class="peg"></i><img class="stamp" src="art/stamp-mushroom.png" alt=""><figcaption><p class="name">Priya</p><p class="role pencil">the witch</p></figcaption></figure>
+  </div>
+
+  <svg class="line" style="top:350px" viewBox="0 0 432 40" preserveAspectRatio="none"><path d="M0 10 Q216 36 432 6" fill="none" stroke="#CDB48E" stroke-width="2.5"/></svg>
+  <div class="row" style="top:372px">
+    <figure class="print sheet sheet--flat"><i class="peg"></i><img class="stamp" src="art/stamp-bear.png" alt=""><figcaption><p class="name">Sam</p><p class="role pencil">the baker</p></figcaption></figure>
+    <figure class="print sheet sheet--flat"><i class="peg"></i><img class="stamp" src="art/stamp-frog.png" alt=""><figcaption><p class="name">Theo</p><p class="role pencil">the knight</p></figcaption></figure>
+    <div class="print empty"><i class="peg"></i><p class="pencil">room for<br>one more</p></div>
+  </div>
+
+  <div class="ticket">
+    <dl>
+      <div><dt>Chapters</dt><dd class="wood">6</dd></div>
+      <div><dt>Answer time</dt><dd class="wood">60s</dd></div>
+      <div><dt>Vote time</dt><dd class="wood">20s</dd></div>
+      <div><dt>Demo mode</dt><dd class="wood">off</dd></div>
+    </dl>
+  </div>
+
+  <button class="btn-block begin">Begin the tale <svg class="arrow"><use href="#arrow"/></svg></button>
+</aside>
+</body>
+</html>

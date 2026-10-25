@@ -1,0 +1,33 @@
+{
+  "slug": "paper-theatre",
+  "name": "Paper Theatre",
+  "tagline": "A Victorian toy theatre cut from printed card, where the Wolf waits behind a paper flap.",
+  "palette": [
+    { "name": "Theatre red", "hex": "#8F1D22" },
+    { "name": "Inky teal night", "hex": "#12343B" },
+    { "name": "Mustard gold", "hex": "#D4A237" },
+    { "name": "Cream card", "hex": "#F3E6C8" },
+    { "name": "Printer's ink", "hex": "#221A14" }
+  ],
+  "fonts": { "display": "Ultra", "body": "IM Fell English", "ui": "Inter" },
+  "motifs": [
+    "Printed card proscenium with a hanging sign board for the village code",
+    "Cut-paper scenery flats: a hill village with lit windows, pine wings, a toadstool bank",
+    "Villagers as scalloped card roundels on wooden sticks with pinned name cards",
+    "Brass split pins, strings, ticket stubs with perforations and notches",
+    "A paper volvelle for the countdown"
+  ],
+  "reveal": "The Wolf's answer flap swings up on its brass-pinned hinge and the Wolf puppet in a lace bonnet rises from behind it, while the real answer gets a red ribbon reading The real Maya.",
+  "why": "A lit stage inside a dark frame is what a dim room already looks at, so the proscenium makes the projector the center of the party and puts huge type and the QR on solid cream card that reads from across the room. Phones become the ticket in your hand that opens into the same little stage, so every player feels part of one show.",
+  "images": [
+    "art/proscenium.png",
+    "art/backcloth-stage.jpg",
+    "art/wolf.png",
+    "art/flat-far.svg",
+    "art/flat-near.svg",
+    "art/flat-wing.svg",
+    "art/valance.svg",
+    "art/grain.svg",
+    "art/wallpaper.svg"
+  ]
+}

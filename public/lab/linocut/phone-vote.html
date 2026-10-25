@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Double · Which one is really Maya?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Caveat:wght@500..700&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .qrow { display: grid; grid-template-columns: 1fr 96px; gap: 12px; align-items: center; }
+  .ptitle { font-size: 31px; line-height: 1.04; }
+  .clock { position: relative; width: 96px; height: 96px; }
+  .clock svg { position: absolute; inset: 0; }
+  .clock b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 46px; color: var(--ink); padding-top: 4px; }
+  .clock small { position: absolute; left: 0; right: 0; bottom: -20px; text-align: center; font-size: 19px; }
+
+  .prompt { margin-top: 14px; font-size: 17px; font-weight: 600; font-style: italic; color: var(--graphite); }
+  .prompt q::before, .prompt q::after { color: var(--red-deep); font-style: normal; font-weight: 900; }
+
+  .slips { margin-top: 18px; display: grid; gap: 22px; }
+  .slip { width: 100%; min-height: 190px; padding: 20px 22px 22px; border: 0; background: none; text-align: left; cursor: pointer; font: inherit; color: inherit; display: block; }
+  .slip-rule { inset: 9px; }
+  .slip-head { display: flex; align-items: center; gap: 10px; }
+  .slip-letter { width: 42px; height: 42px; font-size: 24px; }
+  .slip-head .who { font-family: var(--display); font-size: 19px; display: flex; align-items: center; gap: 4px; }
+  .slip-head .who img { width: 32px; }
+  .slip-text { margin-top: 12px; font-size: 22px; line-height: 1.3; }
+
+  /* picked: the red plate prints the frame + a "Your pick" stamp; shape, size, tilt unchanged */
+  .slip[aria-pressed="true"] .slip-rule { border: 4px solid var(--red); inset: 8px; }
+  .slip[aria-pressed="true"] .slip-letter { background: var(--red); color: var(--paper-hi); }
+  .pick { position: absolute; right: 16px; top: 16px; z-index: 4; font-family: var(--display); font-size: 17px; color: var(--red); border: 3px solid var(--red); padding: 4px 10px 3px; transform: rotate(4deg); mix-blend-mode: multiply; filter: url(#inked-lite); }
+
+  .help { margin-top: 18px; font-size: 16px; line-height: 1.4; color: var(--graphite); text-align: center; }
+
+  .woods { position: absolute; left: 0; right: 0; bottom: 0; height: 124px; overflow: hidden; }
+  .woods img { position: absolute; right: -4px; top: -236px; width: 760px; mix-blend-mode: multiply; display: block; }
+  .woods::before { content: ""; position: absolute; left: -10px; right: -10px; top: -14px; height: 26px; background: var(--paper-tex), var(--paper); filter: url(#deckle); z-index: 1; }
+</style>
+</head>
+<body class="phone">
+<!--defs--><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="inked" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .22" numOctaves="3" seed="21" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -18 13.5" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="9" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 22.6" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="inked-lite" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .2" numOctaves="3" seed="31" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -22 17.4" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="13" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 23" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="4" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <symbol id="reg" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="15" cy="15" r="8"/><path d="M15 0v30M0 15h30"/></g></symbol>
+    <symbol id="arrow" viewBox="0 0 40 40"><path fill="currentColor" d="M3 17.5c9-.6 18-1.4 25-1.1l-6.3-7.6 4.6-2.9L39 20.2 26 33.8l-4.4-3.2 6.6-7.3c-7.4.5-16.1.6-25.2.1z"/></symbol>
+    <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0l2.6 7.2L20 10l-7.4 2.8L10 20l-2.6-7.2L0 10l7.4-2.8z"/></symbol>
+  </defs>
+</svg><!--/defs-->
+
+<header class="phead">
+  <span class="chap wood">Chapter <em>III</em> of <em>VI</em></span>
+  <span class="codetag"><small>Village</small><b>HXQR</b></span>
+</header>
+
+<main class="pmain">
+  <div class="qrow">
+    <h1 class="ptitle">Which one is really Maya?</h1>
+    <div class="clock" role="timer" aria-label="14 seconds left">
+      <svg viewBox="0 0 96 96" aria-hidden="true">
+        <g filter="url(#rough)" stroke-linecap="butt">
+          <!-- 20 carved notches, one per second; 14 still inked -->
+          <g id="notches" stroke-width="7">
+            <path d="M48 3v13" stroke="#CF3219" transform="rotate(0 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(18 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(36 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(54 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(72 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(90 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(108 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(126 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(144 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(162 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(180 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(198 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(216 48 48)"/><path d="M48 3v13" stroke="#CF3219" transform="rotate(234 48 48)"/>
+            <path d="M48 3v13" stroke="#C9B795" transform="rotate(252 48 48)"/><path d="M48 3v13" stroke="#C9B795" transform="rotate(270 48 48)"/><path d="M48 3v13" stroke="#C9B795" transform="rotate(288 48 48)"/><path d="M48 3v13" stroke="#C9B795" transform="rotate(306 48 48)"/><path d="M48 3v13" stroke="#C9B795" transform="rotate(324 48 48)"/><path d="M48 3v13" stroke="#C9B795" transform="rotate(342 48 48)"/>
+          </g>
+          <circle cx="48" cy="48" r="28" fill="none" stroke="#1B1714" stroke-width="3"/>
+        </g>
+      </svg>
+      <b class="wood inked-lite">14</b>
+    </div>
+  </div>
+  <p class="prompt"><q>Your toxic trait, but make it cute</q></p>
+
+  <div class="slips">
+    <button class="slip" data-slot="A" aria-pressed="true">
+      <span class="slip-rule"></span>
+      <span class="pick">Your pick</span>
+      <span class="slip-head"><span class="slip-letter">A</span><span class="who"><img src="art/stamp-owl.png" alt="">Maya</span></span>
+      <span class="slip-text" style="display:block">i will reorganize your spice rack while you shower and call it love</span>
+    </button>
+    <button class="slip" data-slot="B" aria-pressed="false">
+      <span class="slip-rule"></span>
+      <span class="slip-head"><span class="slip-letter">B</span><span class="who"><img src="art/stamp-owl.png" alt="">Maya</span></span>
+      <span class="slip-text" style="display:block">overthinking a text for 40 minutes then just sending 'k' 💀</span>
+    </button>
+  </div>
+
+  <p class="help">You can change your pick until time runs out.</p>
+</main>
+
+<div class="woods" aria-hidden="true"><img src="art/village.png" alt=""></div>
+</body>
+</html>

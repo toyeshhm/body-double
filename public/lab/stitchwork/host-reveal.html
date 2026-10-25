@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Body Double · Reveal (Stitchwork)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@600;700;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .quilt-edge { position: absolute; inset: 0; pointer-events: none; z-index: 50; }
+  .brand { right: 56px; top: 36px; height: 48px; font-size: 25px; transform: rotate(2.5deg); z-index: 6; }
+
+  .chapter { left: 52px; top: 34px; height: 46px; padding: 0 30px 0 26px; display: flex; align-items: center;
+    font-family: var(--display); font-size: 24px; color: var(--charcoal); z-index: 6;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 50%, 100% 100%, 0 100%);
+    box-shadow: 0 6px 10px rgba(0,0,0,.35); --st-inset: 5px; --st-w: 7px; }
+  .prompt { left: 60px; top: 94px; font-size: 54px; color: var(--cream); z-index: 6; }
+  .ask { left: 62px; top: 162px; display: flex; align-items: center; gap: 14px; font-size: 27px; font-weight: 800; color: var(--cream); z-index: 6; }
+  .ask .coin { width: 48px; height: 48px; font-size: 27px; }
+  .ask b { color: var(--mustard); font-weight: 900; }
+
+  /* slots: identical labels, rotation tied to slot */
+  .label { width: 540px; height: 196px; padding: 34px 40px 30px 92px; display: flex; align-items: center; }
+  .label .slot { left: 26px; top: -6px; }
+  .label .answer { font-size: 31px; line-height: 1.3; }
+  .slot-a { left: 66px; top: 222px; transform: rotate(-1deg); z-index: 8; }
+  .slot-b { left: 768px; top: 222px; transform: rotate(1deg); z-index: 9; }
+  .tack.tl { left: 10px; top: 10px; } .tack.tr { right: 10px; top: 10px; }
+  .tack.bl { left: 10px; bottom: 10px; } .tack.br { right: 10px; bottom: 10px; }
+
+  /* the truth: rosette on A */
+  .rosette { left: 538px; top: 340px; width: 180px; z-index: 12; transform-origin: 50% 30%;
+    animation: pop .7s 1.6s cubic-bezier(.3,1.4,.5,1) both; --rr: 9deg; }
+  .rosette img { width: 100%; display: block; }
+  .rosette .txt { position: absolute; left: 0; top: 0; width: 180px; height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .rosette .txt small { font-weight: 900; font-size: 22px; color: var(--tomato-deep); line-height: 1; }
+  .rosette .txt strong { font-family: var(--display); font-weight: 400; font-size: 34px; color: var(--charcoal); line-height: 1.05; }
+
+  .voters { display: flex; align-items: center; gap: 12px; z-index: 7; }
+  .voters .who { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 18px 0 6px; border-radius: 26px; font-weight: 900; font-size: 24px; color: var(--charcoal); box-shadow: 0 6px 10px rgba(0,0,0,.35); --st-inset: 3px; --st-w: 7px; }
+  .voters .who .coin { width: 40px; height: 40px; font-size: 22px; }
+  .voters .who .coin::after { inset: 3px; border-width: 1.5px; }
+  .voters .cap { font-size: 24px; font-weight: 700; color: var(--cream); }
+  .voters-a { left: 70px; top: 446px; }
+  .voters-b { left: 1076px; top: 300px; flex-direction: column; align-items: flex-start; gap: 10px; }
+
+  /* the lie: label B unravels and falls, wolf patch underneath */
+  .ghost { left: 768px; top: 222px; width: 540px; height: 196px; transform: rotate(1deg); z-index: 3; }
+  .wolf { left: 800px; top: 176px; width: 244px; z-index: 4; filter: drop-shadow(0 10px 10px rgba(0,0,0,.5)); }
+  .slot-b.fallen { --r0: 1deg; --tx: 52px; --ty: 236px; --r1: 3.5deg; animation: unravel 1.4s .6s cubic-bezier(.5,0,.3,1.2) both; }
+  .threads { left: 0; top: 0; width: 1440px; height: 900px; z-index: 10; pointer-events: none; }
+  .threads path { fill: none; stroke-linecap: round; }
+  .wolf-banner { left: 1030px; top: 210px; height: 68px; padding: 0 36px; white-space: nowrap; display: flex; align-items: center;
+    font-family: var(--display); font-size: 34px; color: var(--cream); z-index: 11; transform: rotate(-3deg);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 50%, 100% 100%, 0 100%, 20px 50%);
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,.45)); --st-inset: 6px; --st-w: 8px; animation: pop .6s 1.9s both; --rr: -3deg; }
+
+  .spool { left: 690px; top: 470px; width: 82px; height: 110px; transform: rotate(-14deg); z-index: 6; filter: drop-shadow(0 8px 8px rgba(0,0,0,.45)); }
+  /* pills: dashed stitch that follows the rounded edge */
+  .badge.st::after, .who.st::after { border-image: none; border: 2.4px dashed var(--pill-st, #d8402a); border-radius: 999px; inset: 4px; }
+  .who.st-ink { --pill-st: #2b2724; }
+  /* bottom band */
+  .fooled { left: 62px; top: 628px; font-size: 54px; color: var(--mustard); z-index: 6; }
+  .fooled span { color: var(--cream); }
+  .points { left: 64px; top: 696px; width: 700px; font-size: 25px; line-height: 1.35; font-weight: 700; color: var(--cream); z-index: 6; }
+  .points b { color: var(--mustard); font-weight: 900; }
+
+  .heroes { left: 62px; top: 790px; display: flex; align-items: center; gap: 14px; z-index: 6; }
+  .heroes h3 { font-family: var(--display); font-weight: 400; font-size: 27px; color: var(--mustard); line-height: 1.05; margin-right: 6px; filter: url(#felt); }
+  .badge { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 24px 0 8px; border-radius: 32px; box-shadow: 0 6px 10px rgba(0,0,0,.35); --st-inset: 3px; --st-w: 7px; }
+  .badge .coin { width: 48px; height: 48px; font-size: 26px; }
+  .badge .nm { font-weight: 900; font-size: 23px; line-height: 1; color: var(--charcoal); }
+  .badge .sc { font-weight: 900; font-size: 23px; line-height: 1; color: var(--tomato-deep); }
+  .next { left: 964px; top: 788px; width: 428px; height: 76px; font-size: 29px; z-index: 12; white-space: nowrap; }
+</style>
+</head>
+<body class="host">
+<svg class="defs" aria-hidden="true">
+  <filter id="felt" x="-5%" y="-10%" width="110%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<svg class="quilt-edge" viewBox="0 0 1440 900" aria-hidden="true">
+  <rect x="16" y="16" width="1408" height="868" rx="22" fill="none" stroke="#e9a823" stroke-width="3.6" stroke-dasharray="16 10" stroke-linecap="round" opacity=".9"/>
+</svg>
+
+<div class="woven brand">Body Double</div>
+<div class="abs chapter felt-mustard st st-ink">Chapter III of VI</div>
+<h1 class="abs felt-type prompt">Your toxic trait, but make it cute</h1>
+<div class="abs ask"><span class="coin felt-mustard">🦉</span><span>Which one is really <b>Maya</b>?</span></div>
+
+<!-- A: the real one -->
+<div class="label linen st st-red slot-a">
+  <span class="slot felt-blue">A</span>
+  <span class="tack tl"></span><span class="tack tr"></span><span class="tack bl"></span><span class="tack br"></span>
+  <p class="answer">i will reorganize your spice rack while you shower and call it love</p>
+</div>
+<div class="abs rosette"><img src="art/rosette.svg" alt=""><div class="txt"><small>The real</small><strong>Maya</strong></div></div>
+<div class="abs voters voters-a">
+  <span class="who felt-cream st st-red"><span class="coin felt-red">🦊</span>Jordan</span>
+  <span class="who felt-cream st st-red"><span class="coin felt-mustard">🐻</span>Sam</span>
+  <span class="cap">knew her</span>
+</div>
+
+<!-- B: the Wolf. Needle holes stay where the label was sewn. -->
+<svg class="abs ghost" viewBox="0 0 540 196" aria-hidden="true">
+  <rect x="14" y="14" width="512" height="168" rx="4" fill="none" stroke="#08130e" stroke-opacity=".9" stroke-width="4.2" stroke-dasharray=".1 11" stroke-linecap="round"/>
+  <rect x="14" y="14" width="512" height="168" rx="4" fill="none" stroke="#d8402a" stroke-width="3.4" stroke-linecap="round"
+        stroke-dasharray="7 4 7 4 7 70 7 4 7 160 7 4 7 4 7 120 7 4 7 300 7 4 7 4 7 200 7 4 7 90"/>
+</svg>
+<img class="abs wolf" src="art/wolf-patch.png" alt="The Wolf, a felt patch">
+<div class="abs wolf-banner felt-red st st-cream">It was the Wolf!</div>
+<div class="abs voters voters-b">
+  <span class="who felt-cream st st-ink"><span class="coin felt-blue">🍄</span>Priya</span>
+  <span class="who felt-cream st st-ink"><span class="coin felt-forest">🐸</span>Theo</span>
+  <span class="cap">fell for it</span>
+</div>
+
+<div class="label linen st st-red slot-b fallen">
+  <span class="slot felt-blue">B</span>
+  <span class="tack tr"></span><span class="tack br"></span>
+  <p class="answer">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+</div>
+<!-- loose threads from the unpicked seam -->
+<svg class="abs threads" viewBox="0 0 1440 900" aria-hidden="true">
+  <path d="M1294 228 C 1336 290, 1300 360, 1342 452" stroke="#d8402a" stroke-width="3.2"/>
+  <path d="M782 240 C 756 282, 798 312, 776 356 S 798 404, 786 430" stroke="#d8402a" stroke-width="3"/>
+  <path d="M836 468 c -18 14 -10 34 -30 44 s -6 30 -24 36" stroke="#d8402a" stroke-width="3"/>
+  <path d="M1376 672 c 12 10 2 24 16 30" stroke="#d8402a" stroke-width="2.6"/>
+  <path d="M752 498 C 790 470, 800 520, 836 500 S 860 470, 852 452" stroke="#d8402a" stroke-width="3"/>
+  <path d="M900 690 c 14 8 26 -6 36 6" stroke="#d8402a" stroke-width="2.6"/>
+</svg>
+
+<!-- the spool the Wolf's seam came from -->
+<svg class="abs spool" viewBox="0 0 90 120" aria-hidden="true">
+  <defs><linearGradient id="sw" x1="0" x2="1"><stop offset="0" stop-color="#a86d34"/><stop offset=".4" stop-color="#f0c88e"/><stop offset="1" stop-color="#9a6230"/></linearGradient>
+  <linearGradient id="st" x1="0" x2="1"><stop offset="0" stop-color="#8f2414"/><stop offset=".45" stop-color="#e2533a"/><stop offset="1" stop-color="#8f2414"/></linearGradient></defs>
+  <rect x="20" y="22" width="50" height="76" fill="url(#st)"/>
+  <path d="M20 30h50M20 38h50M20 46h50M20 54h50M20 62h50M20 70h50M20 78h50M20 86h50M20 94h50" stroke="#7d1d10" stroke-opacity=".45" stroke-width="1.2"/>
+  <path d="M20 26l50 6M20 50l50 6M20 74l50 6" stroke="#ff8a6e" stroke-opacity=".35" stroke-width="1"/>
+  <rect x="10" y="10" width="70" height="14" rx="5" fill="url(#sw)" stroke="#6e3f17"/>
+  <rect x="10" y="96" width="70" height="14" rx="5" fill="url(#sw)" stroke="#6e3f17"/>
+  <ellipse cx="45" cy="13" rx="9" ry="2.6" fill="#5a3412" opacity=".6"/>
+</svg>
+<div class="abs felt-type fooled">The Wolf fooled <span>2 of 4.</span></div>
+<p class="abs points"><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+
+<div class="abs heroes">
+  <h3>Village<br>Heroes</h3>
+  <span class="badge felt-cream st st-red"><span class="coin felt-mustard">🦉</span><span><span class="nm">Maya</span><br><span class="sc">300</span></span></span>
+  <span class="badge felt-cream st st-red"><span class="coin felt-red">🦊</span><span><span class="nm">Jordan</span><br><span class="sc">200</span></span></span>
+  <span class="badge felt-cream st st-red"><span class="coin felt-mustard">🐻</span><span><span class="nm">Sam</span><br><span class="sc">200</span></span></span>
+</div>
+
+<button class="btn next">
+  <svg class="needle" viewBox="0 0 30 30" aria-hidden="true"><path d="M4 26L24 6" stroke="#dfe3e6" stroke-width="3" stroke-linecap="round"/><ellipse cx="23.5" cy="6.5" rx="3" ry="1.4" transform="rotate(-45 23.5 6.5)" fill="none" stroke="#2b2724" stroke-width="1.2"/><path d="M24 6c6 4-2 10 3 16" fill="none" stroke="#e9a823" stroke-width="2" stroke-linecap="round"/></svg>
+  Ask what gave it away
+</button>
+</body>
+</html>

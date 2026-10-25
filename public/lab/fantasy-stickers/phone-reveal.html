@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The reveal · Storybook Stickers</title>
+<meta name="viewport" content="width=390">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Figtree:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .bar .chapter { font-size: 16px; color: var(--gold-text); }
+  .result { left: 22px; right: 22px; top: 70px; display: flex; align-items: center; gap: 14px; }
+  .seal { position: relative; width: 104px; height: 104px; flex: none; transform: rotate(-8deg); }
+  .seal img { width: 104px; height: 104px; }
+  .seal span { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-variation-settings: "SOFT" 100, "opsz" 72; font-size: 33px; color: #5a3d0e; text-shadow: 0 1.5px 0 rgba(255, 240, 200, .7); letter-spacing: -.01em; }
+  .result h1 { font-family: var(--display); font-weight: 700; font-variation-settings: "SOFT" 100, "opsz" 72; font-size: 28px; line-height: 1.08; color: var(--ink); }
+  .result p { font-size: 17px; font-weight: 700; color: var(--ink-soft); margin-top: 6px; }
+  .result p b { color: var(--rasp-deep); font-size: 19px; }
+  .pick { left: 24px; right: 24px; }
+  .pick.a { top: 212px; transform: rotate(-1deg); }
+  .pick.b { top: 376px; transform: rotate(1deg); }
+  .pick .pglass { min-height: 92px; font-size: 17px; padding: 14px 16px 14px 20px; }
+  .a .pglass { background: #f4f6f1; box-shadow: inset 0 0 0 3px #f2db94, inset 0 0 0 7px rgba(242, 219, 148, .55); }
+  .a .pmirror { box-shadow: inset -3px -4px 0 #b88d40, inset 3px 3px 0 #f2db94, 0 0 28px 8px rgba(242, 214, 128, .7); }
+  .b .pglass { background: #c9d5dd; }
+  .b .pglass .cracks { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .b .pglass .ghost { position: absolute; width: 112px; height: 112px; right: -14px; bottom: -40px; opacity: .45; filter: saturate(.5); }
+  .b .pglass span { position: relative; text-shadow: 0 0 3px #c9d5dd, 0 0 8px #c9d5dd; }
+  .tagline { position: absolute; left: 14px; bottom: -24px; display: flex; align-items: center; z-index: 3; }
+  .tagline img { width: 50px; height: 50px; margin-right: -14px; position: relative; z-index: 2; }
+  .tagline .ribbon { height: 38px; font-size: 18px; padding: 0 22px 0 26px; }
+  .ai { position: absolute; right: 12px; bottom: -18px; z-index: 3; background: var(--paper); border-radius: 6px; padding: 4px 10px;
+        font-size: 14px; font-weight: 800; color: var(--burg); filter: url(#dc-sm); transform: rotate(3deg); }
+  .tells { left: 22px; right: 22px; top: 566px; }
+  .tells .lead { font-size: 18px; color: var(--gold-text); }
+  .tells h2 { font-family: var(--display); font-weight: 700; font-variation-settings: "SOFT" 100; font-size: 25px; margin: 2px 0 12px; }
+  .tells .btn { margin-top: 16px; }
+</style>
+</head>
+<body class="phone">
+<svg class="defs" aria-hidden="true" focusable="false">
+  <filter id="dc" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.4"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="3.4"/><feOffset dx="1.5" dy="4.5" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-sm" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="2.4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="1.2"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="1.8"/><feOffset dx=".8" dy="2.2" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-lg" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="3"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="6"/><feOffset dx="2" dy="8" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".30"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-type" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.6"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="4"/><feOffset dx="2" dy="6" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".28"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="foil" x="-6%" y="-12%" width="112%" height="124%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".012 .05" numOctaves="2" seed="5" result="streak"/>
+    <feColorMatrix in="streak" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55" result="streakA"/>
+    <feFlood flood-color="#9c7428"/><feComposite in2="streakA" operator="in" result="tarnish"/>
+    <feComposite in="tarnish" in2="SourceAlpha" operator="in" result="tarnishIn"/>
+    <feMerge result="base"><feMergeNode in="SourceGraphic"/><feMergeNode in="tarnishIn"/></feMerge>
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="11" result="grain"/>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="soft"/>
+    <feComposite in="soft" in2="grain" operator="arithmetic" k1="0" k2="1" k3=".1" k4="0" result="bump"/>
+    <feSpecularLighting in="bump" surfaceScale="6" specularConstant="1.1" specularExponent="16" lighting-color="#fff2c8" result="spec">
+      <feDistantLight azimuth="225" elevation="40"/>
+    </feSpecularLighting>
+    <feComposite in="spec" in2="SourceAlpha" operator="in" result="sheen"/>
+    <feComposite in="base" in2="sheen" operator="arithmetic" k1="0" k2="1" k3=".7" k4="0"/>
+  </filter>
+</svg>
+
+<div class="bar">
+  <span class="brand">Body <b>Double</b></span>
+  <span class="chapter italic">Chapter III of VI</span>
+</div>
+
+<div class="abs result">
+  <div class="seal"><img class="st" src="art/seal.svg" alt=""><span>+100</span></div>
+  <div>
+    <h1>You found the real Maya.</h1>
+    <p>Your score: <b>300</b></p>
+  </div>
+</div>
+
+<div class="abs pick a">
+  <div class="pmirror">
+    <img class="crest" src="art/crest.svg" alt="">
+    <span class="slot">A</span>
+    <div class="pglass">i will reorganize your spice rack while you shower and call it love</div>
+  </div>
+  <div class="tagline"><img class="st-sm" src="../_fantasy/icons/slipper.svg" alt=""><span class="ribbon-wrap"><span class="ribbon gold">The real Maya</span></span></div>
+</div>
+
+<div class="abs pick b">
+  <div class="pmirror">
+    <img class="crest" src="art/crest.svg" alt="">
+    <span class="slot">B</span>
+    <div class="pglass"><img class="ghost" src="../_fantasy/icons/wolf.svg" alt=""><img class="cracks" src="art/cracks-phone.svg" alt=""><span>overthinking a text for 40 minutes then just sending 'k' 💀</span></div>
+  </div>
+  <div class="tagline"><img class="st-sm" src="../_fantasy/icons/wolf.svg" alt=""><span class="ribbon-wrap"><span class="ribbon burg">It was the Wolf!</span></span></div>
+  <span class="ai">AI-written</span>
+</div>
+
+<div class="abs tells">
+  <div class="lead italic">What big eyes you have...</div>
+  <h2>What gave the Wolf away?</h2>
+  <div class="field empty">The emoji felt off</div>
+  <span class="btn">Tell the village</span>
+</div>
+</body>
+</html>

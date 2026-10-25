@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Double · Enter the village</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Caveat:wght@500..700&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .ptitle { margin-top: 2px; }
+
+  .stamps { display: grid; grid-template-columns: repeat(4, 72px); justify-content: space-between; gap: 8px 0; }
+  .tile { position: relative; aspect-ratio: 1; padding: 3px; border: 0; background: none; cursor: pointer; }
+  .tile img { width: 100%; display: block; }
+  .tile[aria-checked="true"] { background: var(--paper-hi); transform: rotate(-3deg) scale(1.04); z-index: 2; }
+  .tile[aria-checked="true"]::before { content: ""; position: absolute; inset: -5px; border: 4px solid var(--red); filter: url(#rough); }
+  .tile[aria-checked="true"]::after { content: ""; position: absolute; right: -9px; top: -9px; width: 26px; height: 26px; border-radius: 50%; background: var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10.5l4 4 8-9' fill='none' stroke='%23F7EFDF' stroke-width='3'/%3E%3C/svg%3E") center/16px no-repeat; }
+
+  .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .chip { position: relative; height: 48px; border: 0; background: none; font-family: var(--sans); font-size: 17px; font-weight: 700; color: var(--ink); cursor: pointer; }
+  .chip::before { content: ""; position: absolute; inset: 0; z-index: -1; border: 2px solid var(--ink); filter: url(#rough); }
+  .chip { isolation: isolate; }
+  .chip[aria-checked="true"] { color: var(--paper-hi); }
+  .chip[aria-checked="true"]::before { background: url(art/gouge.png) 10% 60% / 700px auto, var(--red); background-blend-mode: soft-light; border-color: var(--ink); }
+
+  .go { margin-top: 16px; }
+  .note { margin-top: 12px; text-align: center; }
+</style>
+</head>
+<body class="phone">
+<!--defs--><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="inked" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .22" numOctaves="3" seed="21" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -18 13.5" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="9" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 22.6" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="inked-lite" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .2" numOctaves="3" seed="31" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -22 17.4" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="13" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 23" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="4" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <symbol id="reg" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="15" cy="15" r="8"/><path d="M15 0v30M0 15h30"/></g></symbol>
+    <symbol id="arrow" viewBox="0 0 40 40"><path fill="currentColor" d="M3 17.5c9-.6 18-1.4 25-1.1l-6.3-7.6 4.6-2.9L39 20.2 26 33.8l-4.4-3.2 6.6-7.3c-7.4.5-16.1.6-25.2.1z"/></symbol>
+    <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0l2.6 7.2L20 10l-7.4 2.8L10 20l-2.6-7.2L0 10l7.4-2.8z"/></symbol>
+  </defs>
+</svg><!--/defs-->
+
+<header class="phead">
+  <span class="brand">Body Double</span>
+  <span class="codetag"><small>Village</small><b>HXQR</b></span>
+</header>
+
+<main class="pmain">
+  <h1 class="ptitle misreg-xs">Enter the village</h1>
+
+  <label class="plabel" for="name">Your name</label>
+  <div class="field" id="name" role="textbox" aria-label="Your name">Maya<span class="caret"></span></div>
+
+  <p class="plabel">Your stamp <span class="pencil">Maya the owl</span></p>
+  <div class="stamps" role="radiogroup" aria-label="Choose your stamp">
+    <button class="tile" role="radio" aria-checked="false" aria-label="fox 🦊"><img src="art/stamp-fox.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="true" aria-label="owl 🦉"><img src="art/stamp-owl.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="frog 🐸"><img src="art/stamp-frog.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="bear 🐻"><img src="art/stamp-bear.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="hedgehog 🦔"><img src="art/stamp-hedgehog.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="rabbit 🐰"><img src="art/stamp-rabbit.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="deer 🦌"><img src="art/stamp-deer.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="squirrel 🐿️"><img src="art/stamp-squirrel.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="mushroom 🍄"><img src="art/stamp-mushroom.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="sunflower 🌻"><img src="art/stamp-sunflower.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="apple 🍎"><img src="art/stamp-apple.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="strawberry 🍓"><img src="art/stamp-strawberry.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="cupcake 🧁"><img src="art/stamp-cupcake.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="teapot 🫖"><img src="art/stamp-teapot.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="candle 🕯️"><img src="art/stamp-candle.png" alt=""></button>
+    <button class="tile" role="radio" aria-checked="false" aria-label="moon 🌙"><img src="art/stamp-moon.png" alt=""></button>
+  </div>
+
+  <p class="plabel">Your role</p>
+  <div class="roles" role="radiogroup" aria-label="Choose your role">
+    <button class="chip" role="radio" aria-checked="false">woodcutter</button>
+    <button class="chip" role="radio" aria-checked="false">baker</button>
+    <button class="chip" role="radio" aria-checked="true">bard</button>
+    <button class="chip" role="radio" aria-checked="false">knight</button>
+    <button class="chip" role="radio" aria-checked="false">witch</button>
+    <button class="chip" role="radio" aria-checked="false">fairy</button>
+  </div>
+
+  <button class="btn-block full go">Enter the village <svg class="arrow"><use href="#arrow"/></svg></button>
+  <p class="note">18+ only. Everything is deleted when the game ends.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "slug": "current",
+  "name": "Current build (baseline)",
+  "tagline": "The M1 storybook: parchment pages in an oxblood book on a night forest.",
+  "palette": [
+    { "name": "Parchment", "hex": "#F4EAD5" },
+    { "name": "Ink", "hex": "#2B2118" },
+    { "name": "Night forest", "hex": "#0D1912" },
+    { "name": "Hood red", "hex": "#B3261E" },
+    { "name": "Gold", "hex": "#C9A227" }
+  ],
+  "fonts": { "display": "IM Fell English", "body": "IM Fell English", "ui": "Inter" },
+  "motifs": ["Open book spread", "Torn parchment answer slips", "Wax-seal letters", "Candle timer"],
+  "reveal": "The fake slip tears in two and falls away to show a woodcut wolf; the real one gets a green rubber stamp.",
+  "why": "Shown for comparison only. Phone join shot is the consent screen from an earlier run.",
+  "images": []
+}

@@ -1,0 +1,201 @@
+/* Stitchwork: Night Quilt Enchanted. The Night Quilt, wandered into a fairy-tale realm.
+   Ground: midnight indigo cotton quilted in cream. Story objects: felt appliqué, blanket-stitched in gold.
+   Reveal: two identical embroidered magic mirrors in couched gold cord. */
+:root {
+  --night: #10152e;
+  --indigo: #1b2350;
+  --indigo-2: #27306a;
+  --charcoal: #2a2a34;
+  --cream: #efe6cf;
+  --muslin: #efe5cc;
+  --ink: #131931;
+  --ink-soft: #3f4566;
+  --gold: #d6a443;
+  --gold-hi: #f7dc8e;
+  --gold-lo: #8a6118;
+  --copper: #c2703f;
+  --lantern: #f2b632;
+  --wine: #8e1f31;
+  --rasp: #c04f66;
+  --powder: #a3c3d8;
+  --sage: #a8bc8b;
+
+  --display: "Fraunces", Georgia, serif;
+  --sans: "Figtree", system-ui, sans-serif;
+  --lift: 0 2px 0 rgba(0, 0, 0, .35), 0 16px 28px rgba(2, 3, 10, .55);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow: hidden; }
+body {
+  position: relative;
+  font-family: var(--sans);
+  color: var(--cream);
+  background:
+    radial-gradient(ellipse 60% 70% at var(--moon-x, 85%) var(--moon-y, 12%), rgba(120, 140, 230, .16), transparent 70%),
+    url(art/cotton.png) 0 0 / 300px,
+    var(--night);
+  background-blend-mode: normal, overlay, normal;
+  -webkit-font-smoothing: antialiased;
+}
+.host { width: 1440px; height: 900px; }
+.phone { width: 390px; height: 844px; }
+.abs { position: absolute; }
+.defs { position: absolute; width: 0; height: 0; }
+.full { position: absolute; left: 0; top: 0; pointer-events: none; }
+.quilt { z-index: 1; }
+.binding { z-index: 60; }
+.patch { display: block; pointer-events: none; }
+
+/* ---------- materials ---------- */
+.felt { background-image: url(art/felt.png); background-size: 420px; background-blend-mode: overlay; }
+.felt.lantern { background-color: var(--lantern); }
+.felt.indigo { background-color: var(--indigo-2); }
+.felt.wine { background-color: var(--wine); }
+.felt.gold { background-color: #d9a640; }
+.muslin { background: url(art/cotton.png) 0 0 / 300px, var(--muslin); background-blend-mode: hard-light; }
+.velvet {
+  background:
+    radial-gradient(ellipse 70% 80% at 38% 30%, rgba(90, 108, 200, .30), transparent 70%),
+    radial-gradient(ellipse 60% 60% at 80% 90%, rgba(0, 0, 0, .35), transparent 70%),
+    url(art/felt.png) 0 0 / 420px,
+    #151b40;
+  background-blend-mode: normal, normal, soft-light, normal;
+}
+
+/* ---------- stitched edges: 9-slice thread tiles ---------- */
+:where(.st) { position: relative; }
+.st::after {
+  content: ""; position: absolute; pointer-events: none; z-index: 3;
+  inset: var(--si, 7px);
+  border: var(--sw, 12px) solid transparent;
+  border-image: var(--sti, url(art/run-cream.svg)) 16 round;
+}
+
+/* ---------- the magic mirror: one frame, two slots, identical until the truth lands ---------- */
+.mirror { position: absolute; }
+.mirror .frame { position: absolute; left: 0; top: 0; z-index: 4; pointer-events: none; }
+.mirror .glass {
+  position: absolute; z-index: 2; border-radius: 50%; overflow: hidden;
+  background:
+    radial-gradient(ellipse 46% 36% at 34% 26%, rgba(255, 255, 255, .7), transparent 70%),
+    url(art/cotton.png) 0 0 / 260px,
+    radial-gradient(ellipse 80% 80% at 50% 46%, #f1f4f7 0%, #dde5ee 52%, #b9c7d8 100%);
+  background-blend-mode: normal, soft-light, normal;
+  box-shadow: inset 0 8px 22px rgba(10, 14, 40, .42), inset 0 -12px 26px rgba(255, 255, 255, .45);
+}
+/* the mirror's glint, sewn in three parallel running stitches */
+.mirror .glint-st { position: absolute; z-index: 1; pointer-events: none; }
+.mirror .letter {
+  position: absolute; z-index: 5; display: grid; place-items: center;
+  font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 1; font-weight: 800; color: var(--gold-hi);
+  text-shadow: 0 2px 0 rgba(2, 3, 10, .6);
+}
+.mirror .answer {
+  position: relative; z-index: 3;
+  font-family: var(--sans); font-weight: 650; color: var(--ink); text-align: center; text-wrap: balance;
+}
+.mirror .say { position: absolute; z-index: 3; display: grid; place-items: center; }
+
+/* host size: frame canvas 640x520, glass hole centred at 320,270 (232 x 160 radii) */
+.m-host { width: 640px; height: 520px; }
+.m-host .frame { width: 640px; height: 520px; }
+.m-host .glass { left: 84px; top: 106px; width: 472px; height: 328px; }
+.m-host .letter { left: 286px; top: 38px; width: 68px; height: 68px; font-size: 44px; }
+.m-host .answer { font-size: 27px; line-height: 1.3; }
+
+/* phone size: frame canvas 346x262, glass hole centred at 173,142 (150 x 84 radii) */
+.m-phone { width: 346px; height: 262px; }
+.m-phone .frame { width: 346px; height: 262px; }
+.m-phone .glass { left: 20px; top: 55px; width: 306px; height: 174px; }
+.m-phone .letter { left: 154px; top: 19px; width: 38px; height: 38px; font-size: 25px; }
+.m-phone .answer { font-size: 19px; line-height: 1.34; }
+
+/* reveal states */
+.glass.true {
+  background:
+    radial-gradient(ellipse 62% 58% at 50% 20%, rgba(255, 226, 140, .95), rgba(255, 214, 120, .35) 46%, transparent 72%),
+    url(art/cotton.png) 0 0 / 260px,
+    radial-gradient(ellipse 80% 80% at 50% 46%, #fbf6e6 0%, #efe6cc 55%, #d8c69a 100%);
+  background-blend-mode: normal, soft-light, normal;
+  box-shadow: inset 0 8px 22px rgba(90, 60, 10, .35), inset 0 0 40px rgba(255, 230, 150, .6);
+}
+.glass.wolf {
+  background:
+    radial-gradient(ellipse 78% 64% at 50% 8%, #121838 0%, rgba(26, 32, 72, .94) 40%, rgba(60, 72, 120, .5) 62%, transparent 78%),
+    url(art/cotton.png) 0 0 / 260px,
+    radial-gradient(ellipse 80% 80% at 50% 46%, #e8edf3 0%, #cfd8e3 55%, #a3b2c6 100%);
+  background-blend-mode: normal, soft-light, normal;
+}
+.glass .crack { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+
+/* result ribbons (swallowtail felt bands, sewn across the foot of the frame) */
+.ribbon {
+  position: absolute; z-index: 7; display: flex; align-items: center; justify-content: center; white-space: nowrap;
+  font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 1; font-weight: 800;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 50%, 100% 100%, 0 100%, 22px 50%);
+  filter: drop-shadow(0 8px 10px rgba(2, 3, 10, .55));
+  --sti: url(art/run-cream.svg); --si: 6px; --sw: 10px;
+}
+.ribbon.real { color: var(--ink); background-color: #dcae4c; --sti: url(art/run-indigo.svg); }
+.ribbon.wolf { color: var(--cream); background-color: var(--wine); }
+
+/* ---------- lantern-felt buttons ---------- */
+.btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  min-height: 56px; padding: 0 34px;
+  border: 0; border-radius: 10px; cursor: pointer;
+  font-family: var(--sans); font-weight: 800; color: var(--ink); letter-spacing: .005em;
+  background-color: var(--lantern); background-image: url(art/felt.png); background-size: 420px; background-blend-mode: overlay;
+  box-shadow: 0 4px 0 #8f5a0a, 0 16px 26px rgba(2, 3, 10, .5), 0 0 60px rgba(242, 182, 50, .28);
+  --sti: url(art/run-indigo.svg); --si: 6px; --sw: 11px;
+}
+.btn .ico { width: 30px; height: 30px; flex: none; }
+
+/* token badge (round felt patch) */
+.tok { display: block; flex: none; }
+
+/* charcoal felt pill: voters, heroes */
+.pill {
+  display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
+  border-radius: 999px; padding: 0 20px 0 5px;
+  background-color: #23283f; background-image: url(art/felt.png); background-size: 420px; background-blend-mode: overlay;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .4), 0 10px 16px rgba(2, 3, 10, .45);
+  color: var(--cream); font-weight: 750;
+  position: relative;
+}
+.pill::after { content: ""; position: absolute; inset: 4px; border-radius: 999px; border: 1.8px dashed rgba(214, 164, 67, .75); pointer-events: none; }
+
+.satin-text { font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 0; font-weight: 800; }
+
+/* ---------- motion ---------- */
+@keyframes glint { 0%, 100% { opacity: .2; transform: scale(.6) rotate(0deg); } 50% { opacity: 1; transform: scale(1.1) rotate(20deg); } }
+@keyframes breathe { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+@keyframes sway { 0%, 100% { transform: rotate(var(--sw0, -1.5deg)); } 50% { transform: rotate(var(--sw1, 1.5deg)); } }
+@keyframes rise { 0% { transform: translateY(46px) scale(.9); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes award { 0% { transform: scale(.3) rotate(-30deg); opacity: 0; } 70% { transform: scale(1.06) rotate(4deg); opacity: 1; } 100% { transform: scale(1) rotate(var(--rr, 0deg)); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+/* ---------- phone shell ---------- */
+.phone .inner { position: absolute; inset: 0; padding: 26px 22px 24px; z-index: 5; display: flex; flex-direction: column; }
+.phone .top { display: flex; align-items: center; justify-content: space-between; height: 46px; flex: none; }
+.brandmark { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-style: italic; font-weight: 600; font-size: 19px; color: var(--cream); font-variation-settings: "SOFT" 100; }
+.brandmark img { width: 22px; height: 22px; }
+.code-tab {
+  display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 14px; border-radius: 8px;
+  font-size: 13px; font-weight: 700; color: var(--cream); letter-spacing: .02em;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .4), 0 8px 14px rgba(2, 3, 10, .45);
+  --sti: url(art/run-gold.svg); --si: 4px; --sw: 10px;
+}
+.code-tab b { font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 800; font-size: 24px; color: var(--gold-hi); letter-spacing: .08em; }
+.p-h { font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 0; font-weight: 800; color: var(--cream); line-height: 1.04; letter-spacing: -.01em; }
+.p-h em { font-style: italic; font-weight: 600; color: var(--gold-hi); font-variation-settings: "SOFT" 100, "WONK" 1; }
+.kicker { font-family: var(--display); font-style: italic; font-weight: 600; font-variation-settings: "SOFT" 100, "WONK" 1; color: var(--gold-hi); }
+.p-label { font-size: 15px; font-weight: 750; color: var(--gold-hi); margin: 0 0 9px 2px; letter-spacing: .01em; }
+.phone .btn { width: 100%; min-height: 60px; font-size: 21px; }
+.fineprint { font-size: 14px; font-weight: 600; color: #c9c3b3; line-height: 1.4; text-align: center; }
+
+/* long answers (over ~90 characters) step down one size so they stay on the calm part of the glass */
+.m-host .answer.long { font-size: 22px; line-height: 1.24; }
+.m-phone .answer.long { font-size: 16.5px; line-height: 1.3; }

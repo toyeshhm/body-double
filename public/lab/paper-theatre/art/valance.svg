@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 78" width="360" height="78" preserveAspectRatio="none">
+<defs>
+  <linearGradient id="v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6d1418"/><stop offset=".55" stop-color="#9c2227"/><stop offset="1" stop-color="#6a1216"/></linearGradient>
+  <filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feColorMatrix in="n" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -.8 .45" result="d"/><feComposite in="d" in2="SourceGraphic" operator="in" result="s"/><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="s"/></feMerge></filter>
+  <filter id="sh" x="-5%" y="-20%" width="110%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000" flood-opacity=".55"/></filter>
+</defs>
+<g filter="url(#sh)"><g filter="url(#g)">
+  <rect width="360" height="16" fill="#5e0f15"/>
+  <path d="M0 12 Q60 76 120 12 Z M120 12 Q180 80 240 12 Z M240 12 Q300 76 360 12 Z" fill="url(#v)"/>
+  <path d="M14 18 Q60 58 106 18 M134 18 Q180 62 226 18 M254 18 Q300 58 346 18" fill="none" stroke="#5a0d12" stroke-width="2"/>
+  <path d="M30 16 Q60 42 90 16 M150 16 Q180 44 210 16 M270 16 Q300 42 330 16" fill="none" stroke="#c0393e" stroke-width="1.5" opacity=".7"/>
+  <path d="M2 16 Q60 78 118 16 M122 16 Q180 82 238 16 M242 16 Q300 78 358 16" fill="none" stroke="#d4a237" stroke-width="7" stroke-dasharray="1.6 2.2"/>
+  <path d="M2 13 Q60 74 118 13 M122 13 Q180 78 238 13 M242 13 Q300 74 358 13" fill="none" stroke="#e9bf55" stroke-width="2"/>
+  <rect y="14" width="360" height="3" fill="#d4a237"/>
+  <g fill="#d4a237" stroke="#8a6418" stroke-width="1"><ellipse cx="120" cy="22" rx="5" ry="8"/><ellipse cx="240" cy="22" rx="5" ry="8"/></g>
+</g></g>
+</svg>

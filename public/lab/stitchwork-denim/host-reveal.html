@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Body Double · Reveal (Stitchwork: Patched Denim)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Graduate&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* header: chapter tape, prompt top rocker, brand label */
+  .chapter { left: 40px; top: 40px; height: 54px; padding: 0 18px; display: flex; align-items: center; z-index: 8;
+    font-weight: 800; font-size: 24px; font-stretch: 105%; transform: rotate(-3deg); }
+  .brand { right: 40px; top: 42px; height: 50px; padding: 0 26px; font-size: 22px; letter-spacing: .1em; font-stretch: 110%; transform: rotate(2.5deg); z-index: 8; }
+  .brand .seam.l { left: 12px; } .brand .seam.r { right: 12px; }
+  .prompt { left: 270px; top: 16px; width: 900px; height: 170px; z-index: 6; overflow: visible; filter: drop-shadow(0 10px 12px rgba(5,9,26,.55)); }
+  .prompt text { font-family: var(--sans); font-weight: 800; font-size: 42px; font-stretch: 96%; fill: var(--bone); }
+  .r1 { left: 351px; top: 113px; } .r2 { left: 1059px; top: 113px; } .r3 { left: 22px; top: 852px; }
+
+  /* answer slots: same patch, same size; rotation belongs to the slot */
+  .answer-patch { width: 560px; min-height: 192px; padding: 26px 40px 26px 92px; display: flex; align-items: center; }
+  .answer-patch .slot { left: 16px; top: 18px; width: 60px; height: 60px; font-size: 32px; }
+  .answer-patch .answer-text { font-size: 31px; line-height: 1.28; }
+  .col { display: flex; flex-direction: column; }
+  .col-a { left: 64px; top: 196px; z-index: 8; }
+  .col-b { left: 826px; top: 250px; z-index: 5; }
+  .slot-a { transform: rotate(-1deg); }
+  .ghost-box { position: relative; transform: rotate(1deg); }
+
+  .ask { display: flex; align-items: center; gap: 12px; height: 54px; margin: 0 0 0 4px;
+    font-weight: 700; font-size: 26px; text-shadow: 0 2px 3px rgba(0,0,0,.6); }
+  .ask .rp { width: 48px; height: 48px; }
+  .ask b { color: #ff9a52; font-weight: 800; }
+  .mini.rp::before { -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6.5px), #000 calc(100% - 6px)); mask: radial-gradient(farthest-side, transparent calc(100% - 6.5px), #000 calc(100% - 6px)); }
+  .mini.rp::after { inset: 6px; }
+
+  /* A: the real one gets an enamel award pin, pinned to its corner */
+  .award { position: absolute; right: -142px; top: -104px; width: 190px; z-index: 12; transform: rotate(9deg); --rr: 9deg;
+    filter: drop-shadow(0 3px 0 #3f1b06) drop-shadow(0 12px 14px rgba(5,9,26,.6)); animation: stamp .6s 1.6s cubic-bezier(.3,1.5,.5,1) both; }
+  .award text { font-family: var(--sans); font-weight: 800; fill: var(--gold-text); }
+  .voters { display: flex; align-items: center; gap: 12px; }
+  .who { display: flex; align-items: center; gap: 10px; height: 58px; padding: 0 20px 0 6px; border-radius: 29px; font-weight: 800; font-size: 24px;
+    background: url(art/twill-bone.png) 0 0/240px, var(--bone); color: var(--ink); box-shadow: var(--lift); }
+  .who .rp { width: 46px; height: 46px; }
+  .who .emo, .ask .emo { font-size: 24px; }
+  .cap { font-weight: 700; font-size: 24px; color: var(--bone); text-shadow: 0 2px 3px rgba(0,0,0,.6); white-space: nowrap; }
+  .col-a .voters { margin: 22px 0 0 10px; }
+
+  /* B: the patch was ripped off. Unfaded denim, needle holes and the Wolf are left behind. */
+  .ghost-box .clone { visibility: hidden; }
+  .ghost { position: absolute; inset: 0; border-radius: 24px; background: rgba(8, 14, 44, .55); mix-blend-mode: multiply;
+    box-shadow: inset 0 0 18px rgba(4, 8, 26, .6); }
+  .ghost-edge { position: absolute; inset: -14px; border: 20px solid transparent; border-image: url(art/fray.svg) 20 round; pointer-events: none; }
+  .holes { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .holes rect { x: 9px; y: 9px; width: calc(100% - 18px); height: calc(100% - 18px); rx: 16px; fill: none; stroke: #050a1e; stroke-width: 3.4px;
+    stroke-dasharray: .1 7; stroke-linecap: round; opacity: .95; }
+  .stub { position: absolute; width: 22px; height: 26px; overflow: visible; }
+  .stub path { fill: none; stroke: #e07a2c; stroke-width: 2.6px; stroke-linecap: round; }
+  .wolf { position: absolute; left: -36px; top: -26px; width: 226px; z-index: 6; transform: rotate(-6deg);
+    filter: drop-shadow(0 3px 0 rgba(5,8,20,.4)) drop-shadow(0 12px 14px rgba(5,9,26,.6)); }
+  .wolf-script { position: absolute; left: 60px; top: -104px; width: 470px; height: 120px; z-index: 7; overflow: visible; transform: rotate(-3deg); }
+  .wolf-script text { font-size: 84px; }
+  .voters-b { position: absolute; left: 214px; top: 50px; z-index: 7; flex-wrap: wrap; width: 320px; gap: 10px 12px; }
+  .voters-b .cap { width: 100%; padding-left: 8px; }
+
+  .torn { margin-top: -34px; transform: rotate(-4deg); transform-origin: 92% 0; z-index: 9;
+    animation: rip 1.2s .5s cubic-bezier(.5,0,.3,1.25) both;
+    box-shadow: 0 3px 0 rgba(5,8,20,.35), 0 24px 28px rgba(5,9,26,.62); }
+  @keyframes rip { 0% { transform: translateY(calc(-100% + 34px)) rotate(0deg); } 55% { transform: translateY(8px) rotate(-6deg); } 100% { transform: rotate(-4deg); } }
+  .rip-edge { position: absolute; left: -12px; top: -34px; height: 40px; width: calc(100% + 24px); z-index: 4; pointer-events: none; }
+  .tails { position: absolute; left: 0; top: -40px; width: 100%; height: 60px; overflow: visible; z-index: 3; }
+  .tails path { fill: none; stroke-linecap: round; }
+
+  /* results */
+  .fooled { left: 52px; top: 578px; width: 740px; height: 84px; z-index: 6; overflow: visible; }
+  .fooled text { font-family: var(--varsity); font-size: 54px; }
+  .f-ink { fill: var(--ink); stroke: var(--ink); stroke-width: 14px; stroke-linejoin: round; filter: url(#felt); }
+  .f-face { fill: url(#p-bone); }
+  .f-or { fill: var(--orange); filter: url(#chenille); }
+  .points { left: 62px; top: 662px; width: 700px; font-size: 25px; line-height: 1.38; font-weight: 600; z-index: 6; text-shadow: 0 2px 3px rgba(0,0,0,.65); }
+  .points b { color: #ff9a52; font-weight: 800; }
+
+  .heroes { left: 52px; top: 772px; display: flex; align-items: center; gap: 14px; z-index: 6; }
+  .heroes h3 { font-family: var(--varsity); font-weight: 400; font-size: 26px; line-height: 1.02; color: var(--bone); margin-right: 6px;
+    text-shadow: 0 2px 0 var(--ink), 0 3px 6px rgba(0,0,0,.6); }
+  .hero { display: flex; align-items: center; gap: 10px; height: 72px; padding: 0 22px 0 8px; border-radius: 36px;
+    background: url(art/twill-bone.png) 0 0/240px, var(--bone); color: var(--ink); box-shadow: var(--lift); }
+  .hero .rp { width: 56px; height: 56px; }
+  .hero .emo { font-size: 28px; }
+  .hero .nm { display: block; font-weight: 800; font-size: 23px; line-height: 1.05; }
+  .hero .sc { display: block; font-family: var(--varsity); font-size: 24px; line-height: 1.05; color: var(--orange-deep); }
+  .hero:nth-of-type(1) { transform: rotate(-2deg); } .hero:nth-of-type(3) { transform: rotate(2deg); }
+
+  .next { left: 960px; top: 782px; width: 442px; height: 88px; font-size: 28px; font-stretch: 100%; z-index: 12; }
+</style>
+</head>
+<body class="host">
+<!--defs-->
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <pattern id="p-bone" width="240" height="240" patternUnits="userSpaceOnUse"><image href="art/twill-bone.png" width="240" height="240"/></pattern>
+    <pattern id="p-ink" width="240" height="240" patternUnits="userSpaceOnUse"><image href="art/twill-black.png" width="240" height="240"/></pattern>
+    <pattern id="p-orange" width="240" height="240" patternUnits="userSpaceOnUse"><image href="art/twill-orange.png" width="240" height="240"/></pattern>
+  </defs>
+  <!-- chenille: fuzzy loop pile, puffed in the middle -->
+  <filter id="chenille" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".62" numOctaves="3" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="fz"/>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="dome"/>
+    <feComposite in="n" in2="dome" operator="arithmetic" k1="0" k2=".55" k3="1" k4="0" result="h"/>
+    <feDiffuseLighting in="h" surfaceScale="6" diffuseConstant="1.25" lighting-color="#fff" result="lit">
+      <feDistantLight azimuth="235" elevation="52"/>
+    </feDiffuseLighting>
+    <feComposite in="fz" in2="lit" operator="arithmetic" k1="1.12" k2="0" k3="0" k4="0" result="sh"/>
+    <feComposite in="sh" in2="fz" operator="in"/>
+  </filter>
+  <!-- felt backing for varsity letters -->
+  <filter id="felt" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="8" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -.5 .55" result="speck"/>
+    <feComposite in="speck" in2="d" operator="in" result="sp"/>
+    <feMerge result="m"><feMergeNode in="d"/><feMergeNode in="sp"/></feMerge>
+    <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#050918" flood-opacity=".6"/>
+  </filter>
+  <!-- chain stitch: thick raised thread with a rolled outer row (link ticks are a second text layer) -->
+  <filter id="chain" x="-4%" y="-20%" width="108%" height="150%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="erode" radius="3.2" result="e1"/>
+    <feMorphology in="SourceAlpha" operator="erode" radius="4.2" result="e1b"/>
+    <feComposite in="SourceAlpha" in2="e1" operator="out" result="r0"/>
+    <feMerge result="rows"><feMergeNode in="r0"/><feMergeNode in="e1b"/></feMerge>
+    <feGaussianBlur in="rows" stdDeviation="1" result="rb"/>
+    <feDiffuseLighting in="rb" surfaceScale="1.6" diffuseConstant="1" lighting-color="#fff" result="d"><feDistantLight azimuth="235" elevation="50"/></feDiffuseLighting>
+    <feSpecularLighting in="rb" surfaceScale="1.6" specularConstant=".6" specularExponent="12" lighting-color="#fff" result="s"><feDistantLight azimuth="235" elevation="50"/></feSpecularLighting>
+    <feComposite in="SourceGraphic" in2="d" operator="arithmetic" k1="1.25" k2="0" k3="0" k4="0" result="c"/>
+    <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+    <feComposite in="c" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".45" k4="0" result="c2"/>
+    <feComposite in="c2" in2="SourceAlpha" operator="in" result="c3"/>
+    <feDropShadow in="c3" dx="0" dy="2.5" stdDeviation="1.6" flood-color="#050918" flood-opacity=".75"/>
+  </filter>
+  <filter id="chain-sm" x="-4%" y="-20%" width="108%" height="150%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="erode" radius="2" result="e1"/>
+    <feMorphology in="SourceAlpha" operator="erode" radius="2.7" result="e1b"/>
+    <feComposite in="SourceAlpha" in2="e1" operator="out" result="r0"/>
+    <feMerge result="rows"><feMergeNode in="r0"/><feMergeNode in="e1b"/></feMerge>
+    <feGaussianBlur in="rows" stdDeviation=".7" result="rb"/>
+    <feDiffuseLighting in="rb" surfaceScale="1.3" diffuseConstant="1" lighting-color="#fff" result="d"><feDistantLight azimuth="235" elevation="50"/></feDiffuseLighting>
+    <feSpecularLighting in="rb" surfaceScale="1.3" specularConstant=".6" specularExponent="12" lighting-color="#fff" result="s"><feDistantLight azimuth="235" elevation="50"/></feSpecularLighting>
+    <feComposite in="SourceGraphic" in2="d" operator="arithmetic" k1="1.25" k2="0" k3="0" k4="0" result="c"/>
+    <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+    <feComposite in="c" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".45" k4="0" result="c2"/>
+    <feComposite in="c2" in2="SourceAlpha" operator="in" result="c3"/>
+    <feDropShadow in="c3" dx="0" dy="1.6" stdDeviation="1.1" flood-color="#050918" flood-opacity=".7"/>
+  </filter>
+  <!-- raw canvas edge -->
+  <filter id="rough" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="2" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <!-- emoji as satin-stitched thread -->
+  <filter id="stitchify" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".03 .8" numOctaves="1" seed="9" result="lines"/>
+    <feDisplacementMap in="SourceGraphic" in2="lines" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feComponentTransfer in="d" result="p">
+      <feFuncR type="discrete" tableValues="0 .2 .42 .62 .8 .95"/>
+      <feFuncG type="discrete" tableValues="0 .2 .42 .62 .8 .95"/>
+      <feFuncB type="discrete" tableValues="0 .2 .42 .62 .8 .95"/>
+    </feComponentTransfer>
+    <feColorMatrix in="lines" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  .9 0 0 0 .55" result="sheen"/>
+    <feComposite in="p" in2="sheen" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="m"/>
+    <feComposite in="m" in2="d" operator="in"/>
+  </filter>
+</svg>
+<!--/defs-->
+
+<span class="rivet r1"></span><span class="rivet r2"></span><span class="rivet r3"></span>
+<div class="abs chapter patch slim tw-bone mw-ink">Chapter III of VI</div>
+<div class="abs woven brand"><i class="seam l"></i><span>Body Double</span><i class="seam r"></i></div>
+
+<!-- the prompt is a top rocker -->
+<svg class="abs prompt" viewBox="0 0 900 170" aria-label="Your toxic trait, but make it cute">
+  <path d="M16 76 Q450 -6 884 76 L872 150 Q450 70 28 150 Z" fill="url(#p-ink)"/>
+  <path d="M16 76 Q450 -6 884 76 L872 150 Q450 70 28 150 Z" fill="none" stroke="#f0701f" stroke-width="11" stroke-linejoin="round"/>
+  <path d="M16 76 Q450 -6 884 76 L872 150 Q450 70 28 150 Z" fill="none" stroke="#7a2c06" stroke-width="11" stroke-dasharray=".9 2.1" stroke-linejoin="round" opacity=".6"/>
+  <path d="M16 76 Q450 -6 884 76 L872 150 Q450 70 28 150 Z" fill="none" stroke="#3d1402" stroke-width="1.4" opacity=".6"/>
+  <path id="arc-prompt" d="M50 132 Q450 52 850 132" fill="none"/>
+  <text><textPath href="#arc-prompt" startOffset="50%" text-anchor="middle">Your toxic trait, but make it cute</textPath></text>
+</svg>
+
+<!-- A: the real one -->
+<div class="abs col col-a">
+  <div class="ask"><span class="rp mini tw-orange ring-ink"><span class="emo">🦉</span></span><span>Which one is really <b>Maya</b>?</span></div>
+  <div class="answer-patch patch tw-bone mw-copper slot-a">
+    <span class="slot rp tw-denim ring-bone"><b>A</b></span>
+    <p class="answer-text">i will reorganize your spice rack while you shower and call it love</p>
+    <svg class="award" viewBox="0 0 200 250" role="img" aria-label="The real Maya">
+      <defs>
+        <linearGradient id="cu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe2bd"/><stop offset=".3" stop-color="#b0662e"/><stop offset=".52" stop-color="#f6c48e"/><stop offset=".78" stop-color="#7d3f17"/><stop offset="1" stop-color="#e3a46a"/></linearGradient>
+        <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset=".42" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <path d="M64 140 L40 240 L62 226 L78 246 L100 146 Z" fill="#5e100e" stroke="url(#cu)" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M136 140 L160 240 L138 226 L122 246 L100 146 Z" fill="#14204a" stroke="url(#cu)" stroke-width="5" stroke-linejoin="round"/>
+      <circle cx="100" cy="92" r="84" fill="url(#cu)"/>
+      <circle cx="100" cy="92" r="74" fill="#8e1c18" stroke="#4d2208" stroke-width="2"/>
+      <circle cx="100" cy="92" r="66" fill="none" stroke="url(#cu)" stroke-width="2.4" stroke-dasharray="3 4"/>
+      <path d="M100 30 l5.3 10.8 11.9 1.7 -8.6 8.4 2 11.8 -10.6 -5.6 -10.6 5.6 2 -11.8 -8.6 -8.4 11.9 -1.7z" fill="url(#cu)"/>
+      <text x="100" y="94" text-anchor="middle" font-size="24">The real</text>
+      <text x="100" y="132" text-anchor="middle" font-size="38" style="font-family: var(--varsity); font-weight: 400">Maya</text>
+      <ellipse cx="86" cy="50" rx="56" ry="30" fill="url(#gloss)" transform="rotate(-18 86 50)"/>
+    </svg>
+  </div>
+  <div class="voters">
+    <span class="who"><span class="rp mini tw-bone ring-red"><span class="emo">🦊</span></span>Jordan</span>
+    <span class="who"><span class="rp mini tw-red ring-bone"><span class="emo">🐻</span></span>Sam</span>
+    <span class="cap">knew her</span>
+  </div>
+</div>
+
+<!-- B: the slot where the Wolf's patch used to be, and the patch itself, torn off -->
+<div class="abs col col-b">
+  <div class="ghost-box">
+    <div class="answer-patch patch tw-bone clone" aria-hidden="true"><span class="slot"></span><p class="answer-text">overthinking a text for 40 minutes then just sending 'k' 💀</p></div>
+    <div class="ghost"></div>
+    <div class="ghost-edge"></div>
+    <svg class="holes" aria-hidden="true"><rect/></svg>
+    <svg class="stub" style="left:60px;top:-14px" viewBox="0 0 22 26"><path d="M4 22 c -3 -8 6 -10 2 -20"/></svg>
+    <svg class="stub" style="left:250px;top:-16px" viewBox="0 0 22 26"><path d="M6 22 c 4 -7 -3 -11 3 -19"/></svg>
+    <svg class="stub" style="left:430px;top:-12px" viewBox="0 0 22 26"><path d="M5 22 c -2 -9 7 -9 4 -18"/></svg>
+    <svg class="stub" style="right:-12px;top:60px" viewBox="0 0 22 26"><path d="M2 4 c 8 2 10 -4 18 2"/></svg>
+    <svg class="stub" style="right:-14px;bottom:30px" viewBox="0 0 22 26"><path d="M2 14 c 7 -3 11 4 18 1"/></svg>
+    <img class="wolf" src="art/wolf-embroidered.png" alt="The Wolf, an embroidered patch that was sewn underneath">
+    <svg class="wolf-script" viewBox="0 0 470 120" role="img" aria-label="It was the Wolf!">
+      <g class="cs" filter="url(#chain)" style="--csw: 5px">
+        <text class="cs-base" x="12" y="92">It was the Wolf!</text>
+        <text class="cs-tick" x="12" y="92" style="stroke-dasharray: 1 6">It was the Wolf!</text>
+      </g>
+    </svg>
+    <div class="voters voters-b">
+      <span class="who"><span class="rp mini tw-ink ring-copper"><span class="emo">🍄</span></span>Priya</span>
+      <span class="who"><span class="rp mini tw-denim ring-orange"><span class="emo">🐸</span></span>Theo</span>
+      <span class="cap">fell for it</span>
+    </div>
+  </div>
+
+  <div class="answer-patch patch tw-bone mw-copper torn">
+    <svg class="tails" viewBox="0 0 560 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M40 2 C 30 24, 58 30, 44 52" stroke="#e07a2c" stroke-width="2.6"/>
+      <path d="M210 4 C 220 22, 196 34, 214 54" stroke="#efe5cf" stroke-width="2.2"/>
+      <path d="M380 0 C 372 20, 398 30, 386 52" stroke="#e07a2c" stroke-width="2.6"/>
+      <path d="M520 6 C 540 26, 512 36, 530 56" stroke="#efe5cf" stroke-width="2.2"/>
+    </svg>
+    <img class="rip-edge" src="art/rip-edge.svg" alt="">
+    <span class="slot rp tw-denim ring-bone"><b>B</b></span>
+    <p class="answer-text">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+  </div>
+</div>
+
+<!-- results -->
+<svg class="abs fooled" viewBox="0 0 740 84" role="img" aria-label="The Wolf fooled 2 of 4.">
+  <g transform="translate(12 64)">
+    <text class="f-ink">The Wolf fooled 2 of 4.</text>
+    <text class="f-face">The Wolf fooled <tspan class="f-or">2 of 4.</tspan></text>
+  </g>
+</svg>
+<p class="abs points"><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+
+<div class="abs heroes">
+  <h3>Village<br>Heroes</h3>
+  <span class="hero"><span class="rp mini tw-orange ring-ink"><span class="emo">🦉</span></span><span><span class="nm">Maya</span><span class="sc">300</span></span></span>
+  <span class="hero"><span class="rp mini tw-bone ring-red"><span class="emo">🦊</span></span><span><span class="nm">Jordan</span><span class="sc">200</span></span></span>
+  <span class="hero"><span class="rp mini tw-red ring-bone"><span class="emo">🐻</span></span><span><span class="nm">Sam</span><span class="sc">200</span></span></span>
+</div>
+
+<button class="abs btn next">Ask what gave it away
+  <svg class="arrow" viewBox="0 0 34 20" aria-hidden="true"><path d="M2 10h26M20 3l8 7-8 7" fill="none" stroke="#17181d" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+</body>
+</html>

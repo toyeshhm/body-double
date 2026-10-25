@@ -1,0 +1,475 @@
+[
+  {
+    "id": "potion",
+    "name": "Potion",
+    "kind": "avatar",
+    "palette": [
+      "#d2e3ec",
+      "#a3c3d8",
+      "#c04f66",
+      "#963248",
+      "#e6939f",
+      "#7a9fbd",
+      "#c39468",
+      "#a57550",
+      "#dbb35e",
+      "#b88d40",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "eat-me",
+    "name": "Eat Me Cake",
+    "kind": "avatar",
+    "palette": [
+      "#b88d40",
+      "#c04f66",
+      "#dbb35e",
+      "#a57550",
+      "#963248",
+      "#eaa7b0",
+      "#d4848f",
+      "#f8f0de",
+      "#7d5436",
+      "#83a06c",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "lamp",
+    "name": "Wishing Lamp",
+    "kind": "avatar",
+    "palette": [
+      "#dbb35e",
+      "#b88d40",
+      "#f2db94",
+      "#c04f66",
+      "#963248",
+      "#e6939f",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "slipper",
+    "name": "Glass Slipper",
+    "kind": "avatar",
+    "palette": [
+      "#a3c3d8",
+      "#7a9fbd",
+      "#dbb35e",
+      "#d2e3ec",
+      "#56789a",
+      "#b88d40",
+      "#fffbf3",
+      "#f2db94"
+    ]
+  },
+  {
+    "id": "mirror",
+    "name": "Magic Mirror",
+    "kind": "avatar",
+    "palette": [
+      "#dbb35e",
+      "#b88d40",
+      "#8e6a2f",
+      "#f2db94",
+      "#a3c3d8",
+      "#7a9fbd",
+      "#fffbf3",
+      "#c04f66",
+      "#e6939f"
+    ]
+  },
+  {
+    "id": "tree",
+    "name": "Enchanted Tree",
+    "kind": "avatar",
+    "palette": [
+      "#a57550",
+      "#7d5436",
+      "#768845",
+      "#5b6b34",
+      "#83a06c",
+      "#a8bc8b",
+      "#c04f66",
+      "#e6939f",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "apple",
+    "name": "Poison Apple",
+    "kind": "avatar",
+    "palette": [
+      "#c04f66",
+      "#963248",
+      "#6e2338",
+      "#7d5436",
+      "#a8bc8b",
+      "#83a06c",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "spindle",
+    "name": "Spindle",
+    "kind": "avatar",
+    "palette": [
+      "#c39468",
+      "#a57550",
+      "#b88d40",
+      "#7d5436",
+      "#c04f66",
+      "#963248",
+      "#dbb35e",
+      "#f2db94",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "frog-prince",
+    "name": "Frog Prince",
+    "kind": "avatar",
+    "palette": [
+      "#768845",
+      "#5b6b34",
+      "#cfdcb2",
+      "#a8bc8b",
+      "#83a06c",
+      "#f8f0de",
+      "#2e2421",
+      "#fffbf3",
+      "#45522a",
+      "#e6939f",
+      "#dbb35e",
+      "#b88d40",
+      "#c04f66"
+    ]
+  },
+  {
+    "id": "pumpkin",
+    "name": "Pumpkin",
+    "kind": "avatar",
+    "palette": [
+      "#768845",
+      "#5b6b34",
+      "#bb783c",
+      "#97592b",
+      "#de9d58",
+      "#ecb874",
+      "#a8bc8b",
+      "#83a06c",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "golden-egg",
+    "name": "Golden Egg",
+    "kind": "avatar",
+    "palette": [
+      "#5c3b26",
+      "#dbb35e",
+      "#b88d40",
+      "#a57550",
+      "#c39468",
+      "#7d5436",
+      "#fffbf3",
+      "#f2db94"
+    ]
+  },
+  {
+    "id": "beanstalk",
+    "name": "Beanstalk",
+    "kind": "avatar",
+    "palette": [
+      "#d2e3ec",
+      "#a3c3d8",
+      "#768845",
+      "#83a06c",
+      "#a8bc8b",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "crystal-ball",
+    "name": "Crystal Ball",
+    "kind": "avatar",
+    "palette": [
+      "#dbb35e",
+      "#b88d40",
+      "#a3c3d8",
+      "#d2e3ec",
+      "#7a9fbd",
+      "#f2db94",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "red-hood",
+    "name": "Red Hood",
+    "kind": "avatar",
+    "palette": [
+      "#c04f66",
+      "#963248",
+      "#6e2338",
+      "#f1d3b6",
+      "#e2b896",
+      "#5c3b26",
+      "#2e2421",
+      "#e6939f",
+      "#f8f0de",
+      "#e7d7b6",
+      "#cdb98f",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "wand",
+    "name": "Wand",
+    "kind": "avatar",
+    "palette": [
+      "#6e2338",
+      "#2e2421",
+      "#dbb35e",
+      "#b88d40",
+      "#f2db94",
+      "#d2e3ec",
+      "#a3c3d8",
+      "#7a9fbd",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "key",
+    "name": "Golden Key",
+    "kind": "avatar",
+    "palette": [
+      "#dbb35e",
+      "#b88d40",
+      "#c04f66",
+      "#963248",
+      "#f2db94",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "wolf",
+    "name": "The Wolf",
+    "kind": "ui",
+    "palette": [
+      "#f8f0de",
+      "#e7d7b6",
+      "#7f8898",
+      "#963248",
+      "#626b7b",
+      "#6e2338",
+      "#e9e1d1",
+      "#cfc4ae",
+      "#dbb35e",
+      "#b88d40",
+      "#2e2421",
+      "#474e5e",
+      "#fffbf3",
+      "#c04f66"
+    ]
+  },
+  {
+    "id": "clock-tower",
+    "name": "Clock Tower",
+    "kind": "ui",
+    "palette": [
+      "#f8f0de",
+      "#e7d7b6",
+      "#cdb98f",
+      "#a3c3d8",
+      "#7a9fbd",
+      "#56789a",
+      "#dbb35e",
+      "#b88d40",
+      "#f2db94",
+      "#2e2421",
+      "#963248",
+      "#7d5436",
+      "#5c3b26",
+      "#bf9f6c",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "castle",
+    "name": "Castle",
+    "kind": "ui",
+    "palette": [
+      "#e7d7b6",
+      "#cdb98f",
+      "#a3c3d8",
+      "#7a9fbd",
+      "#2e2421",
+      "#c04f66",
+      "#56789a",
+      "#f8f0de",
+      "#7d5436",
+      "#5c3b26",
+      "#dbb35e",
+      "#a8bc8b",
+      "#83a06c",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "scroll",
+    "name": "Scroll",
+    "kind": "ui",
+    "palette": [
+      "#f0dfb9",
+      "#dcc394",
+      "#bf9f6c",
+      "#963248",
+      "#6e2338",
+      "#c04f66",
+      "#e6939f",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "quill",
+    "name": "Quill",
+    "kind": "ui",
+    "palette": [
+      "#d2e3ec",
+      "#a3c3d8",
+      "#f8f0de",
+      "#dbb35e",
+      "#b88d40",
+      "#7a9fbd",
+      "#56789a",
+      "#2e2421",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "map",
+    "name": "Map",
+    "kind": "ui",
+    "palette": [
+      "#f0dfb9",
+      "#dcc394",
+      "#e8d3a7",
+      "#a3c3d8",
+      "#a8bc8b",
+      "#83a06c",
+      "#c04f66",
+      "#2e2421",
+      "#f2db94",
+      "#dbb35e",
+      "#b88d40",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "crown",
+    "name": "Crown",
+    "kind": "ui",
+    "palette": [
+      "#dbb35e",
+      "#b88d40",
+      "#c04f66",
+      "#963248",
+      "#e6939f",
+      "#a3c3d8",
+      "#7a9fbd",
+      "#f2db94",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "lantern",
+    "name": "Lantern",
+    "kind": "ui",
+    "palette": [
+      "#6d5124",
+      "#8e6a2f",
+      "#dbb35e",
+      "#b88d40",
+      "#f2db94",
+      "#fbeab5",
+      "#f8f0de",
+      "#e7d7b6",
+      "#de9d58"
+    ]
+  },
+  {
+    "id": "cottage",
+    "name": "Cottage",
+    "kind": "ui",
+    "palette": [
+      "#a57550",
+      "#7d5436",
+      "#d2e3ec",
+      "#f8f0de",
+      "#e7d7b6",
+      "#c04f66",
+      "#963248",
+      "#768845",
+      "#5b6b34",
+      "#dbb35e",
+      "#f2db94",
+      "#a8bc8b",
+      "#83a06c",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "storybook",
+    "name": "Storybook",
+    "kind": "ui",
+    "palette": [
+      "#c04f66",
+      "#963248",
+      "#cdb98f",
+      "#bf9f6c",
+      "#f8f0de",
+      "#e7d7b6",
+      "#dbb35e",
+      "#b88d40",
+      "#f2db94",
+      "#d2e3ec",
+      "#a3c3d8",
+      "#7a9fbd",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "sparkles",
+    "name": "Sparkles",
+    "kind": "ui",
+    "palette": [
+      "#f2db94",
+      "#dbb35e",
+      "#b88d40",
+      "#d2e3ec",
+      "#a3c3d8",
+      "#7a9fbd",
+      "#fffbf3"
+    ]
+  },
+  {
+    "id": "cracked-mirror",
+    "name": "Cracked Mirror",
+    "kind": "ui",
+    "palette": [
+      "#dbb35e",
+      "#b88d40",
+      "#8e6a2f",
+      "#f2db94",
+      "#7a9fbd",
+      "#56789a",
+      "#626b7b",
+      "#474e5e",
+      "#d2e3ec",
+      "#fffbf3",
+      "#c04f66",
+      "#e6939f"
+    ]
+  }
+]

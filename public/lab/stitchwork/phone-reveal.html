@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Body Double · Reveal (Stitchwork)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@600;700;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  h1.found { margin: 18px 0 8px; font-size: 29px; line-height: 1.08; color: var(--tomato-deep); filter: url(#felt) drop-shadow(0 2px 0 rgba(60,40,20,.25)); }
+  h1.found span { color: var(--charcoal); }
+
+  .score { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .score img { width: 184px; height: 125px; flex: none; margin: -4px 0 -4px -8px; animation: pop .7s .4s cubic-bezier(.3,1.4,.5,1) both; --rr: -4deg; }
+  .score .tot { font-weight: 800; font-size: 17px; color: var(--ink-soft); line-height: 1.2; }
+  .score .tot b { display: block; font-family: var(--display); font-weight: 400; font-size: 50px; color: var(--charcoal); line-height: 1; margin-top: 2px; }
+  .score .tot b small { font-family: var(--body); font-weight: 900; font-size: 17px; color: var(--forest); margin-left: 6px; }
+
+  .truth { position: relative; padding: 46px 20px 18px 22px; margin-bottom: 18px; --st-inset: 6px; --st-w: 7px;
+    box-shadow: 0 2px 0 rgba(60,40,20,.15), 0 8px 14px rgba(60,40,20,.22); }
+  .truth .slot { position: absolute; left: 14px; top: -5px; width: 38px; height: 44px; font-family: var(--display); font-size: 21px; color: var(--cream); display: grid; place-items: center; border-radius: 0 0 6px 6px; box-shadow: 0 3px 4px rgba(0,0,0,.25); }
+  .truth .answer { font-size: 17.5px; line-height: 1.35; }
+  .t-a { transform: rotate(-.8deg); }
+  .t-b { transform: rotate(2.2deg) translateX(4px); }
+
+  .ribbon { position: absolute; top: 8px; height: 30px; padding: 0 14px 0 12px; display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    font-family: var(--display); font-size: 16px; color: var(--cream); box-shadow: 0 3px 4px rgba(0,0,0,.25);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%); }
+  .t-a .ribbon { left: 62px; color: var(--charcoal); }
+  .t-a .ros { position: absolute; right: -10px; top: -22px; width: 58px; transform: rotate(10deg); filter: drop-shadow(0 3px 3px rgba(0,0,0,.2)); }
+  .t-b .ribbon { left: 62px; }
+  .t-b .wolf { position: absolute; right: -14px; top: -30px; width: 86px; transform: rotate(12deg); filter: drop-shadow(0 4px 4px rgba(0,0,0,.35)); }
+  .t-b .answer { padding-right: 44px; }
+  .t-b .loose { position: absolute; left: -6px; bottom: -14px; width: 70px; height: 40px; overflow: visible; }
+  .ai-tag { display: inline-flex; align-items: center; gap: 6px; height: 26px; margin-top: 10px; padding: 0 10px 0 8px;
+    font-weight: 900; font-size: 13px; color: var(--charcoal); background: #fbf7ee; border: 1.5px solid #cdbfa3; border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0,0,0,.15); }
+  .ai-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #e9dcc0; box-shadow: inset 0 0 0 1.5px #a8977a; }
+
+  .tell .hand { display: block; font-size: 25px; color: var(--tomato-deep); line-height: 1; margin: 2px 0 8px 2px; }
+  .field { display: flex; align-items: center; height: 54px; padding: 0 18px; border-radius: 6px; margin-bottom: 12px;
+    box-shadow: inset 0 2px 4px rgba(90, 70, 40, .18); --st-inset: 4px; --st-w: 7px; }
+  .field input { width: 100%; border: 0; background: none; outline: none; font: 800 17px var(--body); color: var(--charcoal); }
+  .field input::placeholder { color: #7a6d5c; opacity: 1; }
+</style>
+</head>
+<body class="phone">
+<svg class="defs" aria-hidden="true">
+  <filter id="felt" x="-5%" y="-10%" width="110%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<div class="patch"><div class="inner">
+  <div class="top">
+    <div class="woven">Body Double</div>
+    <div class="code-chip felt-forest"><span class="mini-hoop"></span>Village <b>HXQR</b></div>
+  </div>
+
+  <h1 class="felt-type found">You found<br><span>the real Maya.</span></h1>
+
+  <div class="score">
+    <img src="art/hoop-plus100.svg" alt="+100">
+    <div class="tot">Your score<b>300</b></div>
+  </div>
+
+  <div class="truth cotton st st-blue t-a">
+    <span class="slot felt-blue">A</span>
+    <span class="ribbon felt-mustard">The real Maya</span>
+    <img class="ros" src="art/rosette.svg" alt="">
+    <p class="answer">i will reorganize your spice rack while you shower and call it love</p>
+  </div>
+
+  <div class="truth cotton st st-blue t-b">
+    <span class="slot felt-blue">B</span>
+    <span class="ribbon felt-deep">It was the Wolf!</span>
+    <img class="wolf" src="art/wolf-patch.png" alt="The Wolf">
+    <p class="answer">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+    <span class="ai-tag">AI-written</span>
+    <svg class="loose" viewBox="0 0 70 40" aria-hidden="true"><path d="M8 4 c -8 10 10 14 2 24 s 8 12 22 8 s 16 -10 30 -2" fill="none" stroke="#4f73c4" stroke-width="2.4" stroke-linecap="round"/></svg>
+  </div>
+
+  <div class="tell">
+    <span class="hand">What big eyes you have...</span>
+    <label class="field cotton st st-red"><input type="text" placeholder="What gave the Wolf away?" aria-label="What gave the Wolf away?"></label>
+    <button class="btn">
+      <svg class="needle" viewBox="0 0 30 30" aria-hidden="true"><path d="M4 26L24 6" stroke="#dfe3e6" stroke-width="3" stroke-linecap="round"/><ellipse cx="23.5" cy="6.5" rx="3" ry="1.4" transform="rotate(-45 23.5 6.5)" fill="none" stroke="#2b2724" stroke-width="1.2"/><path d="M24 6c6 4-2 10 3 16" fill="none" stroke="#e9a823" stroke-width="2" stroke-linecap="round"/></svg>
+      Tell the village
+    </button>
+  </div>
+</div></div>
+
+<svg class="patch-edge" viewBox="0 0 374 828" aria-hidden="true">
+  <rect x="3" y="3" width="368" height="822" rx="24" fill="none" stroke="#d8402a" stroke-width="2.6"/>
+  <rect x="7" y="7" width="360" height="814" rx="21" fill="none" stroke="#d8402a" stroke-width="9" stroke-dasharray="2.6 13"/>
+</svg>
+</body>
+</html>

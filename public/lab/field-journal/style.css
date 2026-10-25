@@ -1,0 +1,261 @@
+/* Grandmother's Field Journal: shared tokens + components */
+:root {
+  --ink: #2b211d;
+  --ink-2: #5a483d;
+  --paper: #fbf8f0;
+  --sheet: #fdfcf7;
+  --card: #fffdf8;
+  --rule: #b4c7dc;
+  --margin: #de9590;
+  --sap: #557f35;
+  --sap-ink: #3a5c22;
+  --madder: #a3232e;
+  --madder-deep: #7a1720;
+  --indigo: #2f3f6e;
+  --sienna: #b4652a;
+  --sienna-ink: #84461a;
+  --ochre: #d6a443;
+  --cloth: #1b2621;
+  --kraft: #3e2c21;
+  --f-display: "Fraunces", Georgia, serif;
+  --f-hand: "Nanum Pen Script", "Bradley Hand", cursive;
+  --f-ui: "Alegreya Sans", "Gill Sans", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow: hidden; }
+body {
+  color: var(--ink);
+  font-family: var(--f-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; }
+
+.display {
+  font-family: var(--f-display);
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.hand { font-family: var(--f-hand); font-weight: 400; line-height: 1; }
+
+/* ---------- the journal's cloth cover, under a lamp ---------- */
+.desk {
+  background:
+    url(art/cloth.svg),
+    radial-gradient(120% 90% at 50% 38%, #2b3c33 0%, #1a2520 55%, #0f1613 100%);
+  background-color: var(--cloth);
+}
+
+/* ---------- watercolor paper with deckled edges ---------- */
+.paper { position: relative; isolation: isolate; }
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url(art/paper.svg), var(--paper);
+  filter: url(#deckle);
+}
+
+/* host spread: two facing pages and a gutter */
+.spread { position: absolute; left: 22px; top: 20px; width: 1396px; height: 850px; }
+.spread .page { position: absolute; top: 0; height: 100%; width: 704px; }
+.spread .page.left { left: 0; }
+.spread .page.right { left: 692px; }
+.spread .page::before {
+  box-shadow: 0 2px 0 #e9dfca, 0 4px 0 #d8ccb3, 0 6px 0 #c7b89c, 0 22px 40px rgba(0, 0, 0, .55);
+}
+.spread .page.left::before {
+  background: linear-gradient(to left, rgba(74, 50, 26, .30), rgba(74, 50, 26, .06) 46px, transparent 110px), url(art/paper.svg), var(--paper);
+  border-radius: 6px 2px 2px 10px;
+}
+.spread .page.right::before {
+  background: linear-gradient(to right, rgba(74, 50, 26, .30), rgba(74, 50, 26, .06) 46px, transparent 110px), url(art/paper.svg), var(--paper);
+  border-radius: 2px 6px 10px 2px;
+}
+.gutter {
+  position: absolute; left: 694px; top: 0; width: 8px; height: 100%; z-index: 1;
+  background: linear-gradient(to right, transparent, rgba(50, 32, 16, .38) 50%, transparent);
+}
+.ribbon {
+  position: absolute; left: 718px; top: 700px; width: 30px; height: 220px; z-index: 30;
+  background: linear-gradient(90deg, #6b121b, #9a1f2a 30%, #a52633 55%, #761620);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 88%, 0 100%);
+  transform: rotate(-7deg);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.2);
+  filter: drop-shadow(3px 6px 4px rgba(0,0,0,.4));
+}
+
+/* ---------- washi tape ---------- */
+.tape {
+  position: absolute; z-index: 5;
+  width: 128px; height: 34px;
+  mix-blend-mode: multiply;
+  opacity: .92;
+  clip-path: polygon(2% 0, 98% 0, 100% 14%, 97% 31%, 100% 49%, 97.5% 67%, 100% 85%, 98% 100%, 2% 100%, 0 84%, 2.5% 66%, 0 49%, 3% 32%, 0 15%);
+  background: rgba(196, 128, 64, .55);
+}
+.tape.sienna {
+  background:
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px),
+    rgba(196, 118, 58, .58);
+}
+.tape.green {
+  background:
+    repeating-linear-gradient(0deg, rgba(85,127,53,.32) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(90deg, rgba(85,127,53,.32) 0 6px, transparent 6px 12px),
+    rgba(214, 228, 190, .55);
+}
+.tape.indigo {
+  background:
+    radial-gradient(circle at 6px 6px, rgba(255,255,255,.55) 2.2px, transparent 2.8px) 0 0 / 13px 13px,
+    rgba(70, 92, 150, .5);
+}
+.tape.ochre { background: rgba(222, 176, 82, .58); }
+.tape.madder {
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.3) 0 3px, transparent 3px 9px),
+    rgba(176, 52, 60, .5);
+}
+
+/* ---------- photo corners ---------- */
+.corners { position: relative; }
+.corners::after {
+  content: ""; position: absolute; inset: -7px; pointer-events: none; z-index: 3;
+  --c: #3a2a20;
+  background:
+    linear-gradient(135deg, var(--c) 0 50%, transparent 50%) top left / 30px 30px no-repeat,
+    linear-gradient(225deg, var(--c) 0 50%, transparent 50%) top right / 30px 30px no-repeat,
+    linear-gradient(45deg, var(--c) 0 50%, transparent 50%) bottom left / 30px 30px no-repeat,
+    linear-gradient(315deg, var(--c) 0 50%, transparent 50%) bottom right / 30px 30px no-repeat;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.35));
+}
+
+/* ---------- torn notebook sheet ---------- */
+.sheet {
+  position: absolute;
+  background:
+    linear-gradient(90deg, transparent 54px, var(--margin) 54px 56px, transparent 56px),
+    repeating-linear-gradient(180deg, transparent 0 39px, var(--rule) 39px 40px) 0 34px / 100% 100% no-repeat,
+    var(--sheet);
+  -webkit-mask:
+    url(art/torn-top.svg) top / 100% 26px no-repeat,
+    linear-gradient(#000, #000) 0 25px / 100% 100% no-repeat;
+  filter: drop-shadow(0 2px 1px rgba(60, 40, 20, .25)) drop-shadow(0 10px 14px rgba(60, 40, 20, .22));
+}
+.sheet-wrap { position: absolute; filter: drop-shadow(0 3px 2px rgba(60,40,20,.22)) drop-shadow(0 12px 16px rgba(60,40,20,.2)); }
+.sheet-wrap > .sheet { position: absolute; inset: 0; filter: none; }
+
+/* ---------- villager polaroid ---------- */
+.polaroid {
+  position: absolute; width: 132px; padding: 10px 10px 0;
+  background: var(--card);
+  box-shadow: 0 1px 1px rgba(60,40,20,.25), 0 8px 14px rgba(40, 26, 12, .28);
+  text-align: center;
+}
+.polaroid .win {
+  height: 104px; position: relative; overflow: hidden;
+  display: grid; place-items: center;
+  background-color: #efe7d6;
+  background-repeat: no-repeat;
+  background-size: 360% auto;
+}
+.polaroid .win::after { /* pencil frame line */
+  content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px rgba(43,33,29,.18);
+}
+.polaroid .emo { font-size: 58px; line-height: 1; filter: drop-shadow(0 2px 0 rgba(255,255,255,.7)); position: relative; z-index: 1; }
+.polaroid .nm { font-family: var(--f-display); font-variation-settings: "SOFT" 100, "WONK" 1; font-style: italic; font-weight: 600; font-size: 27px; line-height: 1; padding-top: 9px; }
+.polaroid .rl { font-family: var(--f-hand); font-size: 27px; color: var(--sienna-ink); line-height: 1; padding: 2px 0 10px; }
+.polaroid .tape { width: 84px; height: 26px; top: -13px; left: 24px; }
+
+.w-indigo { background-image: url(art/wash-indigo.png); }
+.w-green { background-image: url(art/wash-green.png); }
+.w-sienna { background-image: url(art/wash-sienna.png); }
+.w-ochre { background-image: url(art/wash-ochre.png); }
+.w-red { background-image: url(art/bleed-cut.png); }
+
+/* ---------- answer slip (identical for A and B; rotation tied to slot) ---------- */
+.slip {
+  position: absolute;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 calc(var(--lh, 40px) - 1.5px), rgba(150, 178, 210, .6) calc(var(--lh, 40px) - 1.5px) var(--lh, 40px)) 0 var(--rule-top, 58px) / 100% 100% no-repeat,
+    url(art/paper.svg),
+    var(--sheet);
+  box-shadow: 0 1px 1px rgba(60,40,20,.25), 0 10px 18px rgba(40,26,12,.22);
+  clip-path: polygon(0 1.5%, 6% 0, 14% 1.2%, 23% .2%, 31% 1.4%, 42% .3%, 53% 1.3%, 61% 0, 72% 1.1%, 81% .2%, 90% 1.4%, 100% .4%, 99.6% 100%, 0.3% 99.6%);
+}
+.slot-a { transform: rotate(-1.1deg); }
+.slot-b { transform: rotate(1.1deg); }
+.letter {
+  position: absolute; z-index: 3; display: grid; place-items: center; background: rgba(253,252,247,.6);
+  font-family: var(--f-display); font-style: italic; font-weight: 700;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  border: 2.5px solid var(--ink); border-radius: 52% 48% 55% 45% / 48% 55% 45% 52%;
+  color: var(--ink);
+}
+.txt { position: relative; z-index: 2; font-family: var(--f-ui); font-weight: 500; color: var(--ink); }
+button { font: inherit; color: inherit; cursor: pointer; }
+.slip-tape { position: absolute; z-index: 6; }
+
+/* ---------- painted button ---------- */
+.btn-paint {
+  position: absolute; display: flex; align-items: center; justify-content: center; border: 0;
+  font-family: var(--f-ui); font-weight: 800; color: #fff8ef; letter-spacing: .01em;
+  background: var(--madder-deep);
+  border-radius: 14px 26px 12px 30px / 26px 12px 30px 14px;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.06), 0 3px 0 #4f0d14, 0 12px 20px rgba(60, 10, 14, .35);
+  isolation: isolate; overflow: hidden;
+}
+.btn-paint::before {
+  content: ""; position: absolute; inset: -30% -10%; z-index: -1;
+  background: url(art/bleed-cut.png) center / cover no-repeat;
+  mix-blend-mode: multiply; opacity: .9;
+}
+.btn-paint .arrow { display: inline-block; margin-left: 12px; font-family: var(--f-display); font-style: italic; }
+
+/* ---------- vote stickers ---------- */
+.sticker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--card); border-radius: 999px;
+  padding: 4px 16px 4px 6px;
+  box-shadow: 0 1px 1px rgba(60,40,20,.3), 0 4px 8px rgba(40,26,12,.15);
+  font-family: var(--f-ui); font-weight: 700; color: var(--ink);
+}
+.sticker .e { display: grid; place-items: center; border-radius: 50%; background: #efe6d3; }
+
+/* ---------- stamps + marks ---------- */
+.ink-red { color: var(--madder); }
+.ink-green { color: var(--sap-ink); }
+.paw { position: absolute; width: 34px; opacity: .82; z-index: 4; transform: var(--r); }
+
+/* ---------- the reveal, in motion (end state = the static design) ---------- */
+@keyframes bleed-in { from { opacity: 0; transform: scale(.3) rotate(-8deg); filter: blur(8px); } to { opacity: var(--bleed-o, .55); } }
+@keyframes paw-step { from { opacity: 0; transform: var(--r) translateY(-6px) scale(1.5); } to { opacity: .82; transform: var(--r); } }
+@keyframes thump { 0% { opacity: 0; transform: rotate(-12deg) scale(1.9); } 55% { opacity: 1; transform: rotate(-12deg) scale(.93); } 100% { opacity: 1; transform: rotate(-12deg) scale(1); } }
+@keyframes ink-in { from { opacity: 0; transform: translateY(10px) rotate(var(--rot, 0deg)); filter: blur(3px); } to { opacity: 1; transform: rotate(var(--rot, 0deg)); } }
+.reveal .bleed { transform-origin: 62% 48%; animation: bleed-in 1.5s cubic-bezier(.2,.75,.25,1) .5s both; }
+.reveal .paw { animation: paw-step .28s ease-out both; animation-delay: calc(1.7s + var(--i, 0) * .16s); }
+.reveal .stamp { animation: thump .5s cubic-bezier(.3,1.4,.5,1) 1.2s both; }
+.reveal .verdict { animation: ink-in .7s ease-out both; }
+.reveal .verdict.real { animation-delay: 1s; }
+.reveal .verdict.wolf { animation-delay: .9s; }
+@media (prefers-reduced-motion: reduce) { .reveal * { animation: none !important; } }
+
+/* ---------- phone: a single page held in the hand ---------- */
+body.phone { width: 390px; height: 844px; position: relative; }
+.leaf { position: absolute; left: 0; top: 0; width: 390px; height: 844px; }
+.leaf::before {
+  inset: -16px 8px -16px -16px;
+  background: linear-gradient(to right, rgba(74,50,26,.24), rgba(74,50,26,.04) 18px, transparent 40px), url(art/paper.svg), var(--paper);
+  box-shadow: 2px 0 0 #e9dfca, 4px 0 0 #d8ccb3, 6px 0 0 #c7b89c;
+}
+.p-head { position: absolute; left: 22px; right: 22px; top: 18px; height: 50px; display: flex; align-items: center; justify-content: space-between; z-index: 5; }
+.p-head .brand { font-size: 22px; line-height: 1; }
+.p-head .brand em { color: var(--madder); }
+.codechip { position: relative; display: flex; align-items: baseline; gap: 8px; padding: 6px 14px 4px; background: var(--sheet); transform: rotate(2deg);
+            box-shadow: 0 1px 1px rgba(60,40,20,.25), 0 4px 8px rgba(40,26,12,.18); }
+.codechip .hand { font-size: 22px; color: var(--sienna-ink); }
+.codechip b { font-family: var(--f-display); font-variation-settings: "SOFT" 100, "WONK" 0; font-weight: 700; font-size: 28px; letter-spacing: .04em; line-height: 1; }
+.codechip .tape { width: 54px; height: 20px; top: -10px; left: 50%; margin-left: -27px; }

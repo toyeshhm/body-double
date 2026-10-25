@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440, height=900">
+<title>Chapter III · Body Double</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..800,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Nanum+Pen+Script&family=Alegreya+Sans:wght@400;500;700;800&display=block" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { width: 1440px; height: 900px; position: relative; }
+
+  .chapter { position: absolute; left: 56px; top: 44px; font-size: 30px; font-style: italic; font-weight: 500; color: var(--ink-2); }
+  .chapter .hand { font-size: 30px; color: var(--sienna-ink); margin-left: 12px; font-style: normal; }
+  .prompt { position: absolute; left: 54px; top: 92px; width: 470px; font-size: 58px; line-height: 1.02; font-weight: 600; }
+  .prompt q { quotes: "\201C" "\201D"; }
+
+  .maya { left: 530px; top: 52px; transform: rotate(5deg); }
+  .maya .win { background-position: 22% 40%; }
+  .maya-note { position: absolute; left: 500px; top: 268px; font-size: 28px; color: var(--sienna-ink); transform: rotate(-4deg); }
+
+  /* answers: same box, same slip, rotation from the slot */
+  .answer { position: absolute; top: 360px; width: 604px; height: 184px; }
+  .answer.a { left: 50px; }
+  .answer.b { left: 744px; }
+  .answer .slip { inset: 0; --lh: 50px; --rule-top: 26px; }
+  .answer .letter { left: 22px; top: 26px; width: 54px; height: 54px; font-size: 32px; }
+  .answer .txt { position: absolute; left: 96px; right: 40px; top: 28px; font-size: 37px; line-height: 50px; }
+  .answer .slip-tape { left: 238px; top: -16px; width: 132px; }
+
+  .verdict { position: absolute; z-index: 8; font-size: 52px; font-style: italic; font-weight: 700; line-height: 1; white-space: nowrap; }
+  .verdict.real { left: 176px; top: 284px; color: var(--sap-ink); --rot: -2deg; transform: rotate(-2deg); }
+  .verdict.wolf { left: 752px; top: 282px; color: var(--madder); --rot: -3deg; transform: rotate(-3deg); }
+  .verdict.wolf::after { /* inked underline */
+    content: ""; position: absolute; left: -6px; right: -10px; bottom: -12px; height: 10px;
+    background: var(--madder); border-radius: 50%; transform: rotate(-1deg); opacity: .85;
+    clip-path: polygon(0 40%, 30% 10%, 70% 30%, 100% 0, 98% 60%, 60% 80%, 20% 100%, 2% 80%);
+  }
+
+  /* the Wolf's mark: bleed + paw prints */
+  .bleed { position: absolute; z-index: 1; left: 128px; top: -80px; width: 580px; height: 238px;
+           background: url(art/bleed-cut.png) 0 0 / 100% auto no-repeat; opacity: .58; --bleed-o: .58; mix-blend-mode: multiply; }
+  .bleed.edge { left: 330px; top: -40px; width: 420px; height: 300px; opacity: .55; transform: rotate(8deg); }
+  .answer .txt.under-bleed { text-shadow: 0 0 8px rgba(253,252,247,.9), 0 0 2px rgba(253,252,247,.9); }
+
+  /* pressed-flower stamp */
+  .stamp { position: absolute; z-index: 7; width: 156px; height: 156px; left: -40px; top: -142px; transform: rotate(-12deg); mix-blend-mode: multiply; }
+
+  .voters { position: absolute; top: 576px; display: flex; align-items: center; gap: 12px; z-index: 6; }
+  .voters.a { left: 64px; }
+  .voters.b { left: 760px; }
+  .voters .hand { font-size: 32px; color: var(--ink-2); margin-right: 4px; }
+  .voters .sticker { font-size: 24px; height: 48px; }
+  .voters .sticker .e { width: 38px; height: 38px; font-size: 24px; }
+  .voters.b .sticker { box-shadow: 0 0 0 2px rgba(163,35,46,.55), 0 4px 8px rgba(40,26,12,.15); }
+  .voters.a .sticker { box-shadow: 0 0 0 2px rgba(58,92,34,.55), 0 4px 8px rgba(40,26,12,.15); }
+
+  .wolf-art { position: absolute; left: 1066px; top: 6px; height: 396px; z-index: 0; }
+  .fooled { position: absolute; left: 752px; top: 46px; width: 320px; z-index: 2; }
+  .fooled .l1 { font-size: 40px; font-style: italic; font-weight: 600; line-height: 1; }
+  .fooled .big { font-size: 118px; line-height: .95; font-weight: 700; color: var(--madder); font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 144; }
+  .fooled .hand { font-size: 30px; color: var(--ink-2); margin-top: 6px; }
+
+  .points { position: absolute; left: 56px; top: 664px; width: 500px; font-size: 25px; line-height: 1.32; color: var(--ink); font-weight: 500; }
+  .points b { font-weight: 800; color: var(--sap-ink); }
+  .points .hand { display: block; font-size: 30px; color: var(--sienna-ink); margin-bottom: 4px; }
+
+  .heroes { position: absolute; left: 752px; top: 664px; width: 290px; }
+  .heroes h3 { font-size: 30px; font-style: italic; font-weight: 600; margin-bottom: 6px; }
+  .hero { display: flex; align-items: center; gap: 10px; height: 40px; font-size: 24px; }
+  .hero .rk { font-family: var(--f-display); font-style: italic; font-weight: 600; width: 22px; color: var(--ink-2); }
+  .hero .nm { font-weight: 700; flex: 0 0 auto; }
+  .hero i { flex: 1; border-bottom: 2px dotted rgba(43,33,29,.4); transform: translateY(-5px); }
+  .hero b { font-weight: 800; }
+
+  .next { left: 1066px; top: 736px; width: 306px; height: 84px; font-size: 26px; white-space: nowrap; }
+
+  .fern-r { position: absolute; left: 574px; top: 590px; height: 270px; transform: rotate(-26deg); z-index: 0; opacity: .9; }
+</style>
+</head>
+<body class="desk reveal">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="rubber" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="6" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.6 1.55" result="ga"/>
+    <feComposite in="SourceGraphic" in2="ga" operator="in" result="t"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2" result="n"/>
+    <feDisplacementMap in="t" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<main class="spread">
+  <section class="page left paper"></section>
+  <div class="gutter"></div>
+  <section class="page right paper"></section>
+
+  <!-- left page: the chapter -->
+  <p class="chapter display">Chapter III of VI <span class="hand">Maya's turn</span></p>
+  <h1 class="prompt display"><q>Your toxic trait, but make it cute</q></h1>
+
+  <figure class="polaroid maya"><div class="tape indigo"></div><div class="win w-indigo"><span class="emo">🦉</span></div><figcaption><div class="nm">Maya</div><div class="rl">the bard</div></figcaption></figure>
+
+  <!-- right page top: the Wolf's portrait and the tally -->
+  <img class="wolf-art" src="art/wolf-cut.png" alt="Watercolor sketch of the Wolf in Grandmother's bonnet">
+  <div class="fooled">
+    <div class="l1 display">The Wolf fooled</div>
+    <div class="big display">2 of 4</div>
+    <div class="hand">villagers this chapter</div>
+  </div>
+
+  <!-- answer A: the real one -->
+  <p class="verdict real display">The real Maya</p>
+  <div class="answer a slot-a">
+    <div class="slip"></div>
+    <div class="tape ochre slip-tape"></div>
+    <div class="letter">A</div>
+    <p class="txt">i will reorganize your spice rack while you shower and call it love</p>
+    <svg class="stamp" viewBox="0 0 200 200" aria-label="Pressed flower stamp: The real Maya">
+      <defs><path id="ring" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+      <g filter="url(#rubber)" fill="none" stroke="#3b6a2a" opacity=".9">
+        <circle cx="100" cy="100" r="94" stroke-width="5"/>
+        <circle cx="100" cy="100" r="86" stroke-width="1.6"/>
+        <circle cx="100" cy="100" r="56" stroke-width="2"/>
+        <text font-family="Alegreya Sans, sans-serif" font-weight="800" font-size="19" letter-spacing="3.2" fill="#3b6a2a" stroke="none">
+          <textPath href="#ring" startOffset="0">THE REAL MAYA ✿ THE REAL MAYA ✿</textPath>
+        </text>
+      </g>
+      <image href="art/forgetmenot.svg" x="58" y="50" width="84" height="110"/>
+    </svg>
+  </div>
+  <div class="voters a"><span class="hand">knew her</span>
+    <span class="sticker"><span class="e">🦊</span>Jordan</span>
+    <span class="sticker"><span class="e">🐻</span>Sam</span>
+  </div>
+
+  <!-- answer B: the Wolf's -->
+  <p class="verdict wolf display">It was the Wolf!</p>
+  <div class="answer b slot-b">
+    <div class="slip"></div>
+    <div class="tape ochre slip-tape"></div>
+    <div class="bleed"></div>
+    <div class="letter">B</div>
+    <p class="txt under-bleed">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+    <img class="paw" src="art/paw.svg" alt="" style="left:30px;top:150px;--i:1;--r:rotate(58deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:130px;top:224px;--i:2;--r:rotate(74deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:220px;top:190px;--i:3;--r:rotate(60deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:312px;top:206px;--i:4;--r:rotate(70deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:400px;top:170px;--i:5;--r:rotate(52deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:480px;top:170px;--i:6;--r:rotate(40deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:548px;top:110px;--i:7;--r:rotate(30deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:600px;top:60px;--i:8;--r:rotate(22deg)">
+  </div>
+  <div class="voters b"><span class="hand">fooled</span>
+    <span class="sticker"><span class="e">🍄</span>Priya</span>
+    <span class="sticker"><span class="e">🐸</span>Theo</span>
+  </div>
+
+  <!-- bottom: points, heroes, next -->
+  <p class="points"><span class="hand">Gran's tally</span><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+
+  <img class="fern-r" src="art/fern-small.svg" alt="">
+  <div class="heroes">
+    <h3 class="display">Village Heroes</h3>
+    <div class="hero"><span class="rk">1</span><span>🦉</span><span class="nm">Maya</span><i></i><b>300</b></div>
+    <div class="hero"><span class="rk">2</span><span>🦊</span><span class="nm">Jordan</span><i></i><b>200</b></div>
+    <div class="hero"><span class="rk">2</span><span>🐻</span><span class="nm">Sam</span><i></i><b>200</b></div>
+  </div>
+  <button class="btn-paint next">Ask what gave it away <span class="arrow">→</span></button>
+</main>
+<div class="ribbon"></div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The reveal · Storybook Stickers</title>
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Figtree:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .head { left: 0; right: 0; top: 40px; text-align: center; }
+  .chapter { font-size: 28px; color: var(--gold-text); }
+  .prompt { font-family: var(--display); font-weight: 700; font-variation-settings: "SOFT" 100, "opsz" 96; font-size: 54px; line-height: 1.05; margin-top: 4px; letter-spacing: -.01em; }
+  .ask { font-size: 30px; color: var(--ink-soft); margin-top: 8px; display: inline-flex; align-items: center; gap: 10px; }
+  .ask img { width: 46px; height: 46px; transform: rotate(-6deg); }
+
+  /* two identical mirrors: same frame, glass, size; tilt tied to slot (A left, B right) */
+  .mirror { width: 560px; height: 442px; top: 206px; }
+  .mirror.a { left: 104px; transform: rotate(-1.5deg); }
+  .mirror.b { left: 776px; transform: rotate(1.5deg); }
+  .mirror .body { position: absolute; inset: 0; filter: url(#dc-lg); }
+  .mirror .glass { left: 83px; top: 113px; width: 394px; height: 232px; }
+  .mirror .words { left: 120px; top: 128px; width: 320px; height: 202px; font-size: 29px; line-height: 1.22; }
+  .mirror .slot { position: absolute; left: 34px; top: 38px; }
+
+  /* the truth lands */
+  .a .halo { position: absolute; left: 70px; top: 96px; width: 420px; height: 268px; border-radius: 50%;
+             box-shadow: 0 0 70px 34px rgba(242, 214, 128, .75), 0 0 140px 70px rgba(242, 214, 128, .35); }
+  .a .glass { background: #f3f6f2; box-shadow: inset 0 0 0 7px rgba(242, 219, 148, .9), inset 10px 14px 0 12px rgba(255, 255, 255, .6); }
+  .b .glass { background: #c9d5dd; }
+  .b .ghost { position: absolute; width: 236px; height: 236px; right: -4px; bottom: -84px; opacity: .5; transform: rotate(-8deg); filter: saturate(.5); }
+  .b .cracks { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .b .words { text-shadow: 0 0 3px #c9d5dd, 0 0 8px #c9d5dd, 0 0 14px #c9d5dd; }
+  .spark { position: absolute; }
+  .glory { left: 24px; top: 155px; }
+
+  .verdict { position: absolute; left: 50%; top: 372px; transform: translateX(-50%); white-space: nowrap; display: flex; align-items: center; }
+  .verdict img { width: 84px; height: 84px; margin-right: -26px; position: relative; z-index: 2; }
+  .verdict .ribbon { height: 62px; font-size: 31px; padding: 0 40px 0 46px; }
+  .b .verdict img { width: 96px; height: 96px; transform: rotate(-10deg); }
+
+  .voters { position: absolute; top: 476px; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 12px; font-size: 23px; font-weight: 600; color: var(--ink-soft); }
+  .voters img { width: 50px; height: 50px; }
+  .voters img + img { margin-left: -14px; }
+  .voters b { color: var(--ink); font-weight: 700; }
+
+  .tally { left: 100px; top: 762px; }
+  .tally h2 { font-family: var(--display); font-weight: 700; font-variation-settings: "SOFT" 100; font-size: 46px; color: var(--rasp-deep); line-height: 1; }
+  .tally p { font-size: 23px; font-weight: 500; color: var(--ink-soft); margin-top: 10px; max-width: 880px; line-height: 1.3; }
+  .tally p b { color: var(--ink); font-weight: 700; }
+
+  .heroes { right: 44px; top: 34px; width: 268px; padding: 14px 20px 14px; transform: rotate(1.5deg); }
+  .heroes h3 { font-family: var(--display); font-weight: 700; font-variation-settings: "SOFT" 100; font-size: 25px; color: var(--gold-text); display: flex; align-items: center; gap: 8px; }
+  .heroes h3 img { width: 34px; height: 34px; }
+  .heroes ol { list-style: none; margin-top: 6px; }
+  .heroes li { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 8px; font-size: 23px; font-weight: 700; height: 44px; }
+  .heroes li img { width: 38px; height: 38px; }
+  .heroes li span { font-family: var(--display); font-weight: 700; font-variation-settings: "SOFT" 100; font-size: 26px; }
+
+  .next { right: 64px; top: 774px; }
+  .next .btn { height: 88px; padding: 0 40px; font-size: 29px; }
+</style>
+</head>
+<body class="host">
+<svg class="defs" aria-hidden="true" focusable="false">
+  <filter id="dc" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.4"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="3.4"/><feOffset dx="1.5" dy="4.5" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-sm" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="2.4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="1.2"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="1.8"/><feOffset dx=".8" dy="2.2" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-lg" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="3"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="6"/><feOffset dx="2" dy="8" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".30"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-type" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.6"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="4"/><feOffset dx="2" dy="6" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".28"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="foil" x="-6%" y="-12%" width="112%" height="124%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".012 .05" numOctaves="2" seed="5" result="streak"/>
+    <feColorMatrix in="streak" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55" result="streakA"/>
+    <feFlood flood-color="#9c7428"/><feComposite in2="streakA" operator="in" result="tarnish"/>
+    <feComposite in="tarnish" in2="SourceAlpha" operator="in" result="tarnishIn"/>
+    <feMerge result="base"><feMergeNode in="SourceGraphic"/><feMergeNode in="tarnishIn"/></feMerge>
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="11" result="grain"/>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="soft"/>
+    <feComposite in="soft" in2="grain" operator="arithmetic" k1="0" k2="1" k3=".1" k4="0" result="bump"/>
+    <feSpecularLighting in="bump" surfaceScale="6" specularConstant="1.1" specularExponent="16" lighting-color="#fff2c8" result="spec">
+      <feDistantLight azimuth="225" elevation="40"/>
+    </feSpecularLighting>
+    <feComposite in="spec" in2="SourceAlpha" operator="in" result="sheen"/>
+    <feComposite in="base" in2="sheen" operator="arithmetic" k1="0" k2="1" k3=".7" k4="0"/>
+  </filter>
+</svg>
+
+<div class="corner tl"></div><div class="corner bl"></div><div class="corner br"></div>
+<div class="abs brand" style="left:66px;top:46px;font-size:32px">Body <b>Double</b></div>
+
+<header class="abs head">
+  <div class="chapter italic">Chapter III of VI</div>
+  <h1 class="prompt">Your toxic trait, but make it cute</h1>
+  <p class="ask italic"><img class="st" src="../_fantasy/icons/slipper.svg" alt="">Mirror, mirror, which one is really Maya?</p>
+</header>
+
+<aside class="abs card heroes">
+  <h3><img class="st-sm" src="../_fantasy/icons/crown.svg" alt="">Village Heroes</h3>
+  <ol>
+    <li><img class="st-sm" src="../_fantasy/icons/slipper.svg" alt="">Maya<span>300</span></li>
+    <li><img class="st-sm" src="../_fantasy/icons/lamp.svg" alt="">Jordan<span>200</span></li>
+    <li><img class="st-sm" src="../_fantasy/icons/eat-me.svg" alt="">Sam<span>200</span></li>
+  </ol>
+</aside>
+
+<svg class="abs glory" viewBox="-360 -360 720 720" width="720" height="560" preserveAspectRatio="none" aria-hidden="true"><path d="M148.6,20.1 L338.3,34.4 L332.3,71.9 L147.6,26.8 Z M134.7,66.0 L245.1,113.3 L235.7,131.7 L132.6,70.1 Z M108.4,103.7 L253.5,226.6 L226.6,253.5 L103.7,108.4 Z M70.1,132.6 L131.7,235.7 L113.3,245.1 L66.0,134.7 Z M26.8,147.6 L71.9,332.3 L34.4,338.3 L20.1,148.6 Z M-21.2,148.5 L-32.0,268.1 L-52.4,264.9 L-25.7,147.8 Z M-65.1,135.1 L-137.2,311.1 L-171.0,293.9 L-71.1,132.1 Z M-104.4,107.7 L-183.4,198.1 L-198.1,183.4 L-107.7,104.4 Z M-132.1,71.1 L-293.9,171.0 L-311.1,137.2 L-135.1,65.1 Z M-147.8,25.7 L-264.9,52.4 L-268.1,32.0 L-148.5,21.2 Z M-148.6,-20.1 L-338.3,-34.4 L-332.3,-71.9 L-147.6,-26.8 Z M-134.7,-66.0 L-245.1,-113.3 L-235.7,-131.7 L-132.6,-70.1 Z M-108.4,-103.7 L-253.5,-226.6 L-226.6,-253.5 L-103.7,-108.4 Z M-70.1,-132.6 L-131.7,-235.7 L-113.3,-245.1 L-66.0,-134.7 Z M-26.8,-147.6 L-71.9,-332.3 L-34.4,-338.3 L-20.1,-148.6 Z M21.2,-148.5 L32.0,-268.1 L52.4,-264.9 L25.7,-147.8 Z M65.1,-135.1 L137.2,-311.1 L171.0,-293.9 L71.1,-132.1 Z M104.4,-107.7 L183.4,-198.1 L198.1,-183.4 L107.7,-104.4 Z M132.1,-71.1 L293.9,-171.0 L311.1,-137.2 L135.1,-65.1 Z M147.8,-25.7 L264.9,-52.4 L268.1,-32.0 L148.5,-21.2 Z" fill="#e3bd5f" opacity=".42"/></svg>
+<!-- Mirror A: the real one shines -->
+<section class="mirror a">
+  <div class="halo"></div>
+  <div class="body">
+    <div class="glass"></div>
+    <div class="words">i will reorganize your spice rack while you shower and call it love</div>
+    <img class="frame" src="art/mirror-wide.svg" alt="">
+  </div>
+  <div class="slot">A</div>
+  <img class="spark st" src="../_fantasy/icons/sparkles.svg" alt="" style="width:92px;height:92px;right:-6px;top:-4px;transform:rotate(8deg)">
+  <svg class="spark" style="left:-10px;top:250px" width="40" height="40" viewBox="-13 -13 26 26"><path d="M0,-13C2,-2 2,-2 13,0C2,2 2,2 0,13C-2,2 -2,2 -13,0C-2,-2 -2,-2 0,-13Z" fill="#dbb35e"/></svg>
+  <svg class="spark" style="left:500px;top:290px" width="28" height="28" viewBox="-13 -13 26 26"><path d="M0,-13C2,-2 2,-2 13,0C2,2 2,2 0,13C-2,2 -2,2 -13,0C-2,-2 -2,-2 0,-13Z" fill="#dbb35e"/></svg>
+  <div class="verdict"><img class="st" src="../_fantasy/icons/slipper.svg" alt=""><span class="ribbon-wrap"><span class="ribbon gold">The real Maya</span></span></div>
+  <div class="voters"><img class="st-sm" src="../_fantasy/icons/lamp.svg" alt=""><img class="st-sm" src="../_fantasy/icons/eat-me.svg" alt=""><span><b>Jordan</b> and <b>Sam</b> knew her</span></div>
+</section>
+
+<!-- Mirror B: the fake one cracks and the Wolf shows through -->
+<section class="mirror b">
+  <div class="body">
+    <div class="glass">
+      <img class="ghost" src="../_fantasy/icons/wolf.svg" alt="">
+      <img class="cracks" src="art/cracks-wide.svg" alt="">
+    </div>
+    <div class="words">overthinking a text for 40 minutes then just sending 'k' 💀</div>
+    <img class="frame" src="art/mirror-wide.svg" alt="">
+  </div>
+  <div class="slot">B</div>
+  <div class="verdict"><img class="st" src="../_fantasy/icons/wolf.svg" alt=""><span class="ribbon-wrap"><span class="ribbon burg">It was the Wolf!</span></span></div>
+  <div class="voters"><img class="st-sm" src="../_fantasy/icons/potion.svg" alt=""><img class="st-sm" src="../_fantasy/icons/frog-prince.svg" alt=""><span><b>Priya</b> and <b>Theo</b> were fooled</span></div>
+</section>
+
+<div class="abs tally">
+  <h2>The Wolf fooled 2 of 4.</h2>
+  <p><b>+100 to Jordan and Sam.</b> Maya earns +100 (+50 for each friend who knew her).</p>
+</div>
+
+<div class="abs next"><span class="btn">Ask what gave it away</span></div>
+</body>
+</html>

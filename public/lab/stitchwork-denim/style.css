@@ -1,0 +1,197 @@
+/* Stitchwork: Patched Denim. The village is the back of a well-loved denim jacket. */
+:root {
+  --indigo-950: #0d1530;
+  --indigo-900: #15203f;
+  --indigo-700: #2b3f6e;
+  --indigo-300: #a3b4d8;
+  --copper: #d9853c;
+  --copper-hi: #f4b878;
+  --orange: #f06a1f;
+  --orange-deep: #b9460c;
+  --bone: #f1e8d4;
+  --bone-2: #e2d6bb;
+  --ink: #17181d;
+  --ink-soft: #4b463c;
+  --oxblood: #9b1f1b;
+  --red: #c8302b;
+  --gold-text: #f7d9a8;
+
+  --varsity: "Graduate", "Rockwell", serif;
+  --script: "Yellowtail", "Brush Script MT", cursive;
+  --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+
+  --lift: 0 2px 0 rgba(5, 8, 20, .35), 0 10px 18px rgba(5, 9, 26, .5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow: hidden; }
+body {
+  font-family: var(--sans);
+  color: var(--bone);
+  background: var(--indigo-700) url(art/denim-host.png) 0 0 / 1440px 900px no-repeat;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+.host { width: 1440px; height: 900px; }
+.phone { width: 390px; height: 844px; background-image: url(art/denim-phone.png); background-size: 390px 844px; }
+.defs { position: absolute; width: 0; height: 0; }
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+
+/* ---------- fabrics ---------- */
+.tw-bone   { --fill: url(art/twill-bone.png) 0 0 / 240px, var(--bone); color: var(--ink); }
+.tw-ink    { --fill: url(art/twill-black.png) 0 0 / 240px, var(--ink); color: var(--bone); }
+.tw-orange { --fill: url(art/twill-orange.png) 0 0 / 240px, var(--orange); color: var(--ink); }
+.tw-red    { --fill: url(art/twill-red.png) 0 0 / 240px, var(--red); color: var(--bone); }
+.tw-denim  { --fill: url(art/denim-tile.png) 0 0 / 240px, var(--indigo-700); color: var(--bone); }
+
+.mw-bone   { --mw: url(art/merrow-bone.svg); }
+.mw-ink    { --mw: url(art/merrow-ink.svg); }
+.mw-orange { --mw: url(art/merrow-orange.svg); }
+.mw-copper { --mw: url(art/merrow-copper.svg); }
+
+/* rectangular patch with an overlocked (merrowed) edge */
+.patch {
+  position: relative;
+  border: 12px solid transparent;
+  border-radius: 24px;
+  border-image: var(--mw, url(art/merrow-bone.svg)) 24 / 24px round;
+  background: var(--fill);
+  box-shadow: var(--lift);
+}
+.patch.slim { border-width: 8px; border-radius: 16px; border-image-width: 16px; }
+
+/* round iron-on patch: twill disc + overlocked ring made of radial bars */
+.rp {
+  position: relative; display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--fill);
+  box-shadow: 0 3px 0 rgba(5, 8, 20, .4), 0 10px 16px rgba(5, 9, 26, .5), inset 0 0 0 1px rgba(0, 0, 0, .3);
+}
+.rp::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background:
+    radial-gradient(farthest-side, rgba(0, 0, 0, .45) calc(100% - 12px), transparent calc(100% - 10px) calc(100% - 7px), rgba(255, 255, 255, .22) calc(100% - 6px), transparent calc(100% - 4px), rgba(0, 0, 0, .45) 100%),
+    repeating-conic-gradient(var(--ring, var(--bone)) 0 2.3deg, var(--ring-g, #8d806a) 2.3deg 3.1deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 12.5px), #000 calc(100% - 12px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 12.5px), #000 calc(100% - 12px));
+}
+.rp::after { /* the ring casts a soft shadow onto the disc */
+  content: ""; position: absolute; inset: 11px; border-radius: 50%;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, .35);
+}
+.ring-bone   { --ring: #efe5cf; --ring-g: #8f836c; }
+.ring-ink    { --ring: #26262c; --ring-g: #000; }
+.ring-orange { --ring: #f0701f; --ring-g: #8a3507; }
+.ring-copper { --ring: #dc8a42; --ring-g: #6e3510; }
+.ring-red    { --ring: #c8302b; --ring-g: #5c0f0c; }
+.emo { position: relative; z-index: 1; line-height: 1; filter: url(#stitchify) drop-shadow(0 1px 0 rgba(0, 0, 0, .3)); }
+
+/* ---------- woven label (black damask, copper weave) ---------- */
+.woven {
+  display: inline-flex; align-items: center; justify-content: center; white-space: nowrap;
+  padding: 0 34px; height: 54px;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .06) 0 1px, transparent 1px 3px),
+    url(art/twill-black.png) 0 0 / 240px, var(--ink);
+  color: #f37a2c;
+  font-weight: 800; font-stretch: 125%; text-transform: uppercase; letter-spacing: .14em; font-size: 22px;
+  box-shadow: var(--lift);
+  position: relative;
+}
+.woven::before, .woven::after { /* folded ends sewn down */
+  content: ""; position: absolute; top: 0; bottom: 0; width: 14px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, .55), rgba(255, 255, 255, .05) 70%, rgba(0, 0, 0, .3));
+}
+.woven::before { left: 0; }
+.woven::after { right: 0; transform: scaleX(-1); }
+.woven .seam { position: absolute; top: 5px; bottom: 5px; width: 0; border-left: 3px dashed var(--copper); }
+.woven .seam.l { left: 18px; } .woven .seam.r { right: 18px; }
+.woven span { position: relative; text-shadow: 0 0 1px rgba(243, 122, 44, .6); }
+
+/* ---------- copper hardware ---------- */
+.rivet { position: absolute; width: 30px; height: 30px; background: url(art/rivet.svg) center / contain no-repeat; z-index: 30; }
+.spin { position: absolute; width: 170px; height: 48px; background: url(art/safety-pin.svg) center / contain no-repeat; z-index: 30; pointer-events: none; }
+
+/* ---------- enamel pins ---------- */
+.enamel {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 5px solid transparent; border-radius: 20px;
+  background:
+    linear-gradient(var(--enamel, var(--ink)), var(--enamel, var(--ink))) padding-box,
+    linear-gradient(135deg, #ffe2bd, #b0662e 30%, #f6c48e 52%, #7d3f17 78%, #e3a46a) border-box;
+  box-shadow: 0 2px 0 #4d2208, 0 9px 14px rgba(5, 9, 26, .6), inset 0 0 0 2px rgba(0, 0, 0, .35), inset 0 -4px 8px rgba(0, 0, 0, .3);
+  color: var(--gold-text);
+}
+.enamel::after { /* glossy dome */
+  content: ""; position: absolute; inset: 3px; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(158deg, rgba(255, 255, 255, .34) 0 16%, rgba(255, 255, 255, 0) 30%);
+}
+.en-ink { --enamel: #1b1c22; }
+.en-ox { --enamel: #8e1c18; }
+.en-indigo { --enamel: #142048; }
+
+/* ---------- type ---------- */
+.script { font-family: var(--script); font-weight: 400; }
+.varsity { font-family: var(--varsity); font-weight: 400; }
+/* chain-stitch script: a thickened base layer plus a layer of link ticks along the outline */
+.cs { font-family: var(--script); font-weight: 400; }
+.cs-base { fill: var(--cs, var(--bone)); stroke: var(--cs, var(--bone)); stroke-width: var(--csw, 8px); stroke-linejoin: round; }
+.cs-tick { fill: none; stroke: var(--cs-d, #5d5240); stroke-opacity: .34; stroke-width: var(--csw, 8px); stroke-dasharray: 1 4.8; stroke-linejoin: round; }
+.cs-orange { --cs: var(--orange); --cs-d: #5a1e02; }
+
+/* ---------- buttons: an orange twill patch with a black overlock ---------- */
+.btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  min-height: 60px; padding: 0 30px;
+  border: 12px solid transparent; border-radius: 24px;
+  border-image: url(art/merrow-ink.svg) 24 / 24px round;
+  background: url(art/twill-orange.png) 0 0 / 240px, var(--orange);
+  color: var(--ink);
+  font-family: var(--sans); font-weight: 800; font-stretch: 112%;
+  box-shadow: 0 4px 0 #0b0c12, 0 14px 20px rgba(5, 9, 26, .55);
+  white-space: nowrap;
+}
+.btn .arrow { width: 34px; height: 20px; flex: none; }
+
+/* ---------- answers: two identical bone twill patches ---------- */
+.answer-patch { border-radius: 24px; }
+.answer-patch .slot {
+  position: absolute; z-index: 3; display: grid; place-items: center;
+  width: 58px; height: 58px; border-radius: 50%;
+  font-family: var(--varsity); font-size: 30px; line-height: 1;
+}
+.answer-patch .slot::before { -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 7.5px), #000 calc(100% - 7px)); mask: radial-gradient(farthest-side, transparent calc(100% - 7.5px), #000 calc(100% - 7px)); }
+.answer-patch .slot::after { inset: 6px; }
+.answer-patch .slot b { position: relative; z-index: 1; font-weight: 400; }
+.answer-text { font-family: var(--sans); font-weight: 600; color: var(--ink); font-stretch: 100%; }
+
+/* tiny running stitches at the end of tapes */
+.tack-l, .tack-r { position: absolute; top: 6px; bottom: 6px; border-left: 2.5px dashed var(--copper); }
+
+/* ---------- phone shell ---------- */
+.phone .inner { position: absolute; inset: 0; padding: 18px 18px 18px; }
+.phone .top { display: flex; align-items: center; justify-content: space-between; height: 52px; }
+.phone .woven { height: 38px; padding: 0 22px; font-size: 13px; letter-spacing: .12em; transform: rotate(-2deg); }
+.phone .woven .seam.l { left: 10px; } .phone .woven .seam.r { right: 10px; }
+.phone .woven .seam { border-left-width: 2px; top: 4px; bottom: 4px; }
+.phone .woven::before, .phone .woven::after { width: 8px; }
+.code-chip {
+  display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 14px;
+  font-weight: 700; font-size: 14px; color: var(--ink);
+  border-width: 7px; border-radius: 14px; border-image-width: 14px;
+  transform: rotate(1.5deg);
+}
+.code-chip b { font-family: var(--varsity); font-weight: 400; font-size: 22px; color: var(--orange-deep); letter-spacing: .06em; }
+.phone .btn { width: 100%; min-height: 64px; font-size: 21px; }
+.fineprint { font-size: 14px; font-weight: 600; color: var(--bone); line-height: 1.35; text-align: center; text-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+
+@keyframes rip {
+  0% { transform: translate(0, 0) rotate(var(--r0, -1deg)); }
+  55% { transform: translate(var(--tx), var(--ty)) rotate(calc(var(--r1) + 3deg)); }
+  100% { transform: translate(var(--tx), var(--ty)) rotate(var(--r1)); }
+}
+@keyframes stamp { 0% { transform: scale(.5) rotate(-20deg); opacity: 0; } 70% { transform: scale(1.08) rotate(var(--rr, 6deg)); opacity: 1; } 100% { transform: scale(1) rotate(var(--rr, 6deg)); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+/* last so it wins over component position: relative */
+.abs { position: absolute; }

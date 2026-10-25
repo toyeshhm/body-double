@@ -2,26 +2,311 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fantasy: Storybook Stickers. A fairy-tale scrapbook of die-cut stickers on toned paper,
+   with antique-gold foil, powder blue, sage and raspberry. Filters live in components/ui/StickerDefs.tsx. */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --ground: #eadfc7; /* toned paper, never pure white (projector glare) */
+  --paper: #f8f0de;
+  --cut: #fffaf0;
+  --ink: #2e2421;
+  --ink-soft: #5b4a3b;
+  --gold: #dbb35e;
+  --gold-light: #f2db94;
+  --gold-deep: #8e6a2f;
+  --gold-text: #75561f;
+  --night: #263a55;
+  --glass: #e4edf1;
+  --rasp-deep: #963248;
+  --burg: #6e2338;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    background: var(--ground);
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    min-height: 100dvh;
+    @apply font-sans text-ink antialiased;
+    background:
+      url("/art/storybook/paper.svg"),
+      url("/art/storybook/realm-phone.svg") center bottom / 100% auto no-repeat fixed,
+      var(--ground);
+  }
+  @media (min-width: 768px) {
+    body {
+      background:
+        url("/art/storybook/paper.svg"),
+        url("/art/storybook/realm.svg") center / cover no-repeat fixed,
+        var(--ground);
+    }
+  }
+  /* deeper paper at the edges, like an old page */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 120px rgb(150 118 70 / 0.22);
+    z-index: 0;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 3px solid var(--rasp-deep);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--gold-light);
+    color: var(--ink);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* ---------- stickers ---------- */
+  .st {
+    filter: url(#dc);
+  }
+  .st-sm {
+    filter: url(#dc-sm);
+  }
+  .st-lg {
+    filter: url(#dc-lg);
+  }
+
+  /* ---------- type ---------- */
+  .display {
+    @apply font-display;
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+  }
+  /* die-cut sticker lettering for big titles ("The Village") */
+  .cut-letters {
+    @apply font-display font-bold text-rasp-deep;
+    font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+    filter: url(#dc-type);
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+  }
+  /* the storyteller's voice */
+  .voice {
+    @apply font-display font-medium italic;
+    font-variation-settings: "SOFT" 50;
+  }
+  .brand {
+    @apply font-display font-bold text-ink;
+    font-variation-settings: "SOFT" 100, "opsz" 72;
+  }
+  .brand b {
+    @apply text-rasp-deep;
+  }
+  /* embossed antique-gold foil, for the room code on night glass */
+  .foil {
+    @apply font-display font-bold;
+    font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 144;
+    color: #e0b858;
+    filter: url(#foil);
+  }
+  .dropcap::first-letter {
+    @apply float-left font-display font-bold text-rasp-deep;
+    font-size: 3.6em;
+    line-height: 0.8;
+    padding: 0.06em 0.08em 0 0;
+  }
+
+  /* ---------- paper card sticker ---------- */
+  .card {
+    background: var(--paper) url("/art/storybook/paper.svg");
+    border-radius: 18px;
+    filter: url(#dc-lg);
+  }
+  .card-sm {
+    background: var(--paper) url("/art/storybook/paper.svg");
+    border-radius: 14px;
+    filter: url(#dc);
+  }
+
+  /* ---------- villager name tag ---------- */
+  .tag {
+    position: relative;
+    background: var(--paper);
+    border-radius: 10px 10px 14px 14px;
+    padding: 16px 10px 6px;
+    text-align: center;
+    filter: url(#dc);
+  }
+  .tag::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    border-radius: 50%;
+    background: #ddcfb2;
+    box-shadow: inset 0 1px 1px rgb(60 40 20 / 0.35);
+  }
+
+  /* ---------- buttons (Figtree, per spec) ---------- */
+  .btn {
+    @apply inline-flex min-h-[3.25rem] select-none items-center justify-center gap-3 rounded-full px-7 font-sans text-[1.0625rem] font-extrabold transition duration-200 ease-out-quint;
+    filter: url(#dc);
+  }
+  .btn-primary {
+    @apply bg-rasp-deep text-paper-cut enabled:hover:bg-[#a83a52] enabled:active:translate-y-px;
+    box-shadow:
+      inset 0 -6px 0 rgb(70 14 34 / 0.35),
+      inset 0 3px 0 rgb(255 220 220 / 0.18);
+  }
+  .btn-primary:disabled {
+    @apply cursor-not-allowed bg-[#b9a59a] text-paper;
+    box-shadow: inset 0 -4px 0 rgb(70 40 30 / 0.18);
+  }
+  .btn-quiet {
+    @apply bg-paper text-ink enabled:hover:bg-paper-cut enabled:active:translate-y-px;
+  }
+  .btn-quiet:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  /* ---------- gold medallion slot letters (A / B) ---------- */
+  .slot {
+    @apply grid place-items-center rounded-full font-display font-extrabold;
+    background: var(--gold);
+    color: #4a3612;
+    box-shadow:
+      inset -4px -5px 0 #b88d40,
+      inset 3px 3px 0 #f2db94;
+    filter: url(#dc);
+  }
+
+  /* ---------- ribbon banners: wrap in .ribbon-wrap so the cut follows the notched shape ---------- */
+  .ribbon-wrap {
+    display: inline-block;
+    filter: url(#dc);
+  }
+  .ribbon {
+    @apply relative inline-flex items-center justify-center gap-2 whitespace-nowrap font-display font-bold;
+    font-variation-settings: "SOFT" 100;
+    color: #fff8ec;
+    background: var(--rasp-deep);
+    padding: 0.35em 1.5em;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 0.75em) 50%, 100% 100%, 0 100%, 0.75em 50%);
+  }
+  .ribbon-gold {
+    background: var(--gold);
+    color: #3e2c0c;
+  }
+  .ribbon-burg {
+    background: var(--burg);
+  }
+
+  /* ---------- parchment scroll (settings, quests) ---------- */
+  .scroll {
+    position: relative;
+    background: #f0dfb9 url("/art/storybook/paper.svg");
+    padding: 28px 30px 24px;
+    border-radius: 4px;
+    filter: url(#dc);
+  }
+  .scroll::before,
+  .scroll::after {
+    content: "";
+    position: absolute;
+    left: -14px;
+    right: -14px;
+    height: 28px;
+    border-radius: 14px;
+    background: #e8d3a4;
+    box-shadow:
+      inset 0 -8px 0 #d4ba86,
+      inset 0 -14px 0 rgb(191 159 108 / 0.55),
+      inset 0 4px 0 rgb(255 251 243 / 0.7);
+  }
+  .scroll::before {
+    top: -14px;
+  }
+  .scroll::after {
+    bottom: -14px;
+  }
+
+  /* ---------- hand mirror card (phone answers; identical for A and B) ---------- */
+  .pmirror {
+    position: relative;
+    border-radius: 26px;
+    padding: 12px;
+    background:
+      radial-gradient(circle, #f2db94 2.1px, transparent 2.6px) 6px 6px / 12px 12px,
+      var(--gold);
+    box-shadow:
+      inset -3px -4px 0 #b88d40,
+      inset 3px 3px 0 #f2db94;
+    filter: url(#dc);
+  }
+  .pglass {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--glass);
+    box-shadow:
+      inset 0 0 0 3px #f2db94,
+      inset 6px 8px 0 3px rgb(255 255 255 / 0.55),
+      inset -6px -8px 0 0 rgb(86 120 154 / 0.14);
+  }
+
+  /* ---------- the room code chip (phone header) ---------- */
+  .code-chip {
+    @apply inline-flex items-center gap-2 rounded-full;
+    height: 40px;
+    padding: 0 14px 0 12px;
+    background: var(--night);
+    box-shadow:
+      inset 0 0 0 3px var(--gold),
+      inset 0 0 0 5px #b88d40;
+    filter: url(#dc-sm);
+  }
+
+  /* ---------- form controls ---------- */
+  .field {
+    @apply w-full rounded-[14px] bg-paper px-4 py-3 font-sans text-[1.125rem] font-semibold text-ink placeholder:font-medium placeholder:text-[#6f5d4c] focus:outline-none focus:ring-4 focus:ring-gold/60;
+    filter: url(#dc);
+  }
+  .chip {
+    @apply grid min-h-12 place-items-center rounded-full bg-paper px-4 font-sans text-[1.0625rem] font-bold text-ink transition duration-150 ease-out-quint;
+    filter: url(#dc-sm);
+  }
+  .chip[aria-checked="true"],
+  .chip[aria-pressed="true"],
+  .chip-on {
+    @apply bg-rasp-deep text-paper-cut;
+  }
+
+  /* ---------- storybook page corners ---------- */
+  .corner {
+    position: absolute;
+    width: clamp(56px, 8vw, 120px);
+    aspect-ratio: 1;
+    background: url("/art/storybook/corner.svg") no-repeat 0 0 / contain;
+    opacity: 0.9;
+    pointer-events: none;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

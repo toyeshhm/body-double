@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Body Double · Reveal (Heirloom Sampler)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .chapter { left: 61px; top: 96px; }
+  .brand { left: 1050px; top: 96px; }
+  .prompt { left: 59px; top: 138px; }
+  .ask { left: 64px; top: 210px; display: flex; align-items: center; gap: 12px; font-size: 27px; font-weight: 500; color: var(--ink-soft); }
+  .ask .em { font-size: 30px; }
+  .ask b { color: var(--brown); font-weight: 700; }
+
+  /* two identical slots; rotation belongs to the slot, never to the truth */
+  /* flow layout: a longer answer grows both slips equally and pushes the tally down */
+  .stage { position: absolute; left: 64px; top: 222px; width: 1312px; bottom: 98px; display: flex; flex-direction: column; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; column-gap: 68px; }
+  .col { position: relative; display: flex; flex-direction: column; }
+  .verdict { height: 64px; position: relative; }
+  .verdict img { position: absolute; left: -5px; top: 0; animation: stitch-across 1s steps(18) both; }
+  .v-a img { animation-delay: 1.5s; }
+  .v-b img { animation-delay: 2.2s; }
+  .card { flex: 1; min-height: 284px; padding: 42px 64px 120px 100px; transform: rotate(var(--tilt)); }
+  .col-a { --tilt: -.5deg; }
+  .col-b { --tilt: .5deg; }
+  .card .slot { left: 22px; top: -16px; filter: drop-shadow(0 3px 2px rgba(60, 40, 20, .25)); }
+  .card .ans { font-size: 32px; line-height: 1.3; }
+  .card .foot { height: 100px; }
+  .card .sig { position: absolute; left: 24px; bottom: 22px; }
+  .card .sig-label { position: absolute; left: 216px; bottom: 34px; font-size: 22px; }
+
+  /* A: the real one is crowned with a stitched wreath */
+  .seal { position: absolute; z-index: 3; }
+  .wreath { right: 8px; bottom: -66px; width: 183px; height: 204px; animation: stitch-across 1.1s 1.2s steps(20) both; }
+  .wreath .em { position: absolute; left: 0; right: 0; top: 56px; text-align: center; font-size: 62px; filter: drop-shadow(0 2px 1px rgba(60, 40, 20, .3)); }
+
+  /* B: the Wolf's signature is unpicked; the Wolf is stitched in red underneath */
+  .sig.top { animation: unpick 1.3s .5s cubic-bezier(.6, 0, .4, 1) both; }
+  .wolf { right: 6px; bottom: -34px; animation: stitch-in 1.4s 1.9s steps(24) both; }
+  .ripper { position: absolute; left: 236px; bottom: 30px; width: 200px; height: 48px; z-index: 4; --rot: -14deg; transform: rotate(var(--rot)); transform-origin: 30% 50%;
+    animation: ripper 1.3s .5s cubic-bezier(.6, 0, .4, 1) both; filter: drop-shadow(0 4px 3px rgba(50, 30, 15, .4)); }
+  .threads { position: absolute; left: 0; bottom: 0; width: 300px; height: 92px; z-index: 2; overflow: visible; pointer-events: none; }
+  .threads path { fill: none; stroke-linecap: round; stroke-dasharray: 400; animation: draw 1s 1.5s ease-out both; }
+
+  .voters { display: flex; align-items: center; gap: 12px; margin-top: 18px; height: 52px; }
+  .voters .chip { height: 50px; padding: 0 18px 0 10px; font-size: 24px; }
+  .voters .chip .em { font-size: 26px; }
+  .voters .caption { font-size: 26px; margin-left: 4px; color: var(--ink-soft); }
+
+  .after { margin-top: auto; display: grid; grid-template-columns: 660px 250px 1fr; column-gap: 30px; align-items: end; }
+  .tally { padding-bottom: 6px; }
+  .tally h2 { font-size: 46px; line-height: 1; font-weight: 700; letter-spacing: -.01em; }
+  .tally h2 em { font-style: normal; color: var(--madder-ink); }
+  .tally p { margin-top: 12px; font-size: 24px; line-height: 1.35; font-weight: 500; color: var(--ink-soft); }
+  .tally p b { color: var(--madder-ink); font-weight: 700; }
+
+
+  .heroes h3 { font-size: 30px; margin-bottom: 6px; }
+  .heroes ol { list-style: none; }
+  .heroes li { display: flex; align-items: center; gap: 10px; height: 37px; font-size: 23px; font-weight: 600; }
+  .heroes li .em { font-size: 24px; }
+  .heroes li i { flex: 1; border-bottom: 2px dotted rgba(84, 67, 47, .4); transform: translateY(6px); }
+  .heroes li b { color: var(--madder-ink); font-weight: 700; }
+  .next { position: relative; justify-self: end; width: 336px; height: 88px; font-size: 26px; padding: 0 22px; margin-bottom: 18px; }
+</style>
+</head>
+<body class="host">
+<img class="frame" src="art/frame-host-full.svg" alt="">
+
+<img class="st chapter" src="art/chapter.svg" alt="Chapter III of VI">
+<img class="st brand" src="art/brand-host.svg" alt="Body Double">
+<h1><img class="st prompt" src="art/prompt.svg" alt="Your toxic trait, but make it cute"></h1>
+
+<main class="stage">
+<div class="pair">
+  <!-- slot A -->
+  <div class="col col-a">
+    <div class="verdict v-a"><img src="art/verdict-real.svg" alt="The real Maya"></div>
+    <div class="card patch">
+      <img class="slot" src="art/slot-a-6.svg" alt="A">
+      <p class="ans">i will reorganize your spice rack while you shower and call it love</p>
+      <div class="foot">
+        <img class="sig" src="art/sig-maya-6.svg" alt="Signed Maya">
+      </div>
+      <div class="seal wreath"><img src="art/wreath-6.svg" alt=""><span class="em">🦉</span></div>
+    </div>
+    <div class="voters">
+      <span class="chip"><span class="em">🦊</span>Jordan</span>
+      <span class="chip"><span class="em">🐻</span>Sam</span>
+      <span class="caption">knew her</span>
+    </div>
+  </div>
+
+  <!-- slot B -->
+  <div class="col col-b">
+    <div class="verdict v-b"><img src="art/verdict-wolf.svg" alt="It was the Wolf!"></div>
+    <div class="card patch">
+      <img class="slot" src="art/slot-b-6.svg" alt="B">
+      <p class="ans">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+      <div class="foot">
+        <img class="sig" src="art/sig-maya-6-ripped.svg" alt="">
+        <img class="sig top" src="art/sig-maya-6.svg" alt="The signature Maya, picked out">
+        <svg class="threads" viewBox="0 0 300 92" aria-hidden="true">
+          <path d="M196 38 C 214 20, 232 44, 222 58 S 232 80, 252 74" stroke="#2b3a67" stroke-width="3"/>
+          <path d="M196 38 C 214 20, 232 44, 222 58 S 232 80, 252 74" stroke="#8a9bcb" stroke-width="1" stroke-dasharray="2 3" opacity=".8"/>
+          <path d="M252 74 l 7 -4 M252 74 l 7 4" stroke="#2b3a67" stroke-width="1.3"/>
+          <path d="M190 70 C 200 86, 222 82, 236 90" stroke="#2b3a67" stroke-width="2.8"/>
+          <path d="M236 90 l 6 -6 M236 90 l 8 0" stroke="#2b3a67" stroke-width="1.2"/>
+          <path d="M24 30 C 10 22, 6 40, 12 50" stroke="#2b3a67" stroke-width="2.6"/>
+        </svg>
+        <svg class="ripper" viewBox="0 0 250 60" aria-hidden="true">
+          <defs>
+            <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9a868"/><stop offset=".45" stop-color="#a86f34"/><stop offset="1" stop-color="#6b4220"/></linearGradient>
+            <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3dc9a"/><stop offset=".5" stop-color="#b98d36"/><stop offset="1" stop-color="#6e5420"/></linearGradient>
+            <linearGradient id="steel2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f6f2"/><stop offset=".55" stop-color="#a3a19c"/><stop offset="1" stop-color="#5c5955"/></linearGradient>
+          </defs>
+          <!-- handle points right; the forked blade points left into the seam -->
+          <path d="M132 18 C 150 14, 230 15, 240 22 C 248 27, 248 33, 240 38 C 230 45, 150 46, 132 42 Z" fill="url(#wood)" stroke="#5a371a" stroke-width="1"/>
+          <path d="M150 24 C 180 21, 220 21, 236 25" stroke="#f0cf98" stroke-width="2" fill="none" opacity=".6"/>
+          <rect x="114" y="19" width="22" height="22" rx="3" fill="url(#brass)" stroke="#5e4716"/>
+          <path d="M118 19v22M124 19v22M130 19v22" stroke="#5e4716" stroke-width=".8" opacity=".6"/>
+          <path d="M114 28 L 52 28.6 L 52 31.4 L 114 32 Z" fill="url(#steel2)" stroke="#55524d" stroke-width=".5"/>
+          <path d="M52 27 C 40 26, 30 27, 8 30 C 30 33, 40 34, 52 33 Z" fill="url(#steel2)" stroke="#55524d" stroke-width=".6"/>
+          <path d="M52 33 C 44 36, 34 40, 26 40" stroke="#6a6762" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M40 31.5 C 36 33.5, 34 36, 33 38" stroke="#3a3835" stroke-width="1.2" fill="none"/>
+          <circle cx="24" cy="40" r="5" fill="#b8352a" stroke="#6e1a14"/>
+          <circle cx="22.5" cy="38.5" r="1.6" fill="#f2a493"/>
+        </svg>
+      </div>
+      <img class="seal wolf" src="art/wolf-red-7.svg" alt="The Wolf, cross-stitched in red">
+    </div>
+    <div class="voters">
+      <span class="chip"><span class="em">🍄</span>Priya</span>
+      <span class="chip"><span class="em">🐸</span>Theo</span>
+      <span class="caption">fell for it</span>
+    </div>
+  </div>
+</div>
+
+<div class="after">
+<section class="tally">
+  <h2>The Wolf fooled <em>2 of 4.</em></h2>
+  <p><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+</section>
+
+<section class="heroes">
+  <h3 class="serif-i">Village Heroes</h3>
+  <ol>
+    <li><span class="em">🦉</span>Maya<i></i><b>300</b></li>
+    <li><span class="em">🦊</span>Jordan<i></i><b>200</b></li>
+    <li><span class="em">🐻</span>Sam<i></i><b>200</b></li>
+  </ol>
+</section>
+
+<button class="btn next"><span class="lbl">Ask what gave it away</span></button>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{
+  "slug": "stitchwork",
+  "name": "Stitchwork",
+  "tagline": "The village is a hand-sewn wall hanging, and the Wolf is a patch hiding under one of the labels.",
+  "palette": [
+    { "name": "Forest wool (ground)", "hex": "#1f3a2d" },
+    { "name": "Tomato felt", "hex": "#d8402a" },
+    { "name": "Deep tomato (text)", "hex": "#b8321f" },
+    { "name": "Mustard felt", "hex": "#e9a823" },
+    { "name": "Cornflower thread", "hex": "#5a7fd0" },
+    { "name": "Forest thread", "hex": "#2f6b45" },
+    { "name": "Cream felt", "hex": "#f6ecd6" },
+    { "name": "Linen", "hex": "#f3e9d2" },
+    { "name": "Charcoal", "hex": "#2b2724" },
+    { "name": "Birch hoop", "hex": "#c88a48" }
+  ],
+  "fonts": {
+    "display": "Titan One (felt appliqué letters: felt-texture fill, contrasting backing, running-stitch seam)",
+    "body": "Nunito 700-900 (answers, body, labels)",
+    "ui": "Nunito 900 for buttons and chips; Caveat 700 for transfer-pen notes like 'Village code'"
+  },
+  "motifs": [
+    "Room code cross-stitched on aida cloth inside a wooden embroidery hoop (hand-built SVG, one X per stitch)",
+    "Felt appliqué cutouts with blanket-stitch edges: Red Hood, cottage, pines, mushroom, the Wolf patch",
+    "Villagers as quilt blocks pegged to a sagging clothesline, each in its own gingham, dot, stripe or check",
+    "Invented 'wolf-tooth and pine' village sampler band in cross-stitch",
+    "Garment-label UI: woven brand label, care-label settings, pinned 'Your pick' tag, 'AI-written' care tag"
+  ],
+  "reveal": "The Wolf's label comes unpicked: it drops crooked from its seam, leaving a trail of needle holes and loose red thread back to a spool, and the felt Wolf patch that was sewn underneath shows through with an 'It was the Wolf!' ribbon, while the real answer gets a pleated rosette reading 'The real Maya'.",
+  "why": "A dark forest-wool ground keeps glare down in a dim room while cream linen, felt and thread give the code, answers and buttons strong contrast from across it. The handmade materials do the storytelling (the Wolf is literally a patch hiding under a label), so the twist reads instantly from 5 m without extra explanation.",
+  "images": [
+    "art/wolf-patch.png",
+    "art/red-hood.png",
+    "art/cottage.png",
+    "art/pine-tall.png",
+    "art/pine-small.png",
+    "art/mushroom.png",
+    "art/flower.png",
+    "art/source/wolf-original.png",
+    "art/source/felt-sheet-original.png",
+    "art/hoop-hxqr.svg",
+    "art/hoop-plus100.svg",
+    "art/band-village.svg",
+    "art/rosette.svg",
+    "art/felt-forest.svg",
+    "art/linen.svg"
+  ]
+}

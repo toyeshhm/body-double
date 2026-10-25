@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Body Double · Vote (Stitchwork: Patched Denim)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Graduate&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .q { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; }
+  .q h1 { font-weight: 800; font-size: 31px; font-stretch: 108%; line-height: 1.08; color: var(--bone); text-shadow: 0 2px 3px rgba(0,0,0,.65); }
+  .q h1 b { color: #ff9a52; }
+  .timer { width: 92px; height: 92px; border-radius: 50%; flex: none; transform: rotate(6deg); }
+  .timer b { font-family: var(--varsity); font-weight: 400; font-size: 38px; line-height: .9; }
+  .timer span { font-weight: 700; font-size: 14px; letter-spacing: .06em; }
+
+  .cards { display: flex; flex-direction: column; gap: 30px; margin-top: 32px; }
+  .answer-patch { width: 354px; min-height: 178px; padding: 20px 20px 20px 66px; display: flex; align-items: center; }
+  .answer-patch .slot { left: 8px; top: 10px; width: 48px; height: 48px; font-size: 25px; }
+  .answer-patch .slot::before { -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6.5px), #000 calc(100% - 6px)); mask: radial-gradient(farthest-side, transparent calc(100% - 6.5px), #000 calc(100% - 6px)); }
+  .answer-patch .slot::after { inset: 5px; }
+  .answer-patch .answer-text { font-size: 22px; line-height: 1.34; }
+  .slot-a { transform: rotate(-1deg); }
+  .slot-b { transform: rotate(1deg); }
+  .answer-patch.picked { box-shadow: 0 0 0 4px var(--ink), 0 2px 0 rgba(5,8,20,.35), 0 14px 22px rgba(5,9,26,.6); }
+
+  .pick-tag { position: absolute; right: -2px; top: -30px; z-index: 6; display: flex; flex-direction: column; align-items: center; transform: rotate(5deg); }
+  .pick-tag .spin { position: relative; width: 104px; height: 30px; transform: rotate(-4deg); margin-bottom: -10px; z-index: 2; }
+  .pick-tag .woven { height: 36px; padding: 0 18px; font-size: 13px; letter-spacing: .08em; transform: none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0 1px, transparent 1px 3px), url(art/twill-orange.png) 0 0/240px, var(--orange); color: var(--ink); }
+  .pick-tag .woven .seam { border-color: var(--ink); }
+
+  .help { margin-top: 26px; text-align: center; font-weight: 600; font-size: 16px; line-height: 1.4; color: var(--bone); text-shadow: 0 1px 2px rgba(0,0,0,.7); }
+  .hood { position: absolute; left: 22px; bottom: -34px; width: 92px; transform: rotate(-10deg); filter: drop-shadow(0 8px 10px rgba(5,9,26,.55)); }
+  .lurk { position: absolute; right: -26px; bottom: -40px; width: 128px; transform: rotate(-16deg); filter: drop-shadow(0 8px 10px rgba(5,9,26,.55)); }
+</style>
+</head>
+<body class="phone">
+<!--defs-->
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <pattern id="p-bone" width="240" height="240" patternUnits="userSpaceOnUse"><image href="art/twill-bone.png" width="240" height="240"/></pattern>
+    <pattern id="p-ink" width="240" height="240" patternUnits="userSpaceOnUse"><image href="art/twill-black.png" width="240" height="240"/></pattern>
+    <pattern id="p-orange" width="240" height="240" patternUnits="userSpaceOnUse"><image href="art/twill-orange.png" width="240" height="240"/></pattern>
+  </defs>
+  <!-- chenille: fuzzy loop pile, puffed in the middle -->
+  <filter id="chenille" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".62" numOctaves="3" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="fz"/>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="dome"/>
+    <feComposite in="n" in2="dome" operator="arithmetic" k1="0" k2=".55" k3="1" k4="0" result="h"/>
+    <feDiffuseLighting in="h" surfaceScale="6" diffuseConstant="1.25" lighting-color="#fff" result="lit">
+      <feDistantLight azimuth="235" elevation="52"/>
+    </feDiffuseLighting>
+    <feComposite in="fz" in2="lit" operator="arithmetic" k1="1.12" k2="0" k3="0" k4="0" result="sh"/>
+    <feComposite in="sh" in2="fz" operator="in"/>
+  </filter>
+  <!-- felt backing for varsity letters -->
+  <filter id="felt" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="8" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -.5 .55" result="speck"/>
+    <feComposite in="speck" in2="d" operator="in" result="sp"/>
+    <feMerge result="m"><feMergeNode in="d"/><feMergeNode in="sp"/></feMerge>
+    <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#050918" flood-opacity=".6"/>
+  </filter>
+  <!-- chain stitch: thick raised thread with a rolled outer row (link ticks are a second text layer) -->
+  <filter id="chain" x="-4%" y="-20%" width="108%" height="150%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="erode" radius="3.2" result="e1"/>
+    <feMorphology in="SourceAlpha" operator="erode" radius="4.2" result="e1b"/>
+    <feComposite in="SourceAlpha" in2="e1" operator="out" result="r0"/>
+    <feMerge result="rows"><feMergeNode in="r0"/><feMergeNode in="e1b"/></feMerge>
+    <feGaussianBlur in="rows" stdDeviation="1" result="rb"/>
+    <feDiffuseLighting in="rb" surfaceScale="1.6" diffuseConstant="1" lighting-color="#fff" result="d"><feDistantLight azimuth="235" elevation="50"/></feDiffuseLighting>
+    <feSpecularLighting in="rb" surfaceScale="1.6" specularConstant=".6" specularExponent="12" lighting-color="#fff" result="s"><feDistantLight azimuth="235" elevation="50"/></feSpecularLighting>
+    <feComposite in="SourceGraphic" in2="d" operator="arithmetic" k1="1.25" k2="0" k3="0" k4="0" result="c"/>
+    <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+    <feComposite in="c" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".45" k4="0" result="c2"/>
+    <feComposite in="c2" in2="SourceAlpha" operator="in" result="c3"/>
+    <feDropShadow in="c3" dx="0" dy="2.5" stdDeviation="1.6" flood-color="#050918" flood-opacity=".75"/>
+  </filter>
+  <filter id="chain-sm" x="-4%" y="-20%" width="108%" height="150%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="erode" radius="2" result="e1"/>
+    <feMorphology in="SourceAlpha" operator="erode" radius="2.7" result="e1b"/>
+    <feComposite in="SourceAlpha" in2="e1" operator="out" result="r0"/>
+    <feMerge result="rows"><feMergeNode in="r0"/><feMergeNode in="e1b"/></feMerge>
+    <feGaussianBlur in="rows" stdDeviation=".7" result="rb"/>
+    <feDiffuseLighting in="rb" surfaceScale="1.3" diffuseConstant="1" lighting-color="#fff" result="d"><feDistantLight azimuth="235" elevation="50"/></feDiffuseLighting>
+    <feSpecularLighting in="rb" surfaceScale="1.3" specularConstant=".6" specularExponent="12" lighting-color="#fff" result="s"><feDistantLight azimuth="235" elevation="50"/></feSpecularLighting>
+    <feComposite in="SourceGraphic" in2="d" operator="arithmetic" k1="1.25" k2="0" k3="0" k4="0" result="c"/>
+    <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+    <feComposite in="c" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".45" k4="0" result="c2"/>
+    <feComposite in="c2" in2="SourceAlpha" operator="in" result="c3"/>
+    <feDropShadow in="c3" dx="0" dy="1.6" stdDeviation="1.1" flood-color="#050918" flood-opacity=".7"/>
+  </filter>
+  <!-- raw canvas edge -->
+  <filter id="rough" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="2" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <!-- emoji as satin-stitched thread -->
+  <filter id="stitchify" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".03 .8" numOctaves="1" seed="9" result="lines"/>
+    <feDisplacementMap in="SourceGraphic" in2="lines" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feComponentTransfer in="d" result="p">
+      <feFuncR type="discrete" tableValues="0 .2 .42 .62 .8 .95"/>
+      <feFuncG type="discrete" tableValues="0 .2 .42 .62 .8 .95"/>
+      <feFuncB type="discrete" tableValues="0 .2 .42 .62 .8 .95"/>
+    </feComponentTransfer>
+    <feColorMatrix in="lines" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  .9 0 0 0 .55" result="sheen"/>
+    <feComposite in="p" in2="sheen" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="m"/>
+    <feComposite in="m" in2="d" operator="in"/>
+  </filter>
+</svg>
+<!--/defs-->
+<div class="inner">
+  <div class="top">
+    <span class="woven"><i class="seam l"></i><span>Body Double</span><i class="seam r"></i></span>
+    <span class="code-chip patch tw-bone mw-ink">Village <b>HXQR</b></span>
+  </div>
+
+  <div class="q">
+    <h1>Which one is<br>really <b>Maya</b>?</h1>
+    <div class="timer enamel en-ox" role="timer" aria-label="14 seconds left"><b>14</b><span>sec</span></div>
+  </div>
+
+  <div class="cards">
+    <div class="answer-patch patch tw-bone mw-orange slot-a picked" role="button" aria-pressed="true">
+      <span class="slot rp tw-denim ring-bone"><b>A</b></span>
+      <div class="pick-tag"><span class="spin"></span><span class="woven"><i class="seam l"></i><span>Your pick</span><i class="seam r"></i></span></div>
+      <p class="answer-text">i will reorganize your spice rack while you shower and call it love</p>
+    </div>
+    <div class="answer-patch patch tw-bone mw-bone slot-b" role="button" aria-pressed="false">
+      <span class="slot rp tw-denim ring-bone"><b>B</b></span>
+      <p class="answer-text">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+    </div>
+  </div>
+
+  <p class="help">You can change your pick<br>until time runs out.</p>
+</div>
+<img class="hood" src="art/hood-embroidered.png" alt="">
+<img class="lurk" src="art/wolf-embroidered.png" alt="">
+</body>
+</html>

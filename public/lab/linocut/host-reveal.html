@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440, initial-scale=1">
+<title>Body Double · Chapter III reveal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Caveat:wght@500..700&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { width: 1440px; height: 900px; --cut: .14; }
+
+  .chapter { position: absolute; left: 60px; top: 34px; display: flex; align-items: baseline; gap: 14px; }
+  .chapter .wood { font-size: 44px; color: var(--carved); }
+  .chapter .wood em { font-style: normal; color: var(--red); }
+  .chapter .pencil { font-size: 30px; color: var(--carved-dim); }
+  .prompt { position: absolute; left: 60px; top: 90px; width: 1320px; font-size: 54px; color: var(--carved); }
+  .prompt q { quotes: "\201C" "\201D"; }
+  .prompt q::before, .prompt q::after { color: var(--red); }
+
+
+  .slips { position: absolute; left: 60px; top: 200px; width: 1320px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+  .slip { height: 300px; padding: 28px 36px; }
+  .slip-head { display: flex; align-items: center; gap: 14px; }
+  .slip-letter { width: 60px; height: 60px; font-size: 34px; }
+  .slip-head .who { display: flex; align-items: center; gap: 6px; font-family: var(--display); font-size: 28px; }
+  .slip-head .who img { width: 44px; }
+  .slip-text { position: relative; z-index: 5; margin-top: 16px; font-size: 32px; line-height: 1.24; }
+
+  .seal { width: 224px; height: 224px; right: 26px; top: 18px; --r: -9deg; --d: .2s; }
+  .wolf-stamp { width: 236px; right: -34px; top: -22px; --r: 6deg; --d: 1.0s; }
+  .spatter { position: absolute; z-index: 3; width: 300px; height: 300px; right: -60px; top: -40px; --r: 0deg; --d: 1.05s; mix-blend-mode: multiply; pointer-events: none; }
+  .slip .stamp-label { left: 30px; bottom: 26px; font-size: 40px; padding: 8px 18px 5px; }
+  .slip[data-slot="A"] .stamp-label { color: var(--ink); border-color: var(--ink); outline-color: var(--ink); --r: -3deg; --d: .55s; }
+  .slip[data-slot="B"] .stamp-label { --r: -4deg; --d: 1.4s; }
+  .slip[data-slot="B"].thud { --d: 1.6s; }
+
+  .pickers { display: flex; align-items: center; gap: 18px; margin-top: 30px; padding-left: 8px; color: var(--carved); font-size: 24px; font-weight: 600; }
+  .pickers .lbl { color: var(--carved-dim); font-weight: 500; }
+  .picker { display: flex; align-items: center; gap: 10px; }
+  .picker img { width: 44px; height: 44px; background: var(--paper); padding: 2px; transform: rotate(-3deg); }
+  .picker:nth-child(3) img { transform: rotate(2deg); }
+
+  .tally { position: absolute; left: 60px; top: 636px; width: 760px; }
+  .tally h2 { font-size: 46px; color: var(--carved); display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+  .tally h2 .wood { font-size: 128px; color: var(--red); line-height: .8; }
+  .tally p { margin-top: 18px; font-size: 26px; line-height: 1.35; color: var(--carved); max-width: 740px; }
+  .tally p b { font-weight: 800; color: var(--paper-hi); }
+
+  .heroes { position: absolute; right: 60px; top: 606px; width: 520px; padding: 18px 26px 16px; transform: rotate(-.7deg); }
+  .heroes h3 { font-size: 30px; display: flex; justify-content: space-between; align-items: baseline; }
+  .heroes h3 .pencil { font-size: 24px; }
+  .heroes ol { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+  .heroes li { display: grid; grid-template-columns: 54px 1fr; column-gap: 8px; align-items: center; }
+  .heroes li img { width: 54px; grid-row: span 2; }
+  .heroes .n { font-size: 23px; font-weight: 800; line-height: 1; }
+  .heroes .s { font-size: 46px; line-height: .9; color: var(--ink); }
+  .heroes li:first-child .s { color: var(--red-deep); }
+
+  .next { position: absolute; right: 60px; top: 790px; width: 520px; height: 82px; font-size: 31px; white-space: nowrap; }
+</style>
+</head>
+<body class="slab">
+<!--defs--><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="inked" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .22" numOctaves="3" seed="21" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -18 13.5" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="9" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 22.6" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="inked-lite" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .2" numOctaves="3" seed="31" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -22 17.4" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="13" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 23" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="4" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <symbol id="reg" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="15" cy="15" r="8"/><path d="M15 0v30M0 15h30"/></g></symbol>
+    <symbol id="arrow" viewBox="0 0 40 40"><path fill="currentColor" d="M3 17.5c9-.6 18-1.4 25-1.1l-6.3-7.6 4.6-2.9L39 20.2 26 33.8l-4.4-3.2 6.6-7.3c-7.4.5-16.1.6-25.2.1z"/></symbol>
+    <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0l2.6 7.2L20 10l-7.4 2.8L10 20l-2.6-7.2L0 10l7.4-2.8z"/></symbol>
+  </defs>
+</svg><!--/defs-->
+
+<p class="chapter"><span class="wood">Chapter <em>III</em> of <em>VI</em></span><span class="pencil">the truth comes out</span></p>
+<h1 class="prompt display"><q>Your toxic trait, but make it cute</q></h1>
+
+
+<section class="slips">
+  <div>
+    <article class="slip" data-slot="A">
+      <span class="slip-rule"></span>
+      <header class="slip-head"><span class="slip-letter">A</span><span class="who"><img src="art/stamp-owl.png" alt="">Maya</span></header>
+      <p class="slip-text knockout">i will reorganize your spice rack while you shower and call it love</p>
+
+      <svg class="seal press" viewBox="0 0 240 240" role="img" aria-label="Seal: known by 2 of 4">
+        <defs><clipPath id="owlA"><circle cx="120" cy="120" r="58"/></clipPath><path id="arcA" d="M38 120 A82 82 0 0 1 202 120"/><path id="arcB" d="M30 120 A90 90 0 0 0 210 120"/></defs>
+        <g filter="url(#inked)">
+          <circle cx="120" cy="120" r="114" fill="none" stroke="#1B1714" stroke-width="8"/>
+          <circle cx="120" cy="120" r="102" fill="none" stroke="#1B1714" stroke-width="2.5"/>
+          <circle cx="120" cy="120" r="64" fill="none" stroke="#1B1714" stroke-width="3"/>
+          <text font-family="Archivo" font-stretch="75%" font-weight="900" font-size="22" letter-spacing="2" fill="#1B1714"><textPath href="#arcA" startOffset="50%" text-anchor="middle">KNOWN BY 2 OF 4</textPath></text>
+          <text font-family="Archivo" font-stretch="75%" font-weight="900" font-size="20" letter-spacing="4" fill="#1B1714"><textPath href="#arcB" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">CHAPTER III</textPath></text>
+          <use href="#star" x="12" y="111" width="18" height="18" color="#1B1714"/><use href="#star" x="210" y="111" width="18" height="18" color="#1B1714"/>
+        </g>
+        <image href="art/stamp-owl.png" x="56" y="56" width="128" height="128" clip-path="url(#owlA)" style="mix-blend-mode:multiply"/>
+      </svg>
+      <span class="stamp-label press">The real Maya</span>
+    </article>
+    <p class="pickers"><span class="lbl">Picked by</span><span class="picker"><img src="art/stamp-fox.png" alt="">Jordan</span><span class="picker"><img src="art/stamp-bear.png" alt="">Sam</span></p>
+  </div>
+
+  <div>
+    <article class="slip thud" data-slot="B">
+      <span class="slip-rule"></span>
+      <header class="slip-head"><span class="slip-letter">B</span><span class="who"><img src="art/stamp-owl.png" alt="">Maya</span></header>
+      <p class="slip-text knockout">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+
+      <svg class="spatter press" viewBox="0 0 300 300" aria-hidden="true"><g fill="#CF3219" filter="url(#rough)"><circle cx="22" cy="140" r="5"/><circle cx="12" cy="168" r="2.5"/><circle cx="40" cy="210" r="3.5"/><circle cx="31" cy="96" r="2"/><circle cx="66" cy="258" r="4.5"/><circle cx="96" cy="276" r="2.2"/><circle cx="58" cy="40" r="3"/><circle cx="140" cy="290" r="3"/><path d="M8 122c6-3 11 1 9 6-3 5-11 2-9-6z"/><path d="M48 236c8-2 12 4 7 8-6 3-12-2-7-8z"/></g></svg>
+      <img class="wolf-stamp press" src="art/wolf-red.png" alt="The Wolf's stamp">
+      <span class="stamp-label press">It was the Wolf!</span>
+    </article>
+    <p class="pickers"><span class="lbl">Picked by</span><span class="picker"><img src="art/stamp-mushroom.png" alt="">Priya</span><span class="picker"><img src="art/stamp-frog.png" alt="">Theo</span></p>
+  </div>
+</section>
+
+<section class="tally">
+  <h2 class="display">The Wolf fooled <span class="wood inked">2 of 4.</span></h2>
+  <p><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+</section>
+
+<aside class="heroes sheet sheet--flat">
+  <h3 class="display">Village Heroes <span class="pencil">after Chapter III</span></h3>
+  <ol>
+    <li><img src="art/stamp-owl.png" alt=""><span class="n">Maya</span><span class="s wood inked">300</span></li>
+    <li><img src="art/stamp-fox.png" alt=""><span class="n">Jordan</span><span class="s wood inked">200</span></li>
+    <li><img src="art/stamp-bear.png" alt=""><span class="n">Sam</span><span class="s wood inked">200</span></li>
+  </ol>
+</aside>
+
+<button class="btn-block next">Ask what gave it away <svg class="arrow"><use href="#arrow"/></svg></button>
+</body>
+</html>

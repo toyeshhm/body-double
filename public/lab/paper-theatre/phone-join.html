@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enter the village · HXQR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .card-body h1 { margin: 4px 0 4px; text-align: center; font-size: 27px; white-space: nowrap; }
+  .sub { margin: 0 0 16px; text-align: center; font: italic 19px/1.2 var(--f-story); color: var(--ink-soft); }
+  .group { margin-top: 18px; }
+  .go { padding-top: 18px; }
+  .tokens { display: grid; grid-template-columns: repeat(6, 48px); justify-content: space-between; row-gap: 8px; padding-top: 6px; }
+  .token { position: relative; width: 48px; height: 48px; padding: 0; border: 0; background: none; cursor: pointer;
+    filter: drop-shadow(0 1px 0 #a88d5a) drop-shadow(1px 3px 2px rgba(0, 0, 0, .35)); }
+  .token .roundel { width: 48px; height: 48px; }
+  .token .roundel .emo { font-size: 25px; }
+  .token[aria-pressed="true"] { transform: translateY(-4px) scale(1.12) rotate(-6deg); z-index: 2;
+    filter: drop-shadow(0 2px 0 #5e0f15) drop-shadow(2px 7px 5px rgba(0, 0, 0, .45)); }
+  .token[aria-pressed="true"]::before { content: ""; position: absolute; inset: -5px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 2px var(--gold); }
+  .token[aria-pressed="true"] .roundel { position: relative; }
+  .token[aria-pressed="true"] .pin { top: -5px; left: 17px; width: 13px; height: 13px; }
+  .tokens .token:nth-child(13) { grid-column: 2; }
+  .roles { display: flex; flex-wrap: wrap; gap: 10px 10px; }
+  .chip { position: relative; flex: 1 1 auto; height: 48px; border: 0; padding: 0 14px; cursor: pointer;
+    font: 600 18px/1 var(--f-ui); color: var(--ink); background: transparent; isolation: isolate; }
+  .chip::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 3px;
+    background: url(art/grain.svg), linear-gradient(#efe1c0, #e3cf9f); border: 1.5px solid rgba(74, 58, 44, .55);
+    box-shadow: 0 2px 0 #b9a376, 0 4px 5px rgba(0, 0, 0, .18); }
+  .chip:nth-child(odd)::before { transform: rotate(-1deg); } .chip:nth-child(even)::before { transform: rotate(.8deg); }
+  .chip[aria-pressed="true"] { color: #fff3d6; font-weight: 800; }
+  .chip[aria-pressed="true"]::before { background: url(art/grain.svg), linear-gradient(#a9272c, #84191e); border-color: #5e0f15; box-shadow: 0 2px 0 #4a0b10, 0 6px 8px rgba(0, 0, 0, .3); transform: rotate(-2deg) translateY(-2px); }
+  .chip[aria-pressed="true"] .pin { top: -6px; right: -4px; width: 14px; height: 14px; }
+  .go { margin-top: auto; }
+</style>
+</head>
+<body class="phone">
+<svg class="sr-defs" aria-hidden="true">
+  <filter id="rough" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="8"/>
+    <feDisplacementMap in="SourceGraphic" scale="5"/>
+  </filter>
+</svg>
+
+<main class="ticket-card paper">
+  <div class="border" aria-hidden="true"></div>
+  <header class="stub">
+    <p class="admit">Admit one<b>to The Village</b></p>
+    <span class="code" aria-label="Village code HXQR">HXQR</span>
+  </header>
+  <div class="perf" aria-hidden="true"><span class="notch l"></span><span class="notch r"></span></div>
+
+  <form class="card-body" onsubmit="return false">
+    <h1>Enter the village</h1>
+    <p class="sub">Who are you in this tale?</p>
+
+    <label class="label" for="name">Your name</label>
+    <input class="field" id="name" name="name" value="Maya" autocomplete="nickname" maxlength="20">
+
+    <div class="group" role="group" aria-labelledby="pick-l">
+      <span class="label" id="pick-l">Pick your puppet</span>
+      <div class="tokens">
+        <button type="button" class="token" aria-pressed="false" aria-label="Fox"><span class="roundel" style="--tint:#f3e6c8"><span class="emo">🦊</span></span></button>
+        <button type="button" class="token" aria-pressed="true" aria-label="Owl"><span class="pin"></span><span class="roundel" style="--tint:#2f6670"><span class="emo">🦉</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Frog"><span class="roundel" style="--tint:#d4a237"><span class="emo">🐸</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Bear"><span class="roundel" style="--tint:#1d4a52"><span class="emo">🐻</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Hedgehog"><span class="roundel" style="--tint:#f3e6c8"><span class="emo">🦔</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Rabbit"><span class="roundel" style="--tint:#2f6670"><span class="emo">🐰</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Deer"><span class="roundel" style="--tint:#d4a237"><span class="emo">🦌</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Squirrel"><span class="roundel" style="--tint:#f3e6c8"><span class="emo">🐿️</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Mushroom"><span class="roundel" style="--tint:#1d4a52"><span class="emo">🍄</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Sunflower"><span class="roundel" style="--tint:#2f6670"><span class="emo">🌻</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Apple"><span class="roundel" style="--tint:#f3e6c8"><span class="emo">🍎</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Strawberry"><span class="roundel" style="--tint:#d4a237"><span class="emo">🍓</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Cupcake"><span class="roundel" style="--tint:#2f6670"><span class="emo">🧁</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Teapot"><span class="roundel" style="--tint:#f3e6c8"><span class="emo">🫖</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Candle"><span class="roundel" style="--tint:#1d4a52"><span class="emo">🕯️</span></span></button>
+        <button type="button" class="token" aria-pressed="false" aria-label="Moon"><span class="roundel" style="--tint:#2f6670"><span class="emo">🌙</span></span></button>
+      </div>
+    </div>
+
+    <div class="group" role="group" aria-labelledby="role-l">
+      <span class="label" id="role-l">Your role</span>
+      <div class="roles">
+        <button type="button" class="chip" aria-pressed="false">woodcutter</button>
+        <button type="button" class="chip" aria-pressed="false">baker</button>
+        <button type="button" class="chip" aria-pressed="true"><span class="pin"></span>bard</button>
+        <button type="button" class="chip" aria-pressed="false">knight</button>
+        <button type="button" class="chip" aria-pressed="false">witch</button>
+        <button type="button" class="chip" aria-pressed="false">fairy</button>
+      </div>
+    </div>
+
+    <div class="go">
+      <div class="ticket-wrap"><button class="ticket" type="submit">Enter the village</button></div>
+      <p class="note">18+ only. Everything is deleted when the game ends.</p>
+    </div>
+  </form>
+</main>
+</body>
+</html>

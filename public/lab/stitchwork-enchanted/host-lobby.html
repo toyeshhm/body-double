@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Body Double · The Village (Fantasy: Night Quilt Enchanted)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Figtree:wght@500..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { --moon-x: 89%; --moon-y: 15%; }
+
+  /* the moon, with a castle on its hill silhouetted against it */
+  .moon-halo { left: 986px; top: -164px; width: 600px; height: 600px; border-radius: 50%; z-index: 2;
+    background: radial-gradient(circle, rgba(246, 232, 190, .26) 0, rgba(246, 232, 190, .10) 30%, rgba(160, 180, 255, .05) 50%, transparent 68%); }
+  .moon { left: 1176px; top: 26px; width: 220px; z-index: 3; filter: drop-shadow(0 10px 14px rgba(2, 3, 10, .6)); }
+  .castle { left: 1050px; top: 92px; width: 226px; z-index: 4; }
+
+  .maker { left: 58px; top: 6px; transform: rotate(-1.2deg); height: 58px; padding: 18px 26px 0; z-index: 61;
+    font-family: var(--display); font-style: italic; font-weight: 700; font-size: 25px; color: var(--ink);
+    font-variation-settings: "SOFT" 100; border-radius: 0 0 4px 4px; box-shadow: 0 8px 14px rgba(2,3,10,.5);
+    --sti: url(art/run-indigo.svg); --si: 5px; --sw: 10px; }
+
+  .title { left: 46px; top: 66px; z-index: 6; overflow: visible; }
+  .title text { font-family: var(--display); font-size: 124px; font-weight: 900; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144; letter-spacing: -1px; }
+  .title-star { left: 668px; top: 78px; width: 46px; z-index: 7; animation: glint 3s ease-in-out infinite; }
+  .lede { left: 62px; top: 214px; z-index: 6; font-size: 25px; font-weight: 600; color: var(--cream); line-height: 1.3; }
+  .lede b { color: var(--gold-hi); font-weight: 800; }
+
+  .code-panel { left: 56px; top: 262px; width: 700px; height: 330px; z-index: 6; box-shadow: var(--lift); }
+  .code-panel .frame { position: absolute; inset: 0; width: 700px; height: 330px; z-index: 2; }
+  .code-panel .kicker { position: absolute; left: 0; right: 0; top: 40px; text-align: center; z-index: 3; font-weight: 500; font-size: 27px; color: var(--cream); }
+  .code-panel .code { position: absolute; left: 50px; top: 62px; width: 600px; height: 176px; z-index: 3; overflow: visible; }
+  .code-panel .url { position: absolute; left: 0; right: 0; top: 247px; text-align: center; z-index: 3; font-size: 26px; font-weight: 700; color: var(--cream); letter-spacing: .01em; }
+  .code-panel .url b { color: var(--gold-hi); font-weight: 800; }
+
+  .qr-patch { left: 800px; top: 262px; width: 286px; height: 330px; z-index: 6; transform: rotate(-1.4deg);
+    border-radius: 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,.5), var(--lift); --sti: url(art/run-gold.svg); --si: 8px; --sw: 12px; }
+  .qr-patch .qr { position: absolute; left: 33px; top: 32px; width: 220px; height: 220px; mix-blend-mode: multiply; }
+  .qr-patch .cap { position: absolute; left: 0; right: 0; bottom: 30px; text-align: center; font-size: 23px; font-weight: 800; color: var(--ink); }
+  .pin { position: absolute; width: 64px; height: 18px; z-index: 5; }
+
+  /* settings, written on an unrolled scroll and sealed */
+  .settings { left: 1112px; top: 292px; width: 290px; height: 300px; z-index: 6; transform: rotate(1.2deg); }
+  .settings > img.bg { position: absolute; inset: 0; width: 290px; height: 300px; }
+  .settings .in { position: absolute; left: 40px; right: 40px; top: 50px; }
+  .settings h3 { display: flex; align-items: center; gap: 6px; font-family: var(--display); font-style: italic; font-weight: 700; font-size: 27px; color: var(--wine); font-variation-settings: "SOFT" 100, "WONK" 1; margin: 0 0 6px -6px; }
+  .settings h3 img { width: 46px; margin: -10px -2px -10px -6px; }
+  .settings dl { display: grid; grid-template-columns: 1fr auto; font-size: 22px; line-height: 1; }
+  .settings dt, .settings dd { padding: 10px 0 9px; border-bottom: 2px dotted rgba(19, 25, 49, .28); }
+  .settings dt { font-weight: 600; color: var(--ink-soft); }
+  .settings dd { font-weight: 800; color: var(--ink); text-align: right; }
+  .settings dl > :nth-last-child(-n+2) { border-bottom: 0; }
+  .settings .seal { position: absolute; right: -14px; bottom: 6px; width: 62px; transform: rotate(10deg); }
+
+  /* arrivals: every villager's patch is hung on the gold-thread garland */
+  .arrived { left: 62px; top: 600px; z-index: 6; display: flex; align-items: center; gap: 14px;
+    font-family: var(--display); font-style: italic; font-weight: 600; font-size: 31px; color: var(--cream); font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .arrived .n { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; font-style: normal; font-weight: 800; font-size: 25px; color: var(--ink);
+    --sti: url(art/run-indigo.svg); --si: 3px; --sw: 8px; }
+  .garland { left: 0; top: 0; width: 1440px; height: 900px; z-index: 7; pointer-events: none; }
+  .villager { position: absolute; z-index: 8; width: 190px; margin-left: -95px; text-align: center; }
+  .villager .glow { position: absolute; left: 50%; top: 46px; width: 230px; height: 230px; margin: -115px 0 0 -115px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(242, 200, 90, .28), rgba(242, 182, 50, .07) 45%, transparent 70%); animation: breathe 3.6s ease-in-out infinite; }
+  .villager .charm { position: relative; width: 94px; margin: 0 auto; transform-origin: 50% -14px; animation: sway 5s ease-in-out infinite; }
+  .villager .charm::before { content: ""; position: absolute; left: 50%; top: -16px; width: 2.4px; height: 20px; margin-left: -1.2px; background: var(--gold); box-shadow: 1px 1px 0 rgba(0,0,0,.4); }
+  .villager .charm img { width: 94px; height: 94px; display: block; }
+  .villager .nm { position: relative; margin-top: 0; font-size: 27px; font-weight: 800; color: var(--cream); line-height: 1.1; }
+  .villager .rl { position: relative; font-family: var(--display); font-style: italic; font-weight: 500; font-size: 23px; color: var(--gold-hi); font-variation-settings: "SOFT" 100, "WONK" 1; }
+
+  /* the cottage at the forest's edge */
+  .cottage-glow { left: 1140px; top: 560px; width: 280px; height: 260px; border-radius: 50%; z-index: 4;
+    background: radial-gradient(circle, rgba(242, 182, 50, .22), transparent 65%); }
+  .tree { left: 1128px; top: 584px; width: 132px; z-index: 5; }
+  .cottage { left: 1192px; top: 578px; width: 206px; z-index: 6; }
+  .hood { left: 1040px; top: 648px; width: 100px; z-index: 7; filter: drop-shadow(0 8px 8px rgba(2,3,10,.55)); }
+  /* the Wolf, watching from the quilted pines */
+  .eyes { left: 1000px; top: 744px; width: 74px; z-index: 6; animation: blink 6s infinite; }
+  @keyframes blink { 0%, 46%, 50%, 100% { transform: scaleY(1); } 48% { transform: scaleY(.1); } }
+  .eyes-glow { left: 968px; top: 712px; width: 140px; height: 90px; border-radius: 50%; z-index: 5; background: radial-gradient(ellipse, rgba(242, 190, 70, .22), transparent 70%); }
+  .lamp-end { left: 980px; top: 664px; width: 52px; z-index: 8; transform-origin: 50% 0; animation: sway 4.6s ease-in-out infinite; }
+  .ff { position: absolute; z-index: 6; width: 7px; height: 7px; border-radius: 50%; background: #f7dc8e; box-shadow: 0 0 10px 3px rgba(247, 220, 142, .55); animation: breathe 2.8s ease-in-out infinite; }
+  .begin { left: 1084px; top: 782px; width: 304px; height: 74px; font-size: 28px; z-index: 12; }
+</style>
+</head>
+<body class="host">
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <filter id="fz" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" seed="4" result="n"/>
+      <feColorMatrix in="n" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 3.6 -1.85" result="dk"/>
+      <feComposite in="dk" in2="SourceGraphic" operator="in" result="dk2"/>
+      <feComponentTransfer in="dk2" result="dk3"><feFuncA type="linear" slope=".26"/></feComponentTransfer>
+      <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="9" result="m"/>
+      <feColorMatrix in="m" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.7" result="mk"/>
+      <feComposite in="mk" in2="SourceGraphic" operator="in" result="mk2"/>
+      <feComponentTransfer in="mk2" result="mk3"><feFuncA type="linear" slope=".45"/></feComponentTransfer>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="mk3"/><feMergeNode in="dk3"/></feMerge>
+    </filter>
+    <filter id="fuzz" x="-5%" y="-10%" width="110%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="2" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="lift" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#02030a" flood-opacity=".6"/>
+    </filter>
+    <pattern id="satin" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)">
+      <rect width="5" height="5" fill="#b07e22"/>
+      <rect y=".3" width="5" height="3.1" fill="#e5bb58"/>
+      <rect y="1" width="5" height="1.1" fill="#fbe6a2"/>
+      <rect y="4.2" width="5" height=".8" fill="#6e4a10"/>
+    </pattern>
+    <linearGradient id="sheen" x1="0" y1="0" x2=".35" y2="1">
+      <stop offset="0" stop-color="#fff6d2" stop-opacity=".35"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#3a2604" stop-opacity=".45"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<img class="full quilt" src="art/quilt-lobby.svg" width="1440" height="900" alt="">
+<div class="abs moon-halo"></div>
+<img class="abs moon" src="art/moon.svg" alt="">
+<img class="abs castle patch" src="art/p/castle.svg" alt="">
+
+<div class="abs maker muslin st">Body Double</div>
+
+<svg class="abs title" width="800" height="150" viewBox="0 0 800 150" role="img" aria-label="The Village">
+  <g filter="url(#lift)">
+    <text x="12" y="122" fill="#eadfc2" filter="url(#fz)">The Village</text>
+  </g>
+  <text x="12" y="122" fill="none" stroke="#5a3b08" stroke-width="5" stroke-linejoin="round" opacity=".55">The Village</text>
+  <text x="12" y="122" fill="none" stroke="#d6a443" stroke-width="3.2" stroke-linejoin="round">The Village</text>
+  <text x="12" y="122" fill="none" stroke="#fbe6a2" stroke-width="1" stroke-dasharray="1.5 2.5" stroke-linejoin="round" opacity=".9">The Village</text>
+  <text x="12" y="122" fill="none" stroke="#4a3006" stroke-width="3.6" stroke-dasharray="1 9" opacity=".8">The Village</text>
+</svg>
+<p class="abs lede">Scan the patch, or type the code on your phone, to <b>enter the village</b>.</p>
+
+<div class="abs code-panel velvet">
+  <img class="frame" src="art/geese-code.svg" alt="">
+  <div class="kicker">Village code</div>
+  <svg class="code" viewBox="0 0 600 176" role="img" aria-label="Village code HXQR">
+    <g filter="url(#lift)">
+      <text class="satin-text" x="300" y="146" text-anchor="middle" font-size="172" letter-spacing="18" fill="#3a2604" stroke="#3a2604" stroke-width="7" stroke-linejoin="round">HXQR</text>
+    </g>
+    <text class="satin-text" x="300" y="146" text-anchor="middle" font-size="172" letter-spacing="18" fill="url(#satin)" filter="url(#fuzz)">HXQR</text>
+    <text class="satin-text" x="300" y="146" text-anchor="middle" font-size="172" letter-spacing="18" fill="url(#sheen)">HXQR</text>
+    <text class="satin-text" x="300" y="146" text-anchor="middle" font-size="172" letter-spacing="18" fill="none" stroke="#f7dc8e" stroke-width="1.4" stroke-dasharray="3 2.5" opacity=".75">HXQR</text>
+  </svg>
+  <div class="url">bodydouble.tech/play/<b>HXQR</b></div>
+</div>
+
+<div class="abs qr-patch muslin st">
+  <svg class="pin" style="left:-14px;top:-6px;transform:rotate(-24deg)" viewBox="0 0 64 18" aria-hidden="true"><path d="M4 9 H52" stroke="#c9ccd2" stroke-width="2.4" stroke-linecap="round"/><circle cx="56" cy="9" r="6" fill="#d6a443"/><circle cx="54.5" cy="7.5" r="2" fill="#fbe6a2"/></svg>
+  <svg class="pin" style="right:-12px;top:-4px;transform:rotate(206deg)" viewBox="0 0 64 18" aria-hidden="true"><path d="M4 9 H52" stroke="#c9ccd2" stroke-width="2.4" stroke-linecap="round"/><circle cx="56" cy="9" r="6" fill="#c04f66"/><circle cx="54.5" cy="7.5" r="2" fill="#f2a3b0"/></svg>
+  <img class="qr" src="../_shared/qr.svg" alt="QR code to join village HXQR">
+  <div class="cap">Scan to enter</div>
+</div>
+
+<div class="abs settings">
+  <img class="bg" src="art/scroll-card.svg" alt="">
+  <div class="in">
+    <h3><img class="patch" src="art/p/scroll-md.svg" alt="">Tale settings</h3>
+    <dl>
+      <dt>Chapters</dt><dd>6</dd>
+      <dt>Answer time</dt><dd>60s</dd>
+      <dt>Vote time</dt><dd>20s</dd>
+      <dt>Demo mode</dt><dd>off</dd>
+    </dl>
+  </div>
+  <img class="seal" src="art/seal.svg" alt="">
+</div>
+
+<div class="abs arrived">Villagers who have arrived <span class="n felt lantern st">5</span></div>
+
+<svg class="abs garland" viewBox="0 0 1440 900" aria-hidden="true">
+  <path d="M24 656 C 300 706, 740 706, 1004 660" fill="none" stroke="#2a1a05" stroke-opacity=".6" stroke-width="4" transform="translate(1 2)"/>
+  <path d="M24 656 C 300 706, 740 706, 1004 660" fill="none" stroke="#d6a443" stroke-width="2.6"/>
+  <path d="M24 656 C 300 706, 740 706, 1004 660" fill="none" stroke="#f7dc8e" stroke-width=".9" stroke-dasharray="1.6 1.4" opacity=".8"/>
+  <circle cx="1004" cy="660" r="5" fill="#d6a443"/><circle cx="1002.5" cy="658.5" r="1.8" fill="#fbe6a2"/>
+</svg>
+<img class="abs lamp-end patch" src="art/p/lantern-md.svg" alt="">
+
+<div class="villager" style="left:150px;top:688px"><div class="glow"></div><div class="charm" style="--sw0:-2deg;--sw1:1.6deg"><img src="art/tok/slipper.svg" alt="Glass slipper patch"></div><div class="nm">Maya</div><div class="rl">the bard</div></div>
+<div class="villager" style="left:350px;top:704px"><div class="glow"></div><div class="charm" style="--sw0:1.8deg;--sw1:-1.8deg;animation-delay:-1.2s"><img src="art/tok/lamp.svg" alt="Wishing lamp patch"></div><div class="nm">Jordan</div><div class="rl">the woodcutter</div></div>
+<div class="villager" style="left:550px;top:708px"><div class="glow"></div><div class="charm" style="--sw0:-1.4deg;--sw1:2deg;animation-delay:-2.4s"><img src="art/tok/potion.svg" alt="Potion patch"></div><div class="nm">Priya</div><div class="rl">the witch</div></div>
+<div class="villager" style="left:750px;top:702px"><div class="glow"></div><div class="charm" style="--sw0:1.6deg;--sw1:-2deg;animation-delay:-.6s"><img src="art/tok/eat-me.svg" alt="Eat-me cake patch"></div><div class="nm">Sam</div><div class="rl">the baker</div></div>
+<div class="villager" style="left:950px;top:682px"><div class="glow"></div><div class="charm" style="--sw0:-1.8deg;--sw1:1.4deg;animation-delay:-3s"><img src="art/tok/frog-prince.svg" alt="Frog prince patch"></div><div class="nm">Theo</div><div class="rl">the knight</div></div>
+
+<div class="abs eyes-glow"></div>
+<svg class="abs eyes" viewBox="0 0 74 22" aria-hidden="true">
+  <path d="M3 12 C 10 2, 26 2, 31 12 C 24 18, 10 18, 3 12Z" fill="#e8b440"/><circle cx="20" cy="11" r="3.2" fill="#131931"/><circle cx="18.6" cy="9.4" r="1.2" fill="#fff6d2"/>
+  <path d="M43 12 C 48 2, 64 2, 71 12 C 64 18, 50 18, 43 12Z" fill="#e8b440"/><circle cx="54" cy="11" r="3.2" fill="#131931"/><circle cx="52.6" cy="9.4" r="1.2" fill="#fff6d2"/>
+  <path d="M3 12 C 10 2, 26 2, 31 12 M43 12 C 48 2, 64 2, 71 12" fill="none" stroke="#f7dc8e" stroke-width="1.2" stroke-dasharray="2.4 2"/>
+</svg>
+<span class="ff" style="left:1030px;top:610px"></span>
+<span class="ff" style="left:1118px;top:792px;animation-delay:-1s"></span>
+<span class="ff" style="left:860px;top:640px;animation-delay:-1.8s"></span>
+<span class="ff" style="left:1402px;top:600px;animation-delay:-.5s"></span>
+<div class="abs cottage-glow"></div>
+<img class="abs tree patch" src="art/p/tree.svg" alt="">
+<img class="abs cottage patch" src="art/p/cottage.svg" alt="">
+<img class="abs hood" src="art/hood.svg" alt="">
+
+<button class="abs btn begin st">
+  <svg class="ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 2 L17.2 12.8 L28 15 L17.2 17.2 L15 28 L12.8 17.2 L2 15 L12.8 12.8Z" fill="#131931"/></svg>
+  Begin the tale
+</button>
+
+<img class="full binding" src="art/binding-host.svg" width="1440" height="900" alt="">
+</body>
+</html>

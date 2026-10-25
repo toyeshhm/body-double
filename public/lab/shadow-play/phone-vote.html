@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Body Double · Which one is really Maya?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .head { position: absolute; left: 20px; right: 18px; top: 66px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; z-index: 5; }
+  .head .meta { font: 500 15px/1.2 var(--sans); color: var(--honey); }
+  .head h1 { margin-top: 6px; font-size: 31px; color: var(--cream); }
+  .head .prompt { margin-top: 8px; font: 400 16px/1.35 var(--sans); color: var(--cream-dim); }
+  .head .prompt q { font-style: italic; }
+  .candle { margin-top: 2px; }
+  .candle svg { width: 36px; height: 78px; }
+
+  .slip { height: 214px; cursor: pointer; }
+  .slip[data-slot="A"] { top: 222px; }
+  .slip[data-slot="B"] { top: 460px; }
+  .slip q { margin: 20px 0 0 6px; }
+  .pick { position: absolute; right: 4px; bottom: 2px; display: flex; align-items: center; gap: 8px; font: 500 15px/1 var(--sans); color: var(--ink); }
+  .pick i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--ink); }
+  .slip[aria-pressed="true"] { filter: drop-shadow(0 0 16px rgba(255, 196, 110, .75)); }
+  .slip[aria-pressed="true"] .pick i { background: var(--ink); }
+  .slip[aria-pressed="true"] .pick i::after { content: ""; width: 10px; height: 16px; margin-top: -4px; border: solid var(--honey); border-width: 0 3px 3px 0; transform: rotate(45deg); }
+  .yours { position: absolute; right: 18px; top: -20px; z-index: 4; font-size: 17px; }
+
+  .helper { position: absolute; left: 24px; right: 24px; top: 704px; text-align: center; font: 400 16px/1.4 var(--sans); color: var(--cream-dim); text-wrap: balance; z-index: 5; }
+</style>
+</head>
+<body>
+<main class="stage stage--phone phone">
+  <div class="backdrop"></div>
+  <div class="falloff"></div>
+
+  <header class="topbar">
+    <span class="brand display">Body Double</span>
+    <span class="codechip">HXQR</span>
+  </header>
+
+  <div class="head">
+    <div>
+      <p class="meta">Chapter III of VI</p>
+      <h1 class="display">Which one is really Maya?</h1>
+      <p class="prompt">She was asked: <q>Your toxic trait, but make it cute</q></p>
+    </div>
+    <div class="candle" role="timer" aria-label="14 seconds left">
+      <svg viewBox="0 0 34 74" aria-hidden="true">
+        <defs><linearGradient id="wax" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF3D6"/><stop offset=".45" stop-color="#F3C27E"/><stop offset="1" stop-color="#8E4B2C"/></linearGradient></defs>
+        <rect x="7.5" y="12.5" width="19" height="20" rx="1.5" fill="none" stroke="#E6CFAB" stroke-opacity=".45" stroke-dasharray="2.5 3"/>
+        <path d="M7 34 Q7 32 9.5 32 H24.5 Q27 32 27 34 V73 H7 Z" fill="url(#wax)"/>
+        <path d="M8.5 33 C 8.5 39, 11 40, 11 45 C 11 48.5, 14 48.5, 14 45 V 33 Z" fill="#FFF3D6" opacity=".75"/>
+        <path d="M22 33 C 22 37, 24 37, 24 40 C 24 42, 25.8 42, 25.8 40 V 33 Z" fill="#FFF3D6" opacity=".6"/>
+        <rect x="16.2" y="26" width="1.6" height="7" fill="#0B0708"/>
+        <g class="flame"><path d="M17 4 C 21 11, 24 16, 24 21 C 24 26, 21 29, 17 29 C 13 29, 10 26, 10 21 C 10 16, 13 11, 17 4Z" fill="#FFB24F"/><path d="M17 13 C 19 17, 20.5 19.5, 20.5 22.5 C 20.5 25, 19 26.5, 17 26.5 C 15 26.5, 13.5 25, 13.5 22.5 C 13.5 19.5, 15 17, 17 13Z" fill="#FFF6DF"/></g>
+      </svg>
+      <div><span class="num">14</span><small>seconds</small></div>
+    </div>
+  </div>
+
+  <button class="screen slip" data-slot="A" aria-pressed="true">
+    <span class="slot">A</span>
+    <span class="tag yours">Your pick</span>
+    <q>i will reorganize your spice rack while you shower and call it love</q>
+    <span class="pick"><i></i></span>
+  </button>
+
+  <button class="screen slip" data-slot="B" aria-pressed="false">
+    <span class="slot">B</span>
+    <q>overthinking a text for 40 minutes then just sending 'k' 💀</q>
+    <span class="pick"><i></i></span>
+  </button>
+
+  <p class="helper">You can change your pick until time runs out.</p>
+
+  <div class="grain"></div>
+</main>
+</body>
+</html>

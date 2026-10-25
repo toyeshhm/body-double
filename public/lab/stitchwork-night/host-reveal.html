@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Body Double · Reveal (Stitchwork: Night Quilt)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Figtree:wght@500..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { --moon-x: 96%; --moon-y: 2%; }
+  .maker { left: 58px; top: 6px; height: 58px; padding: 18px 26px 0; z-index: 61; transform: rotate(-1.2deg);
+    font-family: var(--display); font-style: italic; font-weight: 700; font-size: 25px; color: var(--ink);
+    font-variation-settings: "SOFT" 100; border-radius: 0 0 4px 4px; box-shadow: 0 8px 14px rgba(2,3,10,.5);
+    --sti: url(art/run-indigo.svg); --si: 5px; --sw: 10px; }
+
+  /* moon in the corner, its light falling on the Wolf */
+  .moon-halo { left: 1080px; top: -300px; width: 680px; height: 680px; border-radius: 50%; z-index: 2;
+    background: radial-gradient(circle, rgba(246, 232, 190, .28) 0, rgba(246, 232, 190, .10) 32%, transparent 66%); }
+  .moon { left: 1252px; top: -126px; width: 300px; z-index: 3; filter: drop-shadow(0 10px 14px rgba(2,3,10,.6)); }
+  .beam { left: 1010px; top: -90px; width: 230px; height: 640px; z-index: 2; transform-origin: 50% 0; transform: rotate(37deg);
+    background: linear-gradient(90deg, transparent, rgba(240, 230, 196, .13) 30%, rgba(240, 230, 196, .22) 50%, rgba(240, 230, 196, .13) 70%, transparent);
+    -webkit-mask: linear-gradient(180deg, transparent, #000 20%, #000 75%, transparent); mix-blend-mode: screen; }
+
+  /* chapter medallion + the prompt */
+  .medal { left: 40px; top: 64px; width: 196px; height: 196px; z-index: 6; display: grid; place-items: center; text-align: center; }
+  .medal img { position: absolute; inset: 0; width: 196px; height: 196px; filter: drop-shadow(0 8px 10px rgba(2,3,10,.5)); }
+  .medal div { position: relative; font-family: var(--display); font-variation-settings: "SOFT" 100; color: var(--cream); line-height: 1; }
+  .medal small { display: block; font-style: italic; font-weight: 500; font-size: 22px; }
+  .medal b { display: block; font-weight: 800; font-size: 50px; color: var(--gold-hi); margin: 2px 0 1px; letter-spacing: .02em; }
+  .prompt { left: 256px; top: 82px; z-index: 6; font-size: 62px; white-space: nowrap; letter-spacing: -.012em;
+    text-shadow: 0 3px 0 rgba(2,3,10,.5), 0 10px 18px rgba(2,3,10,.5); }
+  .prompt em { position: relative; }
+  .prompt em::after { content: ""; position: absolute; left: -4px; right: -6px; bottom: -14px; height: 18px; background: url(art/swash.svg) 0 0 / 100% 100% no-repeat; }
+  .ask { left: 260px; top: 180px; z-index: 6; display: flex; align-items: center; gap: 14px; font-size: 27px; font-weight: 650; color: var(--cream); }
+  .ask .coin { width: 46px; height: 46px; font-size: 26px; }
+  .ask b { color: var(--gold-hi); font-weight: 800; }
+
+  /* the two labels: same size, same build; slot decides rotation */
+  .slot { position: absolute; top: 296px; width: 560px; z-index: 8; }
+  .slot-a { left: 64px; }
+  .slot-b { left: 780px; }
+  .slot .label { padding: 40px 62px 38px 104px; min-height: 196px; display: flex; align-items: center; }
+  .slot-a .label { transform: rotate(-.6deg); }
+  .label .tab { left: 28px; width: 58px; height: 74px; font-size: 36px; }
+  .label .answer { font-size: 30px; line-height: 1.3; }
+
+  .rosette { position: absolute; z-index: 9; right: -138px; top: -40px; width: 208px; height: 296px; transform-origin: 50% 35%;
+    animation: award .8s 1.9s cubic-bezier(.3, 1.4, .5, 1) both; --rr: 7deg; }
+  .rosette img { width: 208px; display: block; }
+  .rosette .txt { position: absolute; left: 0; top: 0; width: 208px; height: 206px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: var(--display); font-variation-settings: "SOFT" 100; color: var(--ink); line-height: 1; text-align: center; }
+  .rosette .txt small { font-style: italic; font-weight: 600; font-size: 23px; }
+  .rosette .txt strong { font-weight: 800; font-size: 42px; margin-top: 2px; }
+
+  .voters { position: absolute; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .voters .pill { height: 52px; font-size: 23px; }
+  .voters .pill .coin { width: 40px; height: 40px; font-size: 22px; }
+  .voters .cap { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 25px; color: var(--cream); font-variation-settings: "SOFT" 100; }
+  .slot-a .voters { left: 6px; top: calc(100% + 26px); }
+
+  /* B: the label is unpicked and drops a fixed distance (enough to show the whole Wolf). The footprint and
+     threads are anchored to the label's own box, so a longer answer only makes the label taller. */
+  .slot-b .footprint { position: absolute; inset: 0; border-radius: 3px; z-index: 0;
+    background: rgba(5, 7, 20, .42); box-shadow: inset 0 0 18px rgba(0,0,0,.5); }
+  .slot-b .footprint::after { content: ""; position: absolute; inset: 1px; border: 12px solid transparent; border-image: url(art/holes.svg) 16 round; }
+  .slot-b .label { z-index: 6; transform-origin: 0 0;
+    --from: translateY(0) rotate(.6deg); --over: translateY(226px) rotate(4.6deg); --to: translateY(216px) rotate(3.6deg);
+    animation: drop 1.3s .5s cubic-bezier(.55, 0, .35, 1) both; }
+  .wolf { position: absolute; z-index: 3; left: 8px; top: -62px; width: 258px; }
+  .wolf .pool { position: absolute; left: -90px; top: -60px; width: 440px; height: 420px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(236, 226, 196, .30), rgba(236, 226, 196, .09) 45%, transparent 70%); }
+  .wolf img { position: relative; width: 258px; display: block; filter: drop-shadow(0 12px 14px rgba(2,3,10,.65)); }
+  .glint { position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; z-index: 2; animation: glint 2.4s ease-in-out infinite; }
+  .glint::before { content: ""; position: absolute; inset: 6px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 236, 160, .7), transparent 65%); }
+  .glint svg { position: absolute; inset: 0; }
+  .banner { position: absolute; z-index: 7; left: 262px; top: 18px; height: 70px; padding: 0 40px; display: flex; align-items: center; white-space: nowrap;
+    font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 800; font-size: 36px; color: var(--cream);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 50%, 100% 100%, 0 100%, 20px 50%); transform: rotate(-3deg);
+    filter: drop-shadow(0 8px 10px rgba(2,3,10,.5)); --si: 6px; --sw: 10px; animation: award .6s 1.6s both; --rr: -3deg; }
+  .slot-b .voters { left: 292px; top: 110px; width: 300px; z-index: 7; gap: 10px 10px; }
+  .slot-b .voters .cap { width: 100%; padding-left: 8px; }
+  .ripper { position: absolute; z-index: 7; right: -38px; top: -50px; width: 190px; transform: rotate(-14deg); }
+  .loose { position: absolute; z-index: 5; pointer-events: none; overflow: visible; }
+  .care { position: absolute; right: 26px; bottom: -22px; z-index: 7; height: 40px; padding: 0 16px; display: flex; align-items: center; gap: 8px;
+    font-size: 17px; font-weight: 750; color: var(--ink); letter-spacing: .02em; transform: rotate(-2deg); box-shadow: 0 6px 10px rgba(2,3,10,.4);
+    --sti: url(art/run-indigo.svg); --si: 3px; --sw: 8px; }
+
+  /* the tally */
+  .fooled { left: 62px; top: 610px; z-index: 6; font-size: 56px; font-weight: 800; color: var(--cream); line-height: 1; letter-spacing: -.01em;
+    text-shadow: 0 3px 0 rgba(2,3,10,.5); }
+  .fooled span { color: var(--gold-hi); }
+  .points { left: 64px; top: 680px; width: 690px; z-index: 6; font-size: 24px; line-height: 1.38; font-weight: 600; color: var(--cream); }
+  .points b { color: var(--gold-hi); font-weight: 800; }
+  .heroes { left: 62px; top: 788px; z-index: 6; display: flex; align-items: center; gap: 14px; }
+  .heroes h3 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 26px; line-height: 1.02; color: var(--gold-hi); font-variation-settings: "SOFT" 100; margin-right: 4px; }
+  .heroes .pill { height: 62px; padding-right: 22px; }
+  .heroes .pill .coin { width: 48px; height: 48px; font-size: 26px; }
+  .heroes .nm { display: block; font-size: 22px; font-weight: 750; line-height: 1.05; }
+  .heroes .sc { display: block; font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 800; font-size: 24px; line-height: 1.05; color: var(--gold-hi); }
+  .next { left: 1010px; top: 788px; width: 378px; height: 76px; font-size: 27px; z-index: 12; white-space: nowrap; }
+</style>
+</head>
+<body class="host">
+<img class="full quilt" src="art/quilt-reveal.svg" width="1440" height="900" alt="">
+<div class="abs moon-halo"></div>
+<div class="abs beam"></div>
+<img class="abs moon" src="art/moon.svg" alt="">
+<div class="abs maker muslin st">Body Double</div>
+
+<div class="abs medal"><img src="art/medallion.svg" alt=""><div><small>Chapter</small><b>III</b><small>of VI</small></div></div>
+<h1 class="abs display prompt">Your toxic trait, <em>but make it cute</em></h1>
+<div class="abs ask"><span class="coin">🦉</span><span>Which one is really <b>Maya</b>?</span></div>
+
+<!-- A: the real one -->
+<div class="slot slot-a">
+  <div class="label muslin st">
+    <span class="tab felt indigo">A</span>
+    <p class="answer">i will reorganize your spice rack while you shower and call it love</p>
+  </div>
+  <div class="rosette"><img src="art/rosette.svg" alt=""><div class="txt"><small>The real</small><strong>Maya</strong></div></div>
+  <div class="voters">
+    <span class="pill"><span class="coin">🦊</span>Jordan</span>
+    <span class="pill"><span class="coin">🐻</span>Sam</span>
+    <span class="cap">knew her</span>
+  </div>
+</div>
+
+<!-- B: the Wolf -->
+<div class="slot slot-b">
+  <div class="footprint"></div>
+  <!-- unpicked thread ends where the seam was -->
+  <svg class="loose" style="left:-6px;top:-10px" width="60" height="70" viewBox="0 0 60 70" aria-hidden="true">
+    <path d="M10 12 C -2 26, 22 34, 8 50 S 14 66, 4 70" fill="none" stroke="#efe6cf" stroke-width="2.4" stroke-linecap="round" opacity=".85"/></svg>
+  <svg class="loose" style="right:-30px;top:-14px" width="70" height="90" viewBox="0 0 70 90" aria-hidden="true">
+    <path d="M14 16 C 40 10, 30 40, 52 46 S 46 76, 64 88" fill="none" stroke="#efe6cf" stroke-width="2.4" stroke-linecap="round" opacity=".85"/></svg>
+  <div class="wolf">
+    <div class="pool"></div>
+    <img src="art/wolf-night.png" alt="The Wolf, a charcoal felt patch with gold-thread eyes">
+    <span class="glint" style="left:33%;top:42%"><svg viewBox="0 0 46 46"><path d="M23 4 L25.5 20.5 L42 23 L25.5 25.5 L23 42 L20.5 25.5 L4 23 L20.5 20.5Z" fill="#fff7d6"/></svg></span>
+    <span class="glint" style="left:66%;top:41%;animation-delay:-1.1s"><svg viewBox="0 0 46 46"><path d="M23 4 L25.5 20.5 L42 23 L25.5 25.5 L23 42 L20.5 25.5 L4 23 L20.5 20.5Z" fill="#fff7d6"/></svg></span>
+  </div>
+  <div class="banner felt wine st">It was the Wolf!</div>
+  <div class="voters">
+    <span class="pill"><span class="coin">🍄</span>Priya</span>
+    <span class="pill"><span class="coin">🐸</span>Theo</span>
+    <span class="cap">fell for it</span>
+  </div>
+  <div class="label muslin st">
+    <span class="tab felt indigo">B</span>
+    <p class="answer">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+    <!-- the last thread still holding the label to the quilt -->
+    <svg class="loose" style="left:6px;top:-40px" width="40" height="52" viewBox="0 0 40 52" aria-hidden="true">
+      <path d="M8 4 C 22 14, 4 26, 16 36 S 10 48, 14 52" fill="none" stroke="#efe6cf" stroke-width="2.4" stroke-linecap="round" opacity=".9"/></svg>
+    <span class="care muslin st">AI-written</span>
+  </div>
+  <img class="ripper" src="art/seam-ripper.svg" alt="">
+</div>
+
+<div class="abs display fooled">The Wolf fooled <span>2 of 4.</span></div>
+<p class="abs points"><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+<div class="abs heroes">
+  <h3>Village<br>Heroes</h3>
+  <span class="pill"><span class="coin">🦉</span><span><span class="nm">Maya</span><span class="sc">300</span></span></span>
+  <span class="pill"><span class="coin">🦊</span><span><span class="nm">Jordan</span><span class="sc">200</span></span></span>
+  <span class="pill"><span class="coin">🐻</span><span><span class="nm">Sam</span><span class="sc">200</span></span></span>
+</div>
+
+<button class="abs btn next st">
+  <svg class="ico" viewBox="0 0 30 30" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="#131931" stroke-width="3"/><path d="M18 18 L26 26" stroke="#131931" stroke-width="3.4" stroke-linecap="round"/></svg>
+  Ask what gave it away
+</button>
+
+<img class="full binding" src="art/binding-host.svg" width="1440" height="900" alt="">
+</body>
+</html>

@@ -1,0 +1,157 @@
+[
+  {
+    "name": "Ink (brown-black)",
+    "token": "ink",
+    "hex": "#2e2421"
+  },
+  {
+    "name": "Cream",
+    "token": "cream",
+    "hex": "#f8f0de"
+  },
+  {
+    "name": "Cream shade",
+    "token": "cream-s",
+    "hex": "#e7d7b6"
+  },
+  {
+    "name": "Cream deep",
+    "token": "cream-d",
+    "hex": "#cdb98f"
+  },
+  {
+    "name": "Parchment",
+    "token": "parch",
+    "hex": "#f0dfb9"
+  },
+  {
+    "name": "Parchment shade",
+    "token": "parch-s",
+    "hex": "#dcc394"
+  },
+  {
+    "name": "Powder blue light",
+    "token": "blue-l",
+    "hex": "#d2e3ec"
+  },
+  {
+    "name": "Powder blue",
+    "token": "blue",
+    "hex": "#a3c3d8"
+  },
+  {
+    "name": "Powder blue shade",
+    "token": "blue-s",
+    "hex": "#7a9fbd"
+  },
+  {
+    "name": "Powder blue deep",
+    "token": "blue-d",
+    "hex": "#56789a"
+  },
+  {
+    "name": "Antique gold light",
+    "token": "gold-l",
+    "hex": "#f2db94"
+  },
+  {
+    "name": "Antique gold",
+    "token": "gold",
+    "hex": "#dbb35e"
+  },
+  {
+    "name": "Antique gold shade",
+    "token": "gold-s",
+    "hex": "#b88d40"
+  },
+  {
+    "name": "Antique gold deep",
+    "token": "gold-d",
+    "hex": "#8e6a2f"
+  },
+  {
+    "name": "Sage light",
+    "token": "sage-l",
+    "hex": "#cfdcb2"
+  },
+  {
+    "name": "Sage",
+    "token": "sage",
+    "hex": "#a8bc8b"
+  },
+  {
+    "name": "Sage shade",
+    "token": "sage-s",
+    "hex": "#83a06c"
+  },
+  {
+    "name": "Olive",
+    "token": "olive",
+    "hex": "#768845"
+  },
+  {
+    "name": "Olive shade",
+    "token": "olive-s",
+    "hex": "#5b6b34"
+  },
+  {
+    "name": "Olive deep",
+    "token": "olive-d",
+    "hex": "#45522a"
+  },
+  {
+    "name": "Raspberry light",
+    "token": "rasp-l",
+    "hex": "#e6939f"
+  },
+  {
+    "name": "Raspberry",
+    "token": "rasp",
+    "hex": "#c04f66"
+  },
+  {
+    "name": "Raspberry shade",
+    "token": "rasp-s",
+    "hex": "#963248"
+  },
+  {
+    "name": "Burgundy",
+    "token": "burg",
+    "hex": "#6e2338"
+  },
+  {
+    "name": "Icing pink",
+    "token": "pink",
+    "hex": "#eaa7b0"
+  },
+  {
+    "name": "Pumpkin amber",
+    "token": "amber",
+    "hex": "#de9d58"
+  },
+  {
+    "name": "Wood",
+    "token": "wood",
+    "hex": "#a57550"
+  },
+  {
+    "name": "Wood deep",
+    "token": "wood-d",
+    "hex": "#5c3b26"
+  },
+  {
+    "name": "Wolf slate",
+    "token": "slate",
+    "hex": "#7f8898"
+  },
+  {
+    "name": "Wolf slate deep",
+    "token": "slate-d",
+    "hex": "#474e5e"
+  },
+  {
+    "name": "Highlight",
+    "token": "hl",
+    "hex": "#fffbf3"
+  }
+]

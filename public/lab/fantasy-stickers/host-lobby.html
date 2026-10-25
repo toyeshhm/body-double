@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Village · Storybook Stickers</title>
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Figtree:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .mirror-tall { left: 34px; top: 92px; width: 622px; height: 732px; filter: url(#dc-lg); }
+  .mirror-tall .night {
+    position: absolute; left: 101px; top: 137px; width: 420px; height: 476px; border-radius: 50%; overflow: hidden;
+    background: var(--night);
+    box-shadow: inset 14px 18px 0 rgba(120, 160, 200, .12), inset -18px -22px 0 rgba(0, 0, 0, .22);
+  }
+  .night .streak { position: absolute; background: #fff; opacity: .1; transform: rotate(-38deg); border-radius: 40px; }
+  .night .star { position: absolute; }
+  .night .say { position: absolute; left: 0; right: 0; text-align: center; color: #f1e3bf; }
+  .code-wrap { position: absolute; left: 0; right: 0; top: 168px; text-align: center; filter: drop-shadow(0 4px 0 #152338); }
+  .code { font-size: 122px; letter-spacing: .035em; line-height: 1; }
+  .qr-card { left: 1178px; top: 56px; width: 226px; padding: 18px 18px 14px; transform: rotate(4deg); text-align: center; }
+  .qr-card img.qr { width: 186px; height: 186px; display: block; background: #fffaf0; border-radius: 6px; }
+  .qr-card p { font-size: 22px; font-weight: 700; margin-top: 8px; color: var(--ink); }
+  .qr-card { clip-path: polygon(-30px -30px, calc(100% + 30px) -30px, calc(100% + 30px) calc(100% - 56px), calc(100% - 56px) calc(100% + 30px), -30px calc(100% + 30px)); }
+  .peel { position: absolute; left: calc(100% - 32px); top: calc(100% - 32px); width: 38px; height: 38px; filter: drop-shadow(-3px -3px 3px rgba(74, 50, 32, .35)); }
+  .peel i { position: absolute; inset: 0; background: #efe6d3; clip-path: polygon(0 0, 100% 0, 0 100%); box-shadow: inset 4px 4px 0 #fffaf0; }
+  .when { left: 1128px; top: 700px; font-size: 26px; color: var(--gold-text); }
+  .pin { position: absolute; width: 64px; height: 64px; left: -26px; top: -30px; transform: rotate(-12deg); }
+  .title { left: 700px; top: 40px; }
+  .title .the { font-size: 50px; color: var(--gold-text); display: block; margin: 0 0 -6px 8px; }
+  .title h1 { font-size: 132px; }
+  .lede { left: 708px; top: 252px; width: 450px; font-size: 26px; line-height: 1.35; font-weight: 500; color: var(--ink-soft); }
+  .lede b { color: var(--ink); font-weight: 700; white-space: nowrap; }
+  .tree { left: -30px; top: 646px; width: 236px; height: 236px; }
+  .wolf { left: 128px; top: 676px; width: 150px; height: 150px; transform: rotate(14deg); }
+  .square { left: 700px; top: 350px; width: 710px; }
+  .square h2 { font-size: 32px; color: var(--ink); margin-left: 6px; }
+  .square h2 span { font-family: var(--ui); font-style: normal; font-size: 22px; font-weight: 700; color: var(--gold-text); margin-left: 10px; }
+  .villagers { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 14px; }
+  .v { display: flex; flex-direction: column; align-items: center; }
+  .v img { width: 104px; height: 104px; position: relative; z-index: 1; }
+  .v .tag { margin-top: -6px; width: 128px; }
+  .v:nth-child(1) img { transform: rotate(-5deg); } .v:nth-child(1) .tag { transform: rotate(2deg); }
+  .v:nth-child(2) img { transform: rotate(4deg); }  .v:nth-child(2) .tag { transform: rotate(-2deg); }
+  .v:nth-child(3) img { transform: rotate(-2deg); } .v:nth-child(3) .tag { transform: rotate(1.5deg); }
+  .v:nth-child(4) img { transform: rotate(6deg); }  .v:nth-child(4) .tag { transform: rotate(-1deg); }
+  .v:nth-child(5) img { transform: rotate(-4deg); } .v:nth-child(5) .tag { transform: rotate(2.5deg); }
+  .settings-wrap { left: 724px; top: 654px; width: 290px; filter: url(#dc-lg); transform: rotate(-1.5deg); }
+  .settings-wrap dl { row-gap: 6px; }
+  .settings-wrap .scroll { padding: 24px 28px 20px; }
+  .clock { left: 1000px; top: 640px; width: 104px; height: 104px; transform: rotate(8deg); }
+  .go { left: 1124px; top: 752px; }
+  .go .btn { width: 276px; height: 96px; font-size: 32px; }
+</style>
+</head>
+<body class="host" style="background-image:url(art/paper.svg),url(art/realm-lobby.svg)">
+<svg class="defs" aria-hidden="true" focusable="false">
+  <filter id="dc" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.4"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="3.4"/><feOffset dx="1.5" dy="4.5" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-sm" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="2.4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="1.2"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="1.8"/><feOffset dx=".8" dy="2.2" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-lg" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="3"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="6"/><feOffset dx="2" dy="8" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".30"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-type" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.6"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="4"/><feOffset dx="2" dy="6" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".28"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="foil" x="-6%" y="-12%" width="112%" height="124%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".012 .05" numOctaves="2" seed="5" result="streak"/>
+    <feColorMatrix in="streak" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55" result="streakA"/>
+    <feFlood flood-color="#9c7428"/><feComposite in2="streakA" operator="in" result="tarnish"/>
+    <feComposite in="tarnish" in2="SourceAlpha" operator="in" result="tarnishIn"/>
+    <feMerge result="base"><feMergeNode in="SourceGraphic"/><feMergeNode in="tarnishIn"/></feMerge>
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="11" result="grain"/>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="soft"/>
+    <feComposite in="soft" in2="grain" operator="arithmetic" k1="0" k2="1" k3=".1" k4="0" result="bump"/>
+    <feSpecularLighting in="bump" surfaceScale="6" specularConstant="1.1" specularExponent="16" lighting-color="#fff2c8" result="spec">
+      <feDistantLight azimuth="225" elevation="40"/>
+    </feSpecularLighting>
+    <feComposite in="spec" in2="SourceAlpha" operator="in" result="sheen"/>
+    <feComposite in="base" in2="sheen" operator="arithmetic" k1="0" k2="1" k3=".7" k4="0"/>
+  </filter>
+</svg>
+
+<div class="corner tl"></div><div class="corner tr"></div><div class="corner br"></div>
+
+<div class="abs brand" style="left:66px;top:46px;font-size:32px">Body <b>Double</b></div>
+
+<!-- the magic mirror holds the village code -->
+<div class="abs mirror-tall">
+  <div class="night">
+    <div class="streak" style="left:22px;top:84px;width:170px;height:20px"></div>
+    <div class="streak" style="left:44px;top:116px;width:110px;height:8px"></div>
+    <svg class="star" style="left:300px;top:96px" width="26" height="26" viewBox="-13 -13 26 26"><path d="M0,-13C2,-2 2,-2 13,0C2,2 2,2 0,13C-2,2 -2,2 -13,0C-2,-2 -2,-2 0,-13Z" fill="#f2db94" opacity=".8"/></svg>
+    <svg class="star" style="left:92px;top:330px" width="16" height="16" viewBox="-13 -13 26 26"><path d="M0,-13C2,-2 2,-2 13,0C2,2 2,2 0,13C-2,2 -2,2 -13,0C-2,-2 -2,-2 0,-13Z" fill="#f2db94" opacity=".7"/></svg>
+    <svg class="star" style="left:330px;top:380px" width="12" height="12" viewBox="-13 -13 26 26"><path d="M0,-13C2,-2 2,-2 13,0C2,2 2,2 0,13C-2,2 -2,2 -13,0C-2,-2 -2,-2 0,-13Z" fill="#a3c3d8" opacity=".8"/></svg>
+    <div class="say italic" style="top:118px;font-size:30px">Mirror, mirror, the code is</div>
+    <div class="code-wrap"><span class="foil code">HXQR</span></div>
+    <img src="art/flourish.svg" alt="" style="position:absolute;left:90px;top:312px;width:240px;height:40px">
+    <div class="say" style="top:364px;font-size:23px;font-weight:600;font-family:var(--ui);color:#d9e4ec">Type it on your phone</div>
+  </div>
+  <img class="frame" src="art/mirror-tall.svg" alt="" style="position:absolute;inset:0">
+</div>
+
+<!-- the Wolf lurks behind the tree, eyeing the mirror -->
+<img class="abs st wolf" src="../_fantasy/icons/wolf.svg" alt="The Wolf, peeking">
+<img class="abs st-lg tree" src="../_fantasy/icons/tree.svg" alt="">
+
+<!-- calling card with the QR, pinned to the mirror -->
+<div class="abs card qr-card">
+  <img class="qr" src="../_shared/qr.svg" alt="QR code to join village HXQR">
+  <p>Scan to enter</p>
+  <img class="pin st" src="../_fantasy/icons/sparkles.svg" alt="">
+  <span class="peel"><i></i></span>
+</div>
+
+<div class="abs title">
+  <span class="the italic">The</span>
+  <h1 class="cut-letters">Village</h1>
+</div>
+<p class="abs lede">Enter at <b>bodydouble.tech/play/HXQR</b> or scan the card with your phone.</p>
+
+
+<section class="abs square">
+  <h2 class="italic">Villagers in the square<span>5 have arrived</span></h2>
+  <div class="villagers">
+    <div class="v"><img class="st" src="../_fantasy/icons/slipper.svg" alt=""><div class="tag"><span class="nm">Maya</span><span class="rl">the bard</span></div></div>
+    <div class="v"><img class="st" src="../_fantasy/icons/lamp.svg" alt=""><div class="tag"><span class="nm">Jordan</span><span class="rl">woodcutter</span></div></div>
+    <div class="v"><img class="st" src="../_fantasy/icons/potion.svg" alt=""><div class="tag"><span class="nm">Priya</span><span class="rl">the witch</span></div></div>
+    <div class="v"><img class="st" src="../_fantasy/icons/eat-me.svg" alt=""><div class="tag"><span class="nm">Sam</span><span class="rl">the baker</span></div></div>
+    <div class="v"><img class="st" src="../_fantasy/icons/frog-prince.svg" alt=""><div class="tag"><span class="nm">Theo</span><span class="rl">the knight</span></div></div>
+  </div>
+</section>
+
+<div class="abs settings-wrap">
+  <div class="scroll">
+    <dl>
+      <dt>Chapters</dt><dd>6</dd>
+      <dt>Answer time</dt><dd>60s</dd>
+      <dt>Vote time</dt><dd>20s</dd>
+      <dt>Demo mode</dt><dd>Off</dd>
+    </dl>
+  </div>
+</div>
+<img class="abs st clock" src="../_fantasy/icons/clock-tower.svg" alt="">
+
+
+<p class="abs italic when">When the village is ready,</p>
+<div class="abs go"><span class="btn">Begin the tale</span></div>
+</body>
+</html>

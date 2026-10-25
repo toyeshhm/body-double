@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Body Double · You found the real Maya</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .result { position: absolute; left: 20px; right: 18px; top: 64px; z-index: 5; }
+  .result h1 { font-size: 30px; color: var(--cream); }
+  .result .row { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+  .result .plus { font: italic 600 66px/1 var(--display); }
+  .result .plus .pl { font: 500 48px/1 var(--sans); margin-right: 4px; vertical-align: 10px; }
+  .score { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding: 10px 14px; background: var(--ink); border-radius: 3px; box-shadow: 0 0 0 1.5px rgba(255,207,126,.45); }
+  .score small { font: 400 15px/1 var(--sans); color: var(--cream-dim); }
+  .score b { font: 600 26px/1 var(--sans); color: var(--cream); }
+
+  .slip { height: 146px; padding-top: 14px; z-index: 2; }
+  .slip[data-slot="A"] { top: 218px; }
+  .slip[data-slot="B"] { top: 444px; }
+  .slip q { font-size: 18px; margin-left: 8px; width: 290px; }
+  .ribbon { position: absolute; left: 8px; bottom: -36px; z-index: 4; display: flex; align-items: center; gap: 10px; padding: 7px 14px 8px 8px; background: var(--ink); border-radius: 3px; box-shadow: 4px 8px 10px rgba(0,0,0,.45); }
+  .ribbon .display { font-size: 21px; line-height: 1; }
+  .ribbon .cameo { --s: 30px; }
+  .ribbon small { font: 500 14px/1 var(--sans); color: var(--cream-dim); padding-left: 10px; border-left: 2px dotted rgba(255,207,126,.45); }
+  .slip[data-slot="A"] .ribbon .display { color: var(--honey); }
+  .slip[data-slot="A"]::after { content: ""; position: absolute; inset: 0; z-index: -1; mix-blend-mode: screen; background: radial-gradient(45% 80% at 88% 30%, rgba(255,250,228,.9), rgba(255,236,190,0)); }
+  .slip[data-slot="A"] .lantern { right: 6px; top: -36px; width: 40px; }
+  .slip[data-slot="A"] .lantern::before { left: -170%; right: -170%; }
+
+  .slip[data-slot="B"] { color: var(--cream); background: url(art/paper.png) center / cover, radial-gradient(55% 90% at 84% 45%, #7FCFC2 0%, #3F9690 26%, #1B5458 55%, #0B2629 80%, #060D0F 100%); background-blend-mode: multiply; }
+  .slip[data-slot="B"] .ribbon .display { color: var(--rose-lit); }
+  /* the Wolf's shadow seen through the paper */
+  .through { position: absolute; right: -6px; bottom: -12px; height: 150px; aspect-ratio: 899 / 1012; background: url(art/wolf.png) center / 100% 100% no-repeat; filter: blur(2.5px); z-index: -1; }
+  .through { opacity: .8; }
+  /* and the Wolf himself, rising behind the slip */
+  .lurk { position: absolute; left: 0; right: 0; top: 330px; height: 140px; z-index: 1; pointer-events: none; }
+  .slip[data-slot="A"] { z-index: 3; }
+  .lurk::before { content: ""; position: absolute; right: -60px; top: -40px; width: 320px; height: 220px; mix-blend-mode: screen; background: radial-gradient(closest-side, rgba(232,96,110,.75), rgba(200,70,95,.3) 55%, rgba(180,60,90,0)); }
+  .lurk .wolf { right: -26px; top: 6px; height: 200px; transform-origin: 50% 100%; animation: rise 1.4s cubic-bezier(.2,.8,.2,1) .8s both; }
+  .lurk .wolf .eye { animation: ignite .5s ease-out 2s both, blink 6s 2.6s infinite; }
+  .through { animation: ignite 1.2s ease-out .6s both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(70px) scale(.85); } to { opacity: 1; transform: none; } }
+  @keyframes ignite { from { opacity: 0; } to { opacity: 1; } }
+
+  .tells { position: absolute; left: 18px; right: 18px; top: 628px; z-index: 5; }
+  .tells h2 { font-size: 26px; color: var(--cream); }
+  .tells .field { margin-top: 12px; background: rgba(255,246,223,.94); border-color: var(--honey); color: rgba(11,7,8,.55); font-size: 18px; font-weight: 400; }
+  .tells .ticket { display: block; width: 100%; margin-top: 14px; }
+  .tells .ticket > span { min-height: 58px; font-size: 21px; }
+</style>
+</head>
+<body>
+<main class="stage stage--phone phone">
+  <div class="backdrop"></div>
+  <div class="falloff"></div>
+
+  <header class="topbar">
+    <span class="brand display">Body Double</span>
+    <span class="codechip">HXQR</span>
+  </header>
+
+  <section class="result">
+    <h1 class="display">You found the real Maya.</h1>
+    <div class="row">
+      <span class="plus glow"><span class="pl">+</span>100</span>
+      <span class="score"><small>Your score</small><b>300</b></span>
+    </div>
+  </section>
+
+  <div class="lurk"><div class="wolf"><span class="eye"></span><img src="art/wolf.png" alt="The Wolf"><span class="bloom"></span></div></div>
+
+  <article class="screen slip" data-slot="A">
+    <span class="slot">A</span>
+    <div class="lantern"><img src="art/lantern.svg" alt=""></div>
+    <q>i will reorganize your spice rack while you shower and call it love</q>
+    <div class="ribbon"><span class="cameo"><span class="sil">🦉</span></span><span class="display">The real Maya</span></div>
+  </article>
+
+  <article class="screen slip" data-slot="B">
+    <span class="slot">B</span>
+    <span class="through" aria-hidden="true"></span>
+    <q>overthinking a text for 40 minutes then just sending 'k' 💀</q>
+    <div class="ribbon"><span class="display">It was the Wolf!</span><small>AI-written</small></div>
+  </article>
+
+  <section class="tells">
+    <h2 class="display">What gave the Wolf away?</h2>
+    <div class="field">Say it in one line</div>
+    <button class="ticket"><span>Tell the village</span></button>
+  </section>
+
+  <div class="grain"></div>
+</main>
+</body>
+</html>

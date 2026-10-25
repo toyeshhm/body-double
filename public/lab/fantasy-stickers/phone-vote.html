@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vote · Storybook Stickers</title>
+<meta name="viewport" content="width=390">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Figtree:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .bar .chapter { font-size: 16px; color: var(--gold-text); }
+  .timer { left: 20px; right: 20px; top: 72px; height: 104px; padding: 0 18px 0 8px; display: flex; align-items: center; gap: 8px; }
+  .timer img { width: 92px; height: 92px; margin-top: -18px; transform: rotate(-4deg); }
+  .timer .t { font-family: var(--display); font-weight: 800; font-variation-settings: "SOFT" 100, "opsz" 144; font-size: 58px; line-height: 1; color: var(--rasp-deep); }
+  .timer .t small { font-size: 22px; font-weight: 700; margin-left: 2px; }
+  .timer p { font-size: 15px; font-weight: 600; color: var(--ink-soft); line-height: 1.25; margin-left: auto; text-align: right; width: 120px; }
+  .q { left: 22px; right: 22px; top: 196px; }
+  .q .lead { font-size: 18px; color: var(--gold-text); }
+  .q h1 { font-family: var(--display); font-weight: 700; font-variation-settings: "SOFT" 100, "opsz" 72; font-size: 31px; line-height: 1.08; margin-top: 2px; }
+  .pick { left: 24px; right: 24px; }
+  .pick.a { top: 314px; transform: rotate(-1deg); }
+  .pick .pglass { font-size: 21px; min-height: 150px; padding: 20px 20px 20px 24px; }
+  .pick.b { top: 540px; transform: rotate(1deg); }
+  .pick.a .pmirror { box-shadow: inset -3px -4px 0 #b88d40, inset 3px 3px 0 #f2db94, 0 0 0 5px #fffaf0, 0 0 0 10px var(--rasp-deep); }
+  .yours { position: absolute; right: -6px; top: -22px; z-index: 3; transform: rotate(6deg); }
+  .yours .ribbon { height: 40px; font-size: 19px; padding: 0 26px; font-family: var(--ui); font-weight: 800; }
+  .help { left: 30px; right: 30px; top: 752px; font-size: 16px; }
+</style>
+</head>
+<body class="phone">
+<svg class="defs" aria-hidden="true" focusable="false">
+  <filter id="dc" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.4"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="3.4"/><feOffset dx="1.5" dy="4.5" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-sm" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="2.4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="1.2"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="1.8"/><feOffset dx=".8" dy="2.2" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-lg" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="3"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="6"/><feOffset dx="2" dy="8" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".30"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-type" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.6"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="4"/><feOffset dx="2" dy="6" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".28"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="foil" x="-6%" y="-12%" width="112%" height="124%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".012 .05" numOctaves="2" seed="5" result="streak"/>
+    <feColorMatrix in="streak" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55" result="streakA"/>
+    <feFlood flood-color="#9c7428"/><feComposite in2="streakA" operator="in" result="tarnish"/>
+    <feComposite in="tarnish" in2="SourceAlpha" operator="in" result="tarnishIn"/>
+    <feMerge result="base"><feMergeNode in="SourceGraphic"/><feMergeNode in="tarnishIn"/></feMerge>
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="11" result="grain"/>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="soft"/>
+    <feComposite in="soft" in2="grain" operator="arithmetic" k1="0" k2="1" k3=".1" k4="0" result="bump"/>
+    <feSpecularLighting in="bump" surfaceScale="6" specularConstant="1.1" specularExponent="16" lighting-color="#fff2c8" result="spec">
+      <feDistantLight azimuth="225" elevation="40"/>
+    </feSpecularLighting>
+    <feComposite in="spec" in2="SourceAlpha" operator="in" result="sheen"/>
+    <feComposite in="base" in2="sheen" operator="arithmetic" k1="0" k2="1" k3=".7" k4="0"/>
+  </filter>
+</svg>
+
+<div class="bar">
+  <span class="brand">Body <b>Double</b></span>
+  <span class="chapter italic">Chapter III of VI</span>
+</div>
+
+<div class="abs card timer">
+  <img class="st" src="../_fantasy/icons/clock-tower.svg" alt="">
+  <span class="t">0:14</span>
+  <p>left before the spell breaks</p>
+</div>
+
+<div class="abs q">
+  <div class="lead italic">Your toxic trait, but make it cute</div>
+  <h1>Which one is really Maya?</h1>
+</div>
+
+<div class="abs pick a">
+  <span class="yours ribbon-wrap"><span class="ribbon">Your pick</span></span>
+  <div class="pmirror">
+    <img class="crest" src="art/crest.svg" alt="">
+    <span class="slot">A</span>
+    <div class="pglass">i will reorganize your spice rack while you shower and call it love</div>
+  </div>
+</div>
+
+<div class="abs pick b">
+  <div class="pmirror">
+    <img class="crest" src="art/crest.svg" alt="">
+    <span class="slot">B</span>
+    <div class="pglass">overthinking a text for 40 minutes then just sending 'k' 💀</div>
+  </div>
+</div>
+
+<p class="abs note help">You can change your pick until time runs out.</p>
+</body>
+</html>

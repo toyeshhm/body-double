@@ -1,0 +1,49 @@
+{
+  "slug": "stitchwork-denim",
+  "name": "Stitchwork: Patched Denim",
+  "tagline": "The village is the back of a well-loved denim jacket, and the Wolf is the patch hiding under one of the answers.",
+  "palette": [
+    { "name": "Indigo twill (ground)", "hex": "#2b3f6e" },
+    { "name": "Unfaded indigo (under a patch)", "hex": "#15203f" },
+    { "name": "Copper topstitch", "hex": "#d9853c" },
+    { "name": "Chenille orange", "hex": "#f06a1f" },
+    { "name": "Burnt orange (text on bone)", "hex": "#b9460c" },
+    { "name": "Bone twill", "hex": "#f1e8d4" },
+    { "name": "Ink twill", "hex": "#17181d" },
+    { "name": "Oxblood enamel", "hex": "#8e1c18" },
+    { "name": "Enamel gold (text on enamel)", "hex": "#f7d9a8" }
+  ],
+  "fonts": {
+    "display": "Graduate (varsity letters: chenille HXQR and +100 on bone felt with an ink felt outline) and Yellowtail (chain-stitch script: thickened, raised and lit with an SVG filter, plus a layer of link ticks)",
+    "body": "Archivo 500-800 (answers, names, body copy)",
+    "ui": "Archivo variable width: expanded 800 for buttons and the prompt rocker, condensed for enamel-pin labels and woven tags"
+  },
+  "motifs": [
+    "Procedural indigo 3/1 twill with ring-dyed fades, seam roping and double copper topstitching (yoke, panel seams, waistband)",
+    "Room code as four chenille varsity letters over a curved bottom rocker carrying the join URL",
+    "Villagers as round iron-on patches with overlocked (merrowed) edges and name tapes",
+    "Enamel pins for settings, the countdown and the award; safety pins hold the QR canvas and 'Your pick'",
+    "Woven black-and-copper 'Body Double' label sewn on; the prompt is a biker-style top rocker"
+  ],
+  "reveal": "The Wolf's answer patch is ripped off and left hanging by one corner with torn overlock and loose threads, exposing a darker, unfaded patch-shaped ghost of denim ringed with needle holes where the embroidered Wolf patch was sewn underneath under 'It was the Wolf!' in chain-stitch script, while the real answer gets a copper-and-oxblood enamel award pin reading 'The real Maya'.",
+  "why": "Mid-indigo denim keeps glare low in a dim room, while bone twill, orange chenille and gold-on-enamel give the code, answers and buttons strong contrast from 5 m. Every element is a real jacket part (patch, rocker, pin, label), so the reveal reads instantly: a patch gets torn off and the Wolf was underneath.",
+  "images": [
+    "art/denim-host.png",
+    "art/denim-phone.png",
+    "art/wolf-embroidered.png",
+    "art/hood-embroidered.png",
+    "art/twill-bone.png",
+    "art/twill-black.png",
+    "art/twill-orange.png",
+    "art/twill-red.png",
+    "art/denim-tile.png",
+    "art/merrow-bone.svg",
+    "art/merrow-copper.svg",
+    "art/merrow-ink.svg",
+    "art/merrow-orange.svg",
+    "art/safety-pin.svg",
+    "art/rivet.svg",
+    "art/fray.svg",
+    "art/rip-edge.svg"
+  ]
+}

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>The real Maya · Body Double</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..800,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Nanum+Pen+Script&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500&display=block" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  h1 { position: absolute; left: 22px; top: 86px; width: 210px; font-size: 34px; line-height: 1.02; font-style: italic; }
+  .score { position: absolute; right: 26px; top: 78px; width: 136px; text-align: center; }
+  .score .pts { position: relative; height: 84px; display: grid; place-items: center; }
+  .score .pts::before { content: ""; position: absolute; inset: -6px -14px; background: url(art/wash-green.png) 0 0 / 100% 100% no-repeat; opacity: .42; transform: rotate(-4deg); }
+  .score .pts span { position: relative; font-family: var(--f-display); font-variation-settings: "SOFT" 100, "WONK" 0; font-weight: 700; font-size: 52px; line-height: 1; color: #2c4a19; }
+  .score .tot { font-size: 18px; font-weight: 700; color: var(--ink); margin-top: 2px; }
+  .score .tot b { font-weight: 800; }
+
+  .verdict { position: absolute; z-index: 8; font-size: 27px; font-style: italic; font-weight: 700; line-height: 1; white-space: nowrap; }
+  .verdict.real { left: 96px; top: 198px; color: var(--sap-ink); --rot: -2deg; transform: rotate(-2deg); }
+  .verdict.wolf { left: 24px; top: 398px; color: var(--madder); --rot: -3deg; transform: rotate(-3deg); }
+  .ai-tag { position: absolute; right: 30px; top: 398px; z-index: 8; font-size: 14px; font-weight: 800; color: var(--madder-deep); padding: 4px 10px;
+            border: 1.5px solid var(--madder); border-radius: 4px; background: rgba(253,252,247,.85); transform: rotate(2deg); line-height: 1.1; }
+
+  .answer { position: absolute; left: 22px; width: 340px; height: 124px; }
+  .answer.a { top: 236px; }
+  .answer.b { top: 438px; }
+  .answer .slip { inset: 0; --lh: 30px; --rule-top: 18px; }
+  .answer .letter { left: 14px; top: 16px; width: 36px; height: 36px; font-size: 21px; border-width: 2px; }
+  .answer .txt { position: absolute; left: 62px; right: 18px; top: 18px; font-size: 20px; line-height: 30px; }
+  .answer .slip-tape { left: 128px; top: -12px; width: 86px; height: 24px; }
+  .stamp { position: absolute; z-index: 7; width: 96px; height: 96px; left: -18px; top: -84px; transform: rotate(-12deg); mix-blend-mode: multiply; }
+
+  .bleed { position: absolute; z-index: 1; left: 70px; top: -38px; width: 320px; height: 132px; background: url(art/bleed-cut.png) 0 0 / 100% auto no-repeat; opacity: .55; --bleed-o: .55; mix-blend-mode: multiply; }
+  .txt.under-bleed { text-shadow: 0 0 6px rgba(253,252,247,.95), 0 0 2px rgba(253,252,247,.95); }
+  .answer .paw { width: 22px; opacity: .8; }
+
+  .ask { position: absolute; left: 22px; right: 30px; top: 600px; }
+  .ask label { display: block; font-family: var(--f-display); font-variation-settings: "SOFT" 100, "WONK" 1; font-style: italic; font-weight: 600; font-size: 25px; margin-bottom: 8px; }
+  .ask .field { height: 54px; display: flex; align-items: center; padding: 0 16px; background: var(--sheet); font-size: 18px; font-style: italic; font-weight: 500; color: #76645a;
+                box-shadow: inset 0 -2.5px 0 var(--ink), 0 1px 1px rgba(60,40,20,.2), 0 4px 8px rgba(40,26,12,.12); }
+  .tell { left: 22px; width: 336px; top: 712px; height: 58px; font-size: 23px; }
+  .gran { position: absolute; left: 0; right: 8px; top: 786px; text-align: center; font-size: 24px; color: var(--sienna-ink); }
+</style>
+</head>
+<body class="phone desk reveal">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="3" seed="5" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="rubber" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="6" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.6 1.55" result="ga"/>
+    <feComposite in="SourceGraphic" in2="ga" operator="in" result="t"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2" result="n"/>
+    <feDisplacementMap in="t" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+<main class="leaf paper">
+  <header class="p-head">
+    <div class="brand display">Body <em>Double</em></div>
+    <div class="codechip"><div class="tape green"></div><span class="hand">village</span><b>HXQR</b></div>
+  </header>
+
+  <h1 class="display">You found the real Maya.</h1>
+  <div class="score">
+    <div class="pts"><span>+100</span></div>
+    <div class="tot">Your score: <b>300</b></div>
+  </div>
+
+  <p class="verdict real display">The real Maya</p>
+  <div class="answer a slot-a">
+    <div class="slip"></div>
+    <div class="tape ochre slip-tape"></div>
+    <div class="letter">A</div>
+    <p class="txt">i will reorganize your spice rack while you shower and call it love</p>
+    <svg class="stamp" viewBox="0 0 200 200" aria-label="Pressed flower stamp: The real Maya">
+      <defs><path id="ring" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+      <g filter="url(#rubber)" fill="none" stroke="#3b6a2a" opacity=".9">
+        <circle cx="100" cy="100" r="94" stroke-width="6"/>
+        <circle cx="100" cy="100" r="56" stroke-width="2.5"/>
+        <text font-family="Alegreya Sans, sans-serif" font-weight="800" font-size="21" letter-spacing="3" fill="#3b6a2a" stroke="none">
+          <textPath href="#ring">THE REAL MAYA ✿ THE REAL MAYA ✿</textPath>
+        </text>
+      </g>
+      <image href="art/forgetmenot.svg" x="58" y="50" width="84" height="110"/>
+    </svg>
+  </div>
+
+  <p class="verdict wolf display">It was the Wolf!</p>
+  <p class="ai-tag">Written by the Wolf (AI)</p>
+  <div class="answer b slot-b">
+    <div class="slip"></div>
+    <div class="tape ochre slip-tape"></div>
+    <div class="bleed"></div>
+    <div class="letter">B</div>
+    <p class="txt under-bleed">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+    <img class="paw" src="art/paw.svg" alt="" style="left:20px;top:96px;--i:1;--r:rotate(60deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:76px;top:86px;--i:2;--r:rotate(52deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:136px;top:98px;--i:3;--r:rotate(66deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:196px;top:84px;--i:4;--r:rotate(50deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:256px;top:88px;--i:5;--r:rotate(58deg)">
+    <img class="paw" src="art/paw.svg" alt="" style="left:316px;top:50px;--i:6;--r:rotate(30deg)">
+  </div>
+
+  <div class="ask">
+    <label for="tell" class="display">What gave the Wolf away?</label>
+    <div class="field" id="tell" role="textbox" aria-label="What gave the Wolf away?">nobody says "k" like that...</div>
+  </div>
+  <button class="btn-paint tell">Tell the village <span class="arrow">→</span></button>
+  <p class="gran hand">Gran reads the best ones aloud</p>
+</main>
+</body>
+</html>

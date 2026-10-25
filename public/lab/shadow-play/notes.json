@@ -1,0 +1,27 @@
+{
+  "slug": "shadow-play",
+  "name": "Shadow Play",
+  "tagline": "A shadow-puppet theatre for a dark room, inspired by early silhouette animation.",
+  "palette": [
+    {"name": "Cut-paper ink", "hex": "#0B0708"},
+    {"name": "Dark room", "hex": "#070608"},
+    {"name": "Lantern hot spot", "hex": "#FFF6DF"},
+    {"name": "Honey glow", "hex": "#FFCF7E"},
+    {"name": "Amber paper", "hex": "#F0A040"},
+    {"name": "Wolf rose", "hex": "#FF9DAA"},
+    {"name": "Moonlit teal", "hex": "#2A7C7A"},
+    {"name": "Deep teal", "hex": "#0A2528"},
+    {"name": "Wolf eye", "hex": "#FFE680"}
+  ],
+  "fonts": {"display": "Bodoni Moda (italic)", "body": "Jost", "ui": "Jost"},
+  "motifs": [
+    "Village code as four black cut-paper letters hanging on threads under a follow-spot",
+    "Lace-edged black paper frames with punched-dot borders that let the light through",
+    "Villagers as backlit cameo medallions with their emoji turned into pure silhouettes",
+    "Hanging lanterns whose filigree windows glow; a burning candle as the vote timer",
+    "Ticket-stub buttons with notched ends and perforations"
+  ],
+  "reveal": "The Wolf's slip loses its lamp and drops to dark teal while its shadow rises out of the frame as the hooded Wolf with one glowing eye, and Maya's slip stays lit by a hanging lantern under a 'The real Maya' ribbon.",
+  "why": "Everything is either black paper or light, so it reads as big high-contrast shapes from the back of a dim room and the projector itself becomes the lantern. Dark cut-paper surfaces keep the screen from blasting white at the room, while the few lit panels pull every eye to the code, the QR and the two answers.",
+  "images": ["art/village.png", "art/wolf.png", "art/paper.png", "art/lantern.svg", "art/valance.svg", "art/frame-in.svg", "art/frame-out.svg", "art/cameo.svg"]
+}

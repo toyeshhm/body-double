@@ -1,0 +1,52 @@
+{
+  "slug": "field-journal",
+  "name": "Grandmother's Field Journal",
+  "tagline": "Gran's watercolor sketchbook on the Wolf, with every villager taped in.",
+  "palette": [
+    { "name": "Sepia ink", "hex": "#2b211d" },
+    { "name": "Cold-press paper", "hex": "#fbf8f0" },
+    { "name": "Sap green", "hex": "#557f35" },
+    { "name": "Sap green ink", "hex": "#3a5c22" },
+    { "name": "Madder red", "hex": "#a3232e" },
+    { "name": "Deep madder", "hex": "#7a1720" },
+    { "name": "Indigo", "hex": "#2f3f6e" },
+    { "name": "Raw sienna", "hex": "#b4652a" },
+    { "name": "Yellow ochre", "hex": "#d6a443" },
+    { "name": "Bookcloth green", "hex": "#1b2621" }
+  ],
+  "fonts": {
+    "display": "Fraunces (SOFT 100, WONK italic)",
+    "body": "Alegreya Sans (answers, buttons, settings)",
+    "ui": "Nanum Pen Script (Gran's marginalia only)"
+  },
+  "motifs": [
+    "Deckled cold-press pages lying open on dark green bookcloth, with a red ribbon",
+    "Villagers as taped-in polaroids over real watercolor washes",
+    "Hand-inked watercolor map of the path from the village",
+    "Pressed ferns, oak and birch leaves, forget-me-nots",
+    "Washi tape, photo corners and torn ruled notebook sheets"
+  ],
+  "reveal": "A madder-red watercolor bleed blooms over the Wolf's slip and its paw prints walk across it back to the Wolf's portrait as 'It was the Wolf!' inks in red, while a pressed forget-me-not rubber stamp thumps 'The real Maya' onto the true answer.",
+  "why": "The open journal sits on a dark cloth surround, so the projector shows bright pages in a dim room without blasting white, and the code, prompt and answers are big, high-contrast type laid on top of the craft. Truth is green, the Wolf is red, so the whole room reads the reveal from across the floor before anyone reads a word.",
+  "images": [
+    "art/wolf.png",
+    "art/map.png",
+    "art/bleed.png",
+    "art/wolf-cut.png",
+    "art/map-cut.png",
+    "art/bleed-cut.png",
+    "art/wash-green.png",
+    "art/wash-indigo.png",
+    "art/wash-sienna.png",
+    "art/wash-ochre.png",
+    "art/fern.svg",
+    "art/fern-small.svg",
+    "art/leaf-oak.svg",
+    "art/leaf-birch.svg",
+    "art/forgetmenot.svg",
+    "art/paw.svg",
+    "art/paper.svg",
+    "art/cloth.svg",
+    "art/torn-top.svg"
+  ]
+}

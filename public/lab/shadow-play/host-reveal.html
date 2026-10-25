@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Body Double · Chapter III reveal</title>
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* night grade of the same village */
+  .reveal .backdrop { filter: brightness(.62) saturate(.55); transform: scale(1.06); }
+  .night { position: absolute; inset: 0; z-index: -2; mix-blend-mode: multiply; background: radial-gradient(70% 80% at 50% 45%, #9C8C8C 0%, #3E6266 55%, #16302F 100%); }
+  .falloff { background: radial-gradient(80% 75% at 50% 45%, rgba(5,8,9,0) 40%, rgba(5,8,9,.75) 100%), linear-gradient(to bottom, rgba(5,8,9,0) 62%, rgba(5,8,9,.9) 86%); }
+  .glow-rose { position: absolute; left: 960px; top: 40px; width: 560px; height: 480px; z-index: -1; mix-blend-mode: screen; background: radial-gradient(closest-side, rgba(232,96,110,.75), rgba(200,70,95,.35) 55%, rgba(180,60,90,0)); }
+  .glow-warm { position: absolute; left: 20px; top: 160px; width: 760px; height: 560px; z-index: -1; mix-blend-mode: screen; background: radial-gradient(closest-side, rgba(255,190,110,.5), rgba(255,160,80,.18) 60%, rgba(255,150,70,0)); }
+
+  .crest { left: 560px; top: 20px; width: 320px; height: 88px; z-index: 25; display: grid; place-items: center; transform: rotate(.6deg); }
+  .crest span { font-size: 32px; line-height: 1; }
+  .crest .thread { height: 30px; }
+
+  .ask { position: absolute; left: 80px; top: 124px; display: flex; align-items: center; gap: 20px; z-index: 8; }
+  .ask .cameo { --s: 84px; filter: drop-shadow(0 0 18px rgba(255,170,70,.45)); }
+  .ask .meta { font: 500 24px/1.2 var(--sans); color: var(--cream-dim); }
+  .ask .meta b { color: var(--honey); font-weight: 600; }
+  .ask h1 { margin-top: 4px; font-size: 56px; color: var(--cream); text-shadow: 0 2px 20px rgba(0,0,0,.6); }
+
+  /* the two slips: identical frame, size and slot tilt */
+  .answer { position: absolute; top: 256px; width: 610px; height: 316px; padding: 22px 26px; z-index: 6; }
+  .answer[data-slot="A"] { left: 80px; transform: rotate(-.6deg); }
+  .answer[data-slot="B"] { left: 750px; transform: rotate(.6deg); }
+  .answer .slot { position: absolute; left: -46px; top: -46px; z-index: 4; }
+  .answer q { display: block; width: 300px; quotes: none; font: 500 31px/1.32 var(--sans); text-wrap: balance; }
+  .answer .verdict { position: absolute; left: 6px; bottom: -58px; z-index: 4; display: flex; align-items: center; gap: 14px; padding: 10px 22px 12px 12px; background: var(--ink); border-radius: 4px; box-shadow: 6px 10px 14px rgba(0,0,0,.45); }
+  .verdict .display { font-size: 34px; line-height: 1; }
+  .verdict .cameo { --s: 46px; }
+  .verdict small { font: 500 22px/1 var(--sans); color: var(--cream-dim); padding-left: 14px; border-left: 2px dotted rgba(255,207,126,.4); }
+
+  /* A: the lantern stays lit */
+  .answer[data-slot="A"] .lantern { right: 64px; top: -34px; width: 104px; }
+    .answer[data-slot="A"] .verdict .display { color: var(--honey); }
+  .answer[data-slot="A"]::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(55% 75% at 82% 38%, rgba(255,250,228,.95), rgba(255,236,190,0)); mix-blend-mode: screen; }
+
+  /* B: the lamp goes out and the shadow becomes the Wolf */
+  .answer[data-slot="B"] .verdict .display { color: var(--rose-lit); }
+  .answer[data-slot="B"] .wolf { right: -206px; bottom: -40px; height: 480px; z-index: 3; filter: drop-shadow(0 0 1px rgba(0,0,0,.6)); }
+  .answer[data-slot="B"] .wolf .ghost { transform: translate(-60px, -30px) scale(1.18); opacity: .5; z-index: 0; }
+  .answer[data-slot="B"] q { color: var(--cream); }
+  /* live choreography: the lamp goes out, the shadow grows into the Wolf, then the eyes ignite */
+  .answer[data-slot="B"]::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--lit-paper); background-blend-mode: multiply; animation: lampout 1.3s ease-in .6s both; }
+  .answer[data-slot="B"] .wolf { transform-origin: 40% 100%; animation: rise 1.6s cubic-bezier(.2,.8,.2,1) 1.3s both; }
+  .answer[data-slot="B"] .wolf .eye { animation: ignite .5s ease-out 2.7s both, blink 6s 3.4s infinite; }
+  .answer[data-slot="B"] .wolf .bloom { animation: ignite .5s ease-out 2.7s both; }
+  .answer[data-slot="B"] .verdict { animation: drop .7s cubic-bezier(.3,1.5,.5,1) 2.9s both; }
+  .answer[data-slot="A"] .verdict { animation: drop .7s cubic-bezier(.3,1.5,.5,1) .4s both; }
+  @keyframes lampout { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(90px) scale(.8); } to { opacity: 1; transform: none; } }
+  @keyframes ignite { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes drop { from { opacity: 0; transform: translateY(-24px) rotate(-3deg); } to { opacity: 1; transform: none; } }
+  .answer[data-slot="B"] { background: url(art/paper.png) center / cover, radial-gradient(48% 70% at 84% 52%, #7FCFC2 0%, #3F9690 28%, #1B5458 55%, #0B2629 78%, #060D0F 100%); background-blend-mode: multiply; }
+
+  .voters { position: absolute; top: 636px; display: flex; align-items: center; gap: 18px; z-index: 7; }
+  .voters[data-slot="A"] { left: 92px; }
+  .voters[data-slot="B"] { left: 762px; }
+  .voter { display: flex; align-items: center; gap: 8px; font: 600 24px/1 var(--sans); color: var(--cream); }
+  .voter .cameo { --s: 50px; }
+  .voters p { font: 400 22px/1.2 var(--sans); color: var(--cream-dim); padding-left: 16px; border-left: 2px dotted rgba(255,207,126,.4); }
+
+  .tally { position: absolute; left: 80px; top: 722px; width: 640px; z-index: 7; }
+  .tally h2 { font-size: 50px; color: var(--cream); }
+  .tally h2 em { color: var(--rose-lit); }
+  .tally p { margin-top: 10px; font: 400 23px/1.4 var(--sans); color: var(--cream-dim); }
+  .tally p b { color: var(--honey); font-weight: 600; }
+
+  .heroes { left: 750px; top: 698px; width: 610px; height: 100px; z-index: 7; padding: 0 8px; display: flex; align-items: center; gap: 26px; transform: rotate(-.4deg); }
+  .heroes h3 { font-size: 28px; line-height: .98; color: var(--honey); width: 112px; flex: none; }
+  .heroes ol { list-style: none; flex: 1; display: flex; justify-content: space-between; }
+  .heroes li { display: flex; align-items: center; gap: 10px; }
+  .heroes .cameo { --s: 46px; }
+  .heroes b { display: block; font: 500 23px/1.1 var(--sans); color: var(--cream); }
+  .heroes span.pts { display: block; font: 600 24px/1.1 var(--sans); color: var(--honey); }
+
+  .next { position: absolute; right: 80px; top: 812px; z-index: 7; }
+  .next .ticket > span { min-height: 66px; padding: 0 52px; font-size: 25px; }
+</style>
+</head>
+<body>
+<main class="stage stage--host reveal">
+  <div class="backdrop" role="img" aria-label="The village at night"></div>
+  <div class="night"></div>
+  <div class="glow-warm"></div>
+  <div class="glow-rose"></div>
+  <div class="falloff"></div>
+  <div class="valance"></div>
+
+  <div class="plaque plaque--sm crest">
+    <i class="thread" style="left:46px"></i><i class="thread" style="right:46px"></i>
+    <span class="display">Body Double</span>
+  </div>
+
+  <header class="ask">
+    <div class="cameo"><span class="sil">🦉</span></div>
+    <div>
+      <p class="meta"><b>Chapter III of VI</b> &nbsp;·&nbsp; Maya the bard was asked</p>
+      <h1 class="display">Your toxic trait, but make it cute</h1>
+    </div>
+  </header>
+
+  <article class="screen answer" data-slot="A">
+    <span class="slot">A</span>
+    <q>i will reorganize your spice rack while you shower and call it love</q>
+    <div class="lantern"><img src="art/lantern.svg" alt=""></div>
+    <div class="verdict"><div class="cameo"><span class="sil">🦉</span></div><span class="display">The real Maya</span></div>
+  </article>
+
+  <article class="screen screen--dark answer" data-slot="B">
+    <span class="slot">B</span>
+    <q>overthinking a text for 40 minutes then just sending 'k' 💀</q>
+    <div class="wolf"><span class="ghost"></span><span class="eye"></span><img src="art/wolf.png" alt="The Wolf"><span class="bloom"></span></div>
+    <div class="verdict"><span class="display">It was the Wolf!</span><small>AI-written</small></div>
+  </article>
+
+  <div class="voters" data-slot="A">
+    <span class="voter"><span class="cameo"><span class="sil">🦊</span></span>Jordan</span>
+    <span class="voter"><span class="cameo"><span class="sil">🐻</span></span>Sam</span>
+    <p>knew it was Maya</p>
+  </div>
+  <div class="voters" data-slot="B">
+    <span class="voter"><span class="cameo cameo--rose"><span class="sil">🍄</span></span>Priya</span>
+    <span class="voter"><span class="cameo cameo--rose"><span class="sil">🐸</span></span>Theo</span>
+    <p>were fooled</p>
+  </div>
+
+  <section class="tally">
+    <h2 class="display">The Wolf fooled <em>2 of 4.</em></h2>
+    <p><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+  </section>
+
+  <section class="plaque plaque--sm heroes">
+    <h3 class="display">Village Heroes</h3>
+    <ol>
+      <li><span class="cameo"><span class="sil">🦉</span></span><span><b>Maya</b><span class="pts">300</span></span></li>
+      <li><span class="cameo"><span class="sil">🦊</span></span><span><b>Jordan</b><span class="pts">200</span></span></li>
+      <li><span class="cameo"><span class="sil">🐻</span></span><span><b>Sam</b><span class="pts">200</span></span></li>
+    </ol>
+  </section>
+
+  <div class="next">
+    <button class="ticket"><span>Ask what gave it away</span></button>
+  </div>
+
+  <div class="grain"></div>
+</main>
+</body>
+</html>

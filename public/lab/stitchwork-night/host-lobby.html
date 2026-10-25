@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Body Double · The Village (Stitchwork: Night Quilt)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Figtree:wght@500..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { --moon-x: 88%; --moon-y: 17%; }
+
+  /* moon + its light */
+  .moon-halo { left: 962px; top: -150px; width: 600px; height: 600px; border-radius: 50%; z-index: 2;
+    background: radial-gradient(circle, rgba(246, 232, 190, .26) 0, rgba(246, 232, 190, .10) 30%, rgba(160, 180, 255, .05) 50%, transparent 68%); }
+  .moon { left: 1132px; top: 20px; width: 260px; z-index: 3; filter: drop-shadow(0 10px 14px rgba(2, 3, 10, .6)); }
+
+  /* maker's label sewn over the binding */
+  .maker { left: 58px; top: 6px; transform: rotate(-1.2deg); height: 58px; padding: 18px 26px 0; z-index: 61;
+    font-family: var(--display); font-style: italic; font-weight: 700; font-size: 25px; color: var(--ink);
+    font-variation-settings: "SOFT" 100; border-radius: 0 0 4px 4px; box-shadow: 0 8px 14px rgba(2,3,10,.5);
+    --sti: url(art/run-indigo.svg); --si: 5px; --sw: 10px; }
+  .maker::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; background: linear-gradient(rgba(0,0,0,.18), transparent); }
+
+  .title { left: 46px; top: 66px; z-index: 6; overflow: visible; }
+  .title text { font-family: var(--display); font-size: 124px; font-weight: 900; font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 144; letter-spacing: -1px; }
+  .lede { left: 62px; top: 214px; z-index: 6; font-size: 25px; font-weight: 600; color: var(--cream); line-height: 1.3; }
+  .lede b { color: var(--gold-hi); font-weight: 800; }
+
+  /* the code: gold satin stitch on velvet inside a flying-geese border */
+  .code-panel { left: 56px; top: 262px; width: 700px; height: 330px; z-index: 6; box-shadow: var(--lift); }
+  .code-panel .frame { position: absolute; inset: 0; width: 700px; height: 330px; z-index: 2; }
+  .code-panel .kicker { position: absolute; left: 0; right: 0; top: 40px; text-align: center; z-index: 3;
+    font-family: var(--display); font-style: italic; font-weight: 500; font-size: 27px; color: var(--cream); font-variation-settings: "SOFT" 100; }
+  .code-panel .code { position: absolute; left: 50px; top: 62px; width: 600px; height: 176px; z-index: 3; overflow: visible; }
+  .code-panel .url { position: absolute; left: 0; right: 0; top: 247px; text-align: center; z-index: 3;
+    font-size: 26px; font-weight: 700; color: var(--cream); letter-spacing: .01em; }
+  .code-panel .url b { color: var(--gold-hi); font-weight: 800; }
+
+  /* QR on a muslin patch, blanket-stitched in gold */
+  .qr-patch { left: 800px; top: 262px; width: 286px; height: 330px; z-index: 6; transform: rotate(-1.4deg);
+    border-radius: 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,.5), var(--lift); --sti: url(art/run-gold.svg); --si: 8px; --sw: 12px; }
+  .qr-patch .qr { position: absolute; left: 33px; top: 32px; width: 220px; height: 220px; mix-blend-mode: multiply; }
+  .qr-patch .cap { position: absolute; left: 0; right: 0; bottom: 30px; text-align: center; font-size: 23px; font-weight: 800; color: var(--ink); }
+  .pin { position: absolute; width: 64px; height: 18px; z-index: 5; }
+
+  /* settings: a quilter's label */
+  .settings { left: 1118px; top: 300px; width: 266px; padding: 28px 30px 24px; z-index: 6; transform: rotate(1.2deg);
+    border-radius: 3px; box-shadow: inset 0 1px 0 rgba(255,255,255,.5), var(--lift); --sti: url(art/run-indigo.svg); --si: 8px; --sw: 11px; }
+  .settings h3 { font-family: var(--display); font-style: italic; font-weight: 700; font-size: 27px; color: var(--wine); font-variation-settings: "SOFT" 100; margin-bottom: 8px; }
+  .settings dl { display: grid; grid-template-columns: 1fr auto; font-size: 22px; line-height: 1; }
+  .settings dt, .settings dd { padding: 10px 0 9px; border-bottom: 2px dotted rgba(19, 25, 49, .28); }
+  .settings dt { font-weight: 600; color: var(--ink-soft); }
+  .settings dd { font-weight: 800; color: var(--ink); text-align: right; }
+  .settings dl > :nth-last-child(-n+2) { border-bottom: 0; }
+
+  /* arrivals: a lantern lights for every villager */
+  .arrived { left: 62px; top: 600px; z-index: 6; display: flex; align-items: center; gap: 14px;
+    font-family: var(--display); font-style: italic; font-weight: 600; font-size: 31px; color: var(--cream); font-variation-settings: "SOFT" 100; }
+  .arrived .n { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; font-style: normal; font-weight: 800; font-size: 25px; color: var(--ink);
+    --sti: url(art/run-indigo.svg); --si: 3px; --sw: 8px; border-radius: 50%; }
+  .garland { left: 0; top: 0; width: 1440px; height: 900px; z-index: 7; pointer-events: none; }
+  .villager { position: absolute; z-index: 8; width: 180px; margin-left: -90px; text-align: center; }
+  .villager .glow { position: absolute; left: 50%; top: 70px; width: 240px; height: 240px; margin: -120px 0 0 -120px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(242, 182, 50, .32), rgba(242, 182, 50, .08) 45%, transparent 70%); animation: breathe 3.6s ease-in-out infinite; }
+  .villager .lamp { position: relative; width: 84px; height: 112px; margin: 0 auto; transform-origin: 50% 0; animation: sway 5s ease-in-out infinite;
+    filter: drop-shadow(0 10px 10px rgba(2, 3, 10, .55)); }
+  .villager .lamp img { width: 84px; height: 112px; display: block; }
+  .villager .lamp .em { position: absolute; left: 0; right: 0; top: 38px; text-align: center; font-size: 33px; line-height: 1; filter: saturate(.85); }
+  .villager .nm { position: relative; margin-top: 2px; font-size: 27px; font-weight: 800; color: var(--cream); line-height: 1.1; }
+  .villager .rl { position: relative; font-family: var(--display); font-style: italic; font-weight: 500; font-size: 23px; color: var(--gold-hi); font-variation-settings: "SOFT" 100; }
+
+  /* destination */
+  .pine-a { left: 1102px; top: 548px; width: 104px; z-index: 5; filter: drop-shadow(0 10px 10px rgba(2,3,10,.55)); }
+  .pine-b { left: 1340px; top: 616px; width: 70px; z-index: 5; filter: drop-shadow(0 10px 10px rgba(2,3,10,.55)); }
+  .cottage { left: 1184px; top: 586px; width: 172px; z-index: 6; filter: drop-shadow(0 12px 12px rgba(2,3,10,.6)); }
+  .cottage-glow { left: 1150px; top: 560px; width: 260px; height: 260px; border-radius: 50%; z-index: 4;
+    background: radial-gradient(circle, rgba(242, 182, 50, .22), transparent 65%); }
+  .hood { left: 1030px; top: 618px; width: 120px; z-index: 7; filter: drop-shadow(0 8px 8px rgba(2,3,10,.55)); }
+  .begin { left: 1084px; top: 782px; width: 304px; height: 74px; font-size: 28px; z-index: 12; }
+</style>
+</head>
+<body class="host">
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <filter id="fz" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" seed="4" result="n"/>
+      <feColorMatrix in="n" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 3.6 -1.85" result="dk"/>
+      <feComposite in="dk" in2="SourceGraphic" operator="in" result="dk2"/>
+      <feComponentTransfer in="dk2" result="dk3"><feFuncA type="linear" slope=".26"/></feComponentTransfer>
+      <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="9" result="m"/>
+      <feColorMatrix in="m" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.7" result="mk"/>
+      <feComposite in="mk" in2="SourceGraphic" operator="in" result="mk2"/>
+      <feComponentTransfer in="mk2" result="mk3"><feFuncA type="linear" slope=".45"/></feComponentTransfer>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="mk3"/><feMergeNode in="dk3"/></feMerge>
+    </filter>
+    <filter id="fuzz" x="-5%" y="-10%" width="110%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="2" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="lift" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#02030a" flood-opacity=".6"/>
+    </filter>
+    <pattern id="satin" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)">
+      <rect width="5" height="5" fill="#b07e22"/>
+      <rect y=".3" width="5" height="3.1" fill="#e5bb58"/>
+      <rect y="1" width="5" height="1.1" fill="#fbe6a2"/>
+      <rect y="4.2" width="5" height=".8" fill="#6e4a10"/>
+    </pattern>
+    <linearGradient id="sheen" x1="0" y1="0" x2=".35" y2="1">
+      <stop offset="0" stop-color="#fff6d2" stop-opacity=".35"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#3a2604" stop-opacity=".45"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<img class="full quilt" src="art/quilt-lobby.svg" width="1440" height="900" alt="">
+<div class="abs moon-halo"></div>
+<img class="abs moon" src="art/moon.svg" alt="">
+
+<div class="abs maker muslin st">Body Double</div>
+
+<svg class="abs title" width="800" height="150" viewBox="0 0 800 150" role="img" aria-label="The Village">
+  <g filter="url(#lift)">
+    <text x="12" y="122" fill="#eadfc2" filter="url(#fz)">The Village</text>
+  </g>
+  <text x="12" y="122" fill="none" stroke="#5a3b08" stroke-width="5" stroke-linejoin="round" opacity=".55">The Village</text>
+  <text x="12" y="122" fill="none" stroke="#d6a443" stroke-width="3.2" stroke-linejoin="round">The Village</text>
+  <text x="12" y="122" fill="none" stroke="#fbe6a2" stroke-width="1" stroke-dasharray="1.5 2.5" stroke-linejoin="round" opacity=".9">The Village</text>
+  <text x="12" y="122" fill="none" stroke="#4a3006" stroke-width="3.6" stroke-dasharray="1 9" opacity=".8">The Village</text>
+</svg>
+<p class="abs lede">Scan the patch, or type the code on your phone, to <b>enter the village</b>.</p>
+
+<div class="abs code-panel velvet">
+  <img class="frame" src="art/geese-code.svg" alt="">
+  <div class="kicker">Village code</div>
+  <svg class="code" viewBox="0 0 600 176" role="img" aria-label="Village code HXQR">
+    <g filter="url(#lift)">
+      <text class="satin-text" x="300" y="146" text-anchor="middle" font-size="172" letter-spacing="18" fill="#3a2604" stroke="#3a2604" stroke-width="7" stroke-linejoin="round">HXQR</text>
+    </g>
+    <text class="satin-text" x="300" y="146" text-anchor="middle" font-size="172" letter-spacing="18" fill="url(#satin)" filter="url(#fuzz)">HXQR</text>
+    <text class="satin-text" x="300" y="146" text-anchor="middle" font-size="172" letter-spacing="18" fill="url(#sheen)">HXQR</text>
+    <text class="satin-text" x="300" y="146" text-anchor="middle" font-size="172" letter-spacing="18" fill="none" stroke="#f7dc8e" stroke-width="1.4" stroke-dasharray="3 2.5" opacity=".75">HXQR</text>
+  </svg>
+  <div class="url">bodydouble.tech/play/<b>HXQR</b></div>
+</div>
+
+<div class="abs qr-patch muslin st">
+  <svg class="pin" style="left:-14px;top:-6px;transform:rotate(-24deg)" viewBox="0 0 64 18" aria-hidden="true"><path d="M4 9 H52" stroke="#c9ccd2" stroke-width="2.4" stroke-linecap="round"/><circle cx="56" cy="9" r="6" fill="#d6a443"/><circle cx="54.5" cy="7.5" r="2" fill="#fbe6a2"/></svg>
+  <svg class="pin" style="right:-12px;top:-4px;transform:rotate(206deg)" viewBox="0 0 64 18" aria-hidden="true"><path d="M4 9 H52" stroke="#c9ccd2" stroke-width="2.4" stroke-linecap="round"/><circle cx="56" cy="9" r="6" fill="#c2703f"/><circle cx="54.5" cy="7.5" r="2" fill="#f0b28a"/></svg>
+  <img class="qr" src="../_shared/qr.svg" alt="QR code to join village HXQR">
+  <div class="cap">Scan to enter</div>
+</div>
+
+<div class="abs settings muslin st">
+  <h3>Tale settings</h3>
+  <dl>
+    <dt>Chapters</dt><dd>6</dd>
+    <dt>Answer time</dt><dd>60s</dd>
+    <dt>Vote time</dt><dd>20s</dd>
+    <dt>Demo mode</dt><dd>off</dd>
+  </dl>
+</div>
+
+<div class="abs arrived">Villagers who have arrived <span class="n felt lantern st">5</span></div>
+
+<svg class="abs garland" viewBox="0 0 1440 900" aria-hidden="true">
+  <path d="M24 656 C 300 706, 740 706, 1004 660" fill="none" stroke="#2a1a05" stroke-opacity=".6" stroke-width="4" transform="translate(1 2)"/>
+  <path d="M24 656 C 300 706, 740 706, 1004 660" fill="none" stroke="#d6a443" stroke-width="2.6"/>
+  <path d="M24 656 C 300 706, 740 706, 1004 660" fill="none" stroke="#f7dc8e" stroke-width=".9" stroke-dasharray="1.6 1.4" opacity=".8"/>
+  <circle cx="1004" cy="660" r="5" fill="#d6a443"/><circle cx="1002.5" cy="658.5" r="1.8" fill="#fbe6a2"/>
+  <path d="M1004 662 c -4 8 4 12 -1 20 M1004 662 c 5 6 1 13 6 18" fill="none" stroke="#d6a443" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
+
+<div class="villager" style="left:150px;top:672px"><div class="glow"></div><div class="lamp" style="--sw0:-1.6deg;--sw1:1.2deg"><img src="art/lantern.svg" alt=""><span class="em">🦉</span></div><div class="nm">Maya</div><div class="rl">the bard</div></div>
+<div class="villager" style="left:350px;top:688px"><div class="glow"></div><div class="lamp" style="--sw0:1.4deg;--sw1:-1.4deg;animation-delay:-1.2s"><img src="art/lantern.svg" alt=""><span class="em">🦊</span></div><div class="nm">Jordan</div><div class="rl">the woodcutter</div></div>
+<div class="villager" style="left:550px;top:692px"><div class="glow"></div><div class="lamp" style="--sw0:-1deg;--sw1:1.8deg;animation-delay:-2.4s"><img src="art/lantern.svg" alt=""><span class="em">🍄</span></div><div class="nm">Priya</div><div class="rl">the witch</div></div>
+<div class="villager" style="left:750px;top:686px"><div class="glow"></div><div class="lamp" style="--sw0:1.2deg;--sw1:-1.6deg;animation-delay:-.6s"><img src="art/lantern.svg" alt=""><span class="em">🐻</span></div><div class="nm">Sam</div><div class="rl">the baker</div></div>
+<div class="villager" style="left:950px;top:666px"><div class="glow"></div><div class="lamp" style="--sw0:-1.4deg;--sw1:1deg;animation-delay:-3s"><img src="art/lantern.svg" alt=""><span class="em">🐸</span></div><div class="nm">Theo</div><div class="rl">the knight</div></div>
+
+<div class="abs cottage-glow"></div>
+<img class="abs pine-a" src="art/pine-night.png" alt="">
+<img class="abs cottage" src="art/cottage-night.png" alt="">
+<img class="abs pine-b" src="art/pine-night-sm.png" alt="">
+<img class="abs hood" src="art/hood.svg" alt="">
+
+<button class="abs btn begin st">
+  <svg class="ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 2 L17.6 12.4 L28 15 L17.6 17.6 L15 28 L12.4 17.6 L2 15 L12.4 12.4Z" fill="#131931"/></svg>
+  Begin the tale
+</button>
+
+<img class="full binding" src="art/binding-host.svg" width="1440" height="900" alt="">
+</body>
+</html>

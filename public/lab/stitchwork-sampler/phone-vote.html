@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Body Double · Vote (Heirloom Sampler)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .title1 { left: 25px; top: 104px; }
+  .title2 { left: 25px; top: 142px; }
+
+  .timer { left: 22px; top: 184px; display: flex; align-items: center; gap: 14px; }
+  .ring { position: relative; width: 97px; height: 97px; flex: none; }
+  .ring img { position: absolute; }
+  .ring .n { left: 22px; top: 31px; }
+  .timer p { font-size: 15px; line-height: 1.35; color: var(--ink-soft); max-width: 230px; }
+  .timer p b { display: block; font-size: 21px; color: var(--brown); font-weight: 700; margin-bottom: 2px; }
+
+  .card { position: absolute; left: 30px; width: 330px; min-height: 176px; padding: 24px 22px 66px 74px; border: 0; text-align: left; font: inherit; cursor: pointer; }
+  .card .slot { left: 12px; top: -12px; filter: drop-shadow(0 2px 2px rgba(60, 40, 20, .25)); }
+  .card .foot { height: 56px; }
+  .card .sig { position: absolute; left: 16px; bottom: 9px; }
+  .slot-a { top: 304px; transform: rotate(-.6deg); }
+  .slot-b { top: 506px; transform: rotate(.6deg); }
+
+  /* picked: the slip is outlined in madder cross stitch, and a woven tag is tacked on */
+  .card.picked::before { content: ""; position: absolute; inset: -7px; border: 7px solid transparent; border-image: url(art/tile-madder-5.svg) 10 round; pointer-events: none; }
+  .pick-tag { position: absolute; right: -6px; top: -20px; z-index: 3; height: 32px; padding: 0 14px 0 16px; display: flex; align-items: center;
+    font: 700 15px/1 var(--sans); color: #fff7e8; text-shadow: 0 1px 1px rgba(50, 8, 4, .9), 0 0 4px rgba(70, 12, 6, .9);
+    background: var(--madder) url(art/tile-madder-5.svg) 0 0 / 40px 40px; transform: rotate(3deg);
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%); filter: drop-shadow(0 2px 2px rgba(60, 20, 10, .35)); }
+
+  .band { left: 30px; top: 724px; }
+</style>
+</head>
+<body class="phone">
+<img class="frame" src="art/frame-phone.svg" alt="">
+
+<header class="head">
+  <img src="art/brand-phone.svg" alt="Body Double">
+  <img src="art/code-hxqr-phone.svg" alt="Village HXQR">
+</header>
+
+<h1><img class="st title1" src="art/which-1.svg" alt="Which one is really Maya?"><img class="st title2" src="art/which-2.svg" alt=""></h1>
+
+<div class="abs timer" role="timer" aria-label="14 seconds left">
+  <div class="ring"><img src="art/countdown.svg" alt=""><img class="n" src="art/n14.svg" alt=""></div>
+  <p><b>14 seconds</b>You can change your pick until time runs out.</p>
+</div>
+
+<button class="card patch slot-a picked" aria-pressed="true">
+  <img class="slot" src="art/slot-a-4.svg" alt="A">
+  <span class="pick-tag">Your pick</span>
+  <p class="ans">i will reorganize your spice rack while you shower and call it love</p>
+  <span class="foot"><img class="sig" src="art/sig-maya-4.svg" alt="Signed Maya"></span>
+</button>
+
+<button class="card patch slot-b">
+  <img class="slot" src="art/slot-b-4.svg" alt="B">
+  <p class="ans">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+  <span class="foot"><img class="sig" src="art/sig-maya-4.svg" alt="Signed Maya"></span>
+</button>
+
+<img class="st band" src="art/story-band-phone.svg" alt="">
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Body Double · Reveal (Fantasy: Night Quilt Enchanted)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Figtree:wght@500..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { --moon-x: 75%; --moon-y: 40%; }
+  .maker { left: 58px; top: 6px; height: 58px; padding: 18px 26px 0; z-index: 61; transform: rotate(-1.2deg);
+    font-family: var(--display); font-style: italic; font-weight: 700; font-size: 25px; color: var(--ink);
+    font-variation-settings: "SOFT" 100; border-radius: 0 0 4px 4px; box-shadow: 0 8px 14px rgba(2,3,10,.5);
+    --sti: url(art/run-indigo.svg); --si: 5px; --sw: 10px; }
+
+  /* chapter medallion + prompt */
+  .medal { left: 40px; top: 66px; width: 150px; height: 150px; z-index: 6; display: grid; place-items: center; text-align: center; }
+  .medal img { position: absolute; inset: 0; width: 150px; height: 150px; filter: drop-shadow(0 8px 10px rgba(2,3,10,.5)); }
+  .medal div { position: relative; font-family: var(--display); font-variation-settings: "SOFT" 100; color: var(--cream); line-height: 1; }
+  .medal small { display: block; font-style: italic; font-weight: 600; font-size: 20px; }
+  .medal b { display: block; font-weight: 800; font-size: 40px; color: var(--gold-hi); margin: 1px 0; letter-spacing: .02em; }
+  .prompt { left: 212px; top: 66px; z-index: 6; font-size: 50px; white-space: nowrap; letter-spacing: -.012em;
+    text-shadow: 0 3px 0 rgba(2,3,10,.5), 0 10px 18px rgba(2,3,10,.5); }
+  .prompt em { position: relative; }
+  .prompt em::after { content: ""; position: absolute; left: -4px; right: -6px; bottom: -12px; height: 16px; background: url(art/swash.svg) 0 0 / 100% 100% no-repeat; }
+  .ask { left: 214px; top: 138px; z-index: 6; display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 650; color: var(--cream); }
+  .ask .tok { width: 50px; height: 50px; }
+  .ask .kicker { font-size: 28px; margin-right: 2px; }
+  .ask b { color: var(--gold-hi); font-weight: 800; }
+
+  /* the two mirrors: same frame, same glass, same text box. Slot decides position only. */
+  .slot { z-index: 5; transform: scale(.92); transform-origin: 0 0; }
+  .slot-a { left: 52px; top: 178px; }
+  .slot-b { left: 790px; top: 178px; }
+  .m-host .say { left: 74px; right: 74px; top: 176px; bottom: 32px; }
+
+  /* A: the true reflection */
+  .halo { position: absolute; z-index: 1; left: 20px; top: 40px; width: 600px; height: 480px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(247, 214, 120, .30), rgba(247, 214, 120, .08) 45%, transparent 70%); animation: breathe 3.4s ease-in-out infinite; }
+  .glory { position: absolute; z-index: 1; left: -30px; top: -30px; width: 700px; height: 600px; animation: breathe 3.4s ease-in-out infinite; }
+  .refl-real { position: absolute; z-index: 3; left: 222px; top: 92px; width: 196px; animation: rise 1s .9s cubic-bezier(.2, .9, .3, 1.2) both; }
+  .sp { position: absolute; z-index: 6; animation: glint 2.6s ease-in-out infinite; }
+  .sp img { display: block; width: 100%; }
+
+  /* B: the Wolf looks back out of the unpicked glass */
+  .wolf { position: absolute; z-index: 6; left: 188px; top: 40px; width: 264px; animation: rise .9s .5s cubic-bezier(.2, .9, .3, 1.15) both; }
+  .wolf img { display: block; width: 264px; }
+  .eye { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; z-index: 2; animation: glint 2.4s ease-in-out infinite; }
+  .eye::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 236, 160, .75), transparent 65%); }
+  .eye svg { position: absolute; inset: 0; }
+
+  .slot .ribbon { left: 50%; top: 436px; height: 66px; width: 360px; margin-left: -180px; font-size: 33px; }
+  .slot-a .ribbon { animation: award .7s 1.5s cubic-bezier(.3, 1.4, .5, 1) both; --rr: -1.5deg; }
+  .slot-b .ribbon { animation: award .7s 1.2s cubic-bezier(.3, 1.4, .5, 1) both; --rr: 1.5deg; }
+  .emblem { position: absolute; z-index: 9; left: 96px; top: 410px; width: 104px; }
+  .slot-a .emblem { animation: award .7s 1.6s cubic-bezier(.3, 1.4, .5, 1) both; --rr: -10deg; }
+  .slot-b .emblem { animation: award .7s 1.3s cubic-bezier(.3, 1.4, .5, 1) both; --rr: -8deg; }
+  .care { position: absolute; z-index: 8; left: 452px; top: 486px; height: 38px; padding: 0 15px; display: flex; align-items: center;
+    font-size: 19px; font-weight: 750; color: var(--ink); letter-spacing: .02em; transform: rotate(-3deg); box-shadow: 0 6px 10px rgba(2,3,10,.4);
+    --sti: url(art/run-indigo.svg); --si: 3px; --sw: 8px; }
+
+  .voters { position: absolute; z-index: 7; left: 0; right: 0; top: 524px; display: flex; justify-content: center; align-items: center; gap: 12px; }
+  .voters .pill { height: 50px; font-size: 22px; }
+  .voters .pill .tok { width: 42px; height: 42px; }
+  .voters .cap { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 24px; color: var(--cream); font-variation-settings: "SOFT" 100; }
+
+  /* tally */
+  .fooled { left: 62px; top: 748px; z-index: 6; font-size: 46px; font-weight: 800; color: var(--cream); line-height: 1; letter-spacing: -.01em; text-shadow: 0 3px 0 rgba(2,3,10,.5); }
+  .fooled span { color: var(--gold-hi); }
+  .points { left: 64px; top: 812px; width: 940px; z-index: 6; font-size: 22px; line-height: 1.36; font-weight: 600; color: var(--cream); }
+  .points b { color: var(--gold-hi); font-weight: 800; }
+  .heroes { left: 958px; top: 40px; z-index: 6; display: grid; grid-template-columns: repeat(3, auto); gap: 8px 8px; }
+  .heroes .hd { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; }
+  .heroes .crown { width: 64px; margin: -8px -4px -8px -6px; }
+  .heroes h3 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 26px; line-height: 1; color: var(--gold-hi); font-variation-settings: "SOFT" 100, "WONK" 1; margin-right: 4px; }
+  .heroes .pill { height: 54px; padding-right: 14px; gap: 7px; }
+  .heroes .pill .tok { width: 42px; height: 42px; }
+  .heroes .nm { display: block; font-size: 22px; font-weight: 750; line-height: 1.05; }
+  .heroes .sc { display: block; font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 800; font-size: 22px; line-height: 1.05; color: var(--gold-hi); }
+  .next { left: 1036px; top: 794px; width: 352px; height: 64px; font-size: 24px; z-index: 12; white-space: nowrap; padding: 0 24px; }
+</style>
+</head>
+<body class="host">
+<img class="full quilt" src="art/quilt-reveal.svg" width="1440" height="900" alt="">
+<div class="abs maker muslin st">Body Double</div>
+
+<div class="abs medal"><img src="art/medallion.svg" alt=""><div><small>Chapter</small><b>III</b><small>of VI</small></div></div>
+<h1 class="abs p-h prompt">Your toxic trait, <em>but make it cute</em></h1>
+<div class="abs ask"><img class="tok" src="art/tok/slipper.svg" alt=""><span><span class="kicker">Mirror, mirror,</span> which one is really <b>Maya</b>?</span></div>
+
+<!-- A: the real one -->
+<div class="mirror m-host slot slot-a">
+  <div class="halo"></div>
+  <img class="glory" src="art/glory-host.svg" alt="">
+  <div class="glass true">
+    <svg class="glint-st" style="left:62px;top:40px" width="120" height="90" viewBox="0 0 120 90" aria-hidden="true"><path d="M8 70 L70 8 M26 82 L96 12 M52 84 L108 28" stroke="#fff" stroke-opacity=".75" stroke-width="2.2" stroke-dasharray="6 5" stroke-linecap="round"/></svg>
+    <div class="say"><p class="answer">i will reorganize your spice rack while you shower and call it love</p></div>
+  </div>
+  <img class="refl-real" src="art/p/slipper.svg" alt="Maya's glass slipper, reflected in the mirror">
+  <span class="sp" style="left:124px;top:150px;width:34px"><img src="art/sparkle.svg" alt=""></span>
+  <span class="sp" style="left:352px;top:120px;width:44px;animation-delay:-1.2s"><img src="art/sparkle.svg" alt=""></span>
+  <span class="sp" style="left:440px;top:196px;width:26px;animation-delay:-.6s"><img src="art/sparkle.svg" alt=""></span>
+  <span class="sp" style="left:30px;top:100px;width:38px;animation-delay:-1.8s"><img src="art/sparkle.svg" alt=""></span>
+  <span class="sp" style="left:574px;top:330px;width:40px;animation-delay:-.9s"><img src="art/sparkle.svg" alt=""></span>
+  <span class="sp" style="left:530px;top:62px;width:30px;animation-delay:-2.1s"><img src="art/sparkle.svg" alt=""></span>
+  <img class="frame" src="art/mirror-host.svg" alt="">
+  <span class="letter">A</span>
+  <div class="ribbon real felt st">The real Maya</div>
+  <img class="emblem patch" src="art/p/mirror-md.svg" alt="">
+  <div class="voters">
+    <span class="pill"><img class="tok" src="art/tok/lamp.svg" alt="">Jordan</span>
+    <span class="pill"><img class="tok" src="art/tok/eat-me.svg" alt="">Sam</span>
+    <span class="cap">knew her</span>
+  </div>
+</div>
+
+<!-- B: the Wolf -->
+<div class="mirror m-host slot slot-b">
+  <div class="glass wolf">
+    <svg class="glint-st" style="left:62px;top:40px" width="120" height="90" viewBox="0 0 120 90" aria-hidden="true"><path d="M8 70 L70 8 M26 82 L96 12 M52 84 L108 28" stroke="#fff" stroke-opacity=".75" stroke-width="2.2" stroke-dasharray="6 5" stroke-linecap="round"/></svg>
+    <img class="crack" src="art/cracks-host.svg" alt="">
+    <div class="say"><p class="answer">overthinking a text for 40 minutes then just sending 'k' 💀</p></div>
+  </div>
+  <img class="frame" src="art/mirror-host.svg" alt="">
+  <span class="letter">B</span>
+  <div class="wolf">
+    <img src="art/p/wolf.svg" alt="The Wolf, a felt patch, looking out of the cracked mirror">
+    <span class="eye" style="left:39%;top:46%"><svg viewBox="0 0 34 34"><path d="M17 2 L19 15 L32 17 L19 19 L17 32 L15 19 L2 17 L15 15Z" fill="#fff7d6"/></svg></span>
+    <span class="eye" style="left:61%;top:46%;animation-delay:-1.1s"><svg viewBox="0 0 34 34"><path d="M17 2 L19 15 L32 17 L19 19 L17 32 L15 19 L2 17 L15 15Z" fill="#fff7d6"/></svg></span>
+  </div>
+  <div class="ribbon wolf felt st">It was the Wolf!</div>
+  <img class="emblem patch" src="art/p/cracked-mirror-md.svg" alt="">
+  <span class="care muslin st">AI-written</span>
+  <div class="voters">
+    <span class="pill"><img class="tok" src="art/tok/potion.svg" alt="">Priya</span>
+    <span class="pill"><img class="tok" src="art/tok/frog-prince.svg" alt="">Theo</span>
+    <span class="cap">fell for it</span>
+  </div>
+</div>
+
+<div class="abs p-h fooled">The Wolf fooled <span>2 of 4.</span></div>
+<p class="abs points"><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+<div class="abs heroes">
+  <div class="hd"><img class="crown patch" src="art/p/crown-md.svg" alt=""><h3>Village Heroes</h3></div>
+  <span class="pill"><img class="tok" src="art/tok/slipper.svg" alt=""><span><span class="nm">Maya</span><span class="sc">300</span></span></span>
+  <span class="pill"><img class="tok" src="art/tok/lamp.svg" alt=""><span><span class="nm">Jordan</span><span class="sc">200</span></span></span>
+  <span class="pill"><img class="tok" src="art/tok/eat-me.svg" alt=""><span><span class="nm">Sam</span><span class="sc">200</span></span></span>
+</div>
+
+<button class="abs btn next st">
+  <svg class="ico" viewBox="0 0 30 30" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="#131931" stroke-width="3"/><path d="M18 18 L26 26" stroke="#131931" stroke-width="3.4" stroke-linecap="round"/></svg>
+  Ask what gave it away
+</button>
+
+<img class="full binding" src="art/binding-host.svg" width="1440" height="900" alt="">
+</body>
+</html>

@@ -1,0 +1,198 @@
+/* Stitchwork: folk embroidery + felt appliqué. Shared tokens and components. */
+:root {
+  --tomato: #d8402a;
+  --tomato-deep: #b8321f;
+  --mustard: #e9a823;
+  --cornflower: #5a7fd0;
+  --forest: #2f6b45;
+  --forest-felt: #1f3a2d;
+  --cream: #f6ecd6;
+  --linen: #f3e9d2;
+  --charcoal: #2b2724;
+  --ink-soft: #5a4f45;
+  --wood: #c88a48;
+
+  --display: "Titan One", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body: "Nunito", system-ui, sans-serif;
+  --hand: "Caveat", "Bradley Hand", cursive;
+
+  --felt-shadow: drop-shadow(0 3px 0 rgba(0, 0, 0, .28)) drop-shadow(0 10px 12px rgba(0, 0, 0, .38));
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow: hidden; }
+body {
+  font-family: var(--body);
+  color: var(--charcoal);
+  background: var(--forest-felt) url(art/felt-forest.svg);
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+.host { width: 1440px; height: 900px; }
+.phone { width: 390px; height: 844px; }
+.abs { position: absolute; }
+.defs { position: absolute; width: 0; height: 0; }
+
+/* ---------- materials ---------- */
+.linen { background: var(--linen) url(art/linen.svg); }
+.felt-red { background: var(--tomato) url(art/felt-red.svg); }
+.felt-mustard { background: var(--mustard) url(art/felt-mustard.svg); }
+.felt-blue { background: var(--cornflower) url(art/felt-blue.svg); }
+.felt-cream { background: var(--cream) url(art/felt-cream.svg); }
+.felt-grey { background: #4a4744 url(art/felt-grey.svg); }
+.felt-forest { background: var(--forest-felt) url(art/felt-forest.svg); }
+
+/* stitched borders via 9-slice tiles: running stitch and blanket stitch */
+.st:not(.abs):not(.label) { position: relative; }
+.st::after {
+  content: ""; position: absolute; pointer-events: none;
+  inset: var(--st-inset, 8px);
+  border: var(--st-w, 9px) solid transparent;
+  border-image: var(--st-img, url(art/run-red.svg)) 12 round;
+}
+.st-red { --st-img: url(art/run-red.svg); }
+.st-ink { --st-img: url(art/run-ink.svg); }
+.st-cream { --st-img: url(art/run-cream.svg); }
+.st-blue { --st-img: url(art/run-blue.svg); }
+.bl-red { --st-img: url(art/blanket-red.svg); --st-inset: 0; --st-w: 10px; }
+
+/* tiny cross stitch tack used at label corners */
+.tack { position: absolute; width: 14px; height: 14px; }
+.tack::before, .tack::after {
+  content: ""; position: absolute; left: 5px; top: -1px; width: 3.4px; height: 16px; border-radius: 2px;
+  background: var(--tack, var(--tomato)); transform: rotate(45deg);
+}
+.tack::after { transform: rotate(-45deg); }
+
+/* wooden sewing button */
+.wbtn { position: absolute; width: 34px; height: 34px; background: url(art/button-wood.svg) center/contain no-repeat; }
+
+/* ---------- type ---------- */
+.felt-type {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1;
+  filter: url(#felt) var(--felt-shadow);
+}
+.hand { font-family: var(--hand); font-weight: 700; }
+
+/* SVG appliqué headline: backing layer, felt layer, stitch layer */
+.applique text { font-family: var(--display); }
+.applique .back { fill: url(#pr); stroke: url(#pr); stroke-width: 20; stroke-linejoin: round; }
+.applique .face { fill: url(#pm); }
+.applique .seam { fill: none; stroke: var(--cream); stroke-width: 2.6; stroke-dasharray: 9 7; stroke-linecap: round; }
+.applique { overflow: visible; filter: var(--felt-shadow); }
+
+/* ---------- woven brand label ---------- */
+.woven {
+  position: absolute; white-space: nowrap;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 34px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .22) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgba(120, 30, 15, .08) 0 1px, transparent 1px 2px),
+    var(--cream);
+  color: var(--tomato-deep);
+  font-family: var(--display);
+  letter-spacing: .04em;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, .35);
+}
+.woven::before, .woven::after {
+  content: ""; position: absolute; top: 4px; bottom: 4px; width: 0;
+  border-left: 3px dashed rgba(184, 50, 31, .75);
+}
+.woven::before { left: 12px; }
+.woven::after { right: 12px; }
+
+/* ---------- buttons ---------- */
+.btn {
+  position: absolute;
+  display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  min-height: 56px; padding: 0 30px;
+  border: 0; border-radius: 14px;
+  font-family: var(--body); font-weight: 900; color: var(--cream);
+  background: #c8371f url(art/felt-red.svg);
+  box-shadow: 0 4px 0 #7d1d10, 0 12px 18px rgba(0, 0, 0, .35);
+  cursor: pointer;
+}
+.btn::after {
+  content: ""; position: absolute; inset: 6px; border-radius: 10px;
+  border: 2.5px dashed rgba(246, 236, 214, .85);
+}
+.btn .needle { width: 30px; height: 30px; flex: none; }
+
+/* ---------- answer labels (identical for A and B) ---------- */
+.label {
+  position: absolute;
+  --st-inset: 10px; --st-w: 9px;
+  border-radius: 6px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .12), 0 14px 22px rgba(0, 0, 0, .4);
+}
+.label .slot {
+  position: absolute; z-index: 2;
+  width: 54px; height: 62px;
+  display: grid; place-items: center;
+  font-family: var(--display); font-size: 30px; color: var(--cream);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
+}
+.label .slot::after {
+  content: ""; position: absolute; inset: 0 5px 5px; border: 2px dashed rgba(246, 236, 214, .8); border-top: 0; border-radius: 0 0 5px 5px;
+}
+.answer { font-family: var(--body); font-weight: 800; color: var(--charcoal); }
+
+/* ---------- avatar felt coin ---------- */
+.coin {
+  display: grid; place-items: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .25), 0 6px 10px rgba(0, 0, 0, .25);
+  position: relative;
+}
+.coin::after {
+  content: ""; position: absolute; inset: 4px; border-radius: 50%;
+  border: 2px dashed rgba(246, 236, 214, .9);
+}
+
+/* ---------- motion: label stitches unravel ---------- */
+@keyframes unravel {
+  0% { transform: translate(0, 0) rotate(var(--r0, 0deg)); }
+  60% { transform: translate(var(--tx), var(--ty)) rotate(calc(var(--r1) + 2deg)); }
+  100% { transform: translate(var(--tx), var(--ty)) rotate(var(--r1)); }
+}
+@keyframes sway { 0%, 100% { transform: rotate(var(--sw, 1deg)); } 50% { transform: rotate(calc(var(--sw, 1deg) * -1)); } }
+@keyframes pop { 0% { transform: scale(.4) rotate(-30deg); opacity: 0; } 70% { transform: scale(1.08) rotate(6deg); opacity: 1; } 100% { transform: scale(1) rotate(var(--rr, 8deg)); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+/* ---------- phone: the screen is one embroidered patch ---------- */
+.phone .patch {
+  position: absolute; inset: 8px; border-radius: 26px; overflow: hidden;
+  background: var(--linen) url(art/linen.svg);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .25), 0 10px 24px rgba(0, 0, 0, .5);
+}
+.phone .patch-edge { position: absolute; inset: 8px; width: 374px; height: 828px; pointer-events: none; z-index: 40; }
+.phone .inner { position: absolute; inset: 0; padding: 22px 22px 20px; }
+.phone .top { display: flex; align-items: center; justify-content: space-between; height: 44px; }
+.phone .woven { position: relative; height: 32px; padding: 0 20px; font-size: 15px; white-space: nowrap; transform: rotate(-2deg); box-shadow: 0 3px 6px rgba(0, 0, 0, .25); }
+.phone .woven::before { left: 8px; } .phone .woven::after { right: 8px; }
+.code-chip {
+  display: flex; align-items: center; gap: 7px; height: 40px; padding: 0 14px 0 5px; border-radius: 20px;
+  font-weight: 800; font-size: 13px; color: var(--cream);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .25);
+}
+.code-chip b { font-family: var(--display); font-weight: 400; font-size: 21px; color: var(--mustard); letter-spacing: .06em; }
+.code-chip .mini-hoop { width: 30px; height: 30px; border-radius: 50%; border: 4px solid #d9a462; box-shadow: inset 0 0 0 1.5px #8a5a2b, 0 1px 0 #7a4a20;
+  background: radial-gradient(circle, #d8402a 0 2px, transparent 2.5px) 0 0/7px 7px, #f5ecd8; }
+.p-label { font-weight: 900; font-size: 15px; color: var(--ink-soft); margin: 0 0 8px 2px; }
+.p-label .hand { font-size: 22px; color: var(--tomato-deep); margin-left: 4px; }
+.phone .btn { position: relative; width: 100%; min-height: 60px; font-size: 21px; }
+.fineprint { font-size: 14px; font-weight: 700; color: var(--ink-soft); line-height: 1.35; text-align: center; }
+
+/* appliqué on light fabric: red felt letters, charcoal backing, cream seam */
+.applique.on-light .back { fill: var(--charcoal); stroke: var(--charcoal); stroke-width: 8; }
+.applique.on-light .face { fill: var(--tomato); }
+.applique.on-light .seam { stroke: #ffd9c9; stroke-opacity: .8; stroke-width: 1.1; stroke-dasharray: 5 4; }
+.applique.on-light { filter: drop-shadow(0 3px 3px rgba(60, 40, 20, .3)); }
+.cotton { background:
+  repeating-linear-gradient(0deg, rgba(120, 100, 60, .05) 0 1px, transparent 1px 3px),
+  repeating-linear-gradient(90deg, rgba(120, 100, 60, .05) 0 1px, transparent 1px 3px), #fffbf3; }
+.felt-deep { background: url(art/felt-red.svg), #a92c1a; background-blend-mode: multiply; }

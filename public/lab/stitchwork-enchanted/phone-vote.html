@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Double · Vote (Fantasy: Night Quilt Enchanted)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Figtree:wght@500..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { --moon-x: 50%; --moon-y: 40%; }
+  .ask { position: relative; margin-top: 20px; padding-right: 96px; min-height: 104px; }
+  .ask .kicker { font-size: 21px; margin: 0 0 4px 1px; }
+  h1 { font-size: 33px; }
+  /* countdown: the clock tower's seam is unpicked one stitch per second; midnight breaks the spell */
+  .tower { position: absolute; right: -6px; top: -16px; width: 92px; z-index: 6; }
+  .tower img { display: block; width: 92px; }
+  .tower .t { position: absolute; left: 0; top: 52px; width: 92px; height: 58px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+  .tower b { font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 800; font-size: 28px; color: var(--ink); }
+  .tower small { font-size: 11px; font-weight: 800; color: #6b4a12; letter-spacing: .04em; margin-top: 1px; }
+
+  .cards { position: relative; margin: 2px 0 0 -2px; }
+  .card { position: relative; display: block; border: 0; background: none; padding: 0; cursor: pointer; font: inherit; width: 346px; height: 248px; }
+  .card + .card { margin-top: 16px; }
+  .m-phone .say { left: 30px; right: 30px; top: 22px; bottom: 20px; }
+  /* picked: lit from within like a lantern */
+  .card.picked .frame { filter: drop-shadow(0 0 16px rgba(242, 182, 50, .55)); }
+  .card.picked .glass { box-shadow: inset 0 0 0 3px rgba(214, 164, 67, .9), inset 0 0 30px rgba(242, 200, 90, .55), inset 0 8px 22px rgba(10, 14, 40, .3); }
+  .pick-tag { position: absolute; z-index: 8; right: -4px; top: 196px; height: 40px; padding: 0 15px 0 13px; display: flex; align-items: center; gap: 7px;
+    font-size: 16px; font-weight: 800; color: var(--ink); border-radius: 4px; transform: rotate(-4deg);
+    box-shadow: 0 2px 0 #8f5a0a, 0 8px 12px rgba(2,3,10,.45); --sti: url(art/run-indigo.svg); --si: 3px; --sw: 8px; }
+  .pick-tag svg { width: 14px; height: 14px; }
+  .help { margin-top: 10px; text-align: center; font-size: 16px; font-weight: 600; line-height: 1.45; color: #d9d2c0; }
+  .help b { color: var(--gold-hi); font-weight: 750; }
+</style>
+</head>
+<body class="phone">
+<img class="full quilt" src="art/quilt-phone-vote.svg" width="390" height="844" alt="">
+<div class="inner">
+  <header class="top">
+    <span class="brandmark"><img src="art/star4.svg" alt="">Body Double</span>
+    <span class="code-tab velvet st">Village <b>HXQR</b></span>
+  </header>
+  <div class="ask">
+    <p class="kicker">Mirror, mirror,</p>
+    <h1 class="p-h">which one is really <em>Maya</em>?</h1>
+    <div class="tower" role="timer" aria-label="14 seconds left">
+      <img src="art/clock-tower-14.svg" alt="">
+      <div class="t"><b>14</b><small>SEC</small></div>
+    </div>
+  </div>
+  <div class="cards">
+    <button class="card mirror m-phone picked" aria-pressed="true">
+      <span class="glass">
+        <svg class="glint-st" style="left:34px;top:22px" width="70" height="52" viewBox="0 0 70 52" aria-hidden="true"><path d="M6 42 L44 6 M18 50 L60 10" stroke="#fff" stroke-opacity=".8" stroke-width="1.8" stroke-dasharray="5 4" stroke-linecap="round"/></svg>
+        <span class="say"><span class="answer">i will reorganize your spice rack while you shower and call it love</span></span>
+      </span>
+      <img class="frame" src="art/mirror-phone.svg" alt="">
+      <span class="letter">A</span>
+      <span class="pick-tag felt lantern st"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 0 L8.2 5.8 L14 7 L8.2 8.2 L7 14 L5.8 8.2 L0 7 L5.8 5.8Z" fill="#131931"/></svg>Your pick</span>
+    </button>
+    <button class="card mirror m-phone">
+      <span class="glass">
+        <svg class="glint-st" style="left:34px;top:22px" width="70" height="52" viewBox="0 0 70 52" aria-hidden="true"><path d="M6 42 L44 6 M18 50 L60 10" stroke="#fff" stroke-opacity=".8" stroke-width="1.8" stroke-dasharray="5 4" stroke-linecap="round"/></svg>
+        <span class="say"><span class="answer">overthinking a text for 40 minutes then just sending 'k' 💀</span></span>
+      </span>
+      <img class="frame" src="art/mirror-phone.svg" alt="">
+      <span class="letter">B</span>
+    </button>
+  </div>
+  <p class="help">You can change your pick<br><b>until time runs out.</b></p>
+</div>
+<img class="full binding" src="art/binding-phone.svg" width="390" height="844" alt="">
+</body>
+</html>

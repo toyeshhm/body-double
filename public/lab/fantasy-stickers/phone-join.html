@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Enter the village · Storybook Stickers</title>
+<meta name="viewport" content="width=390">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Figtree:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .title { left: 20px; top: 74px; font-size: 42px; }
+  .name { left: 22px; right: 22px; top: 136px; }
+  .name .field { margin-top: 8px; }
+  .tokens { left: 18px; right: 18px; top: 228px; }
+  .tokens .label { margin-left: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 6px; row-gap: 2px; }
+  .tok { height: 74px; display: grid; place-items: center; position: relative; }
+  .tok img { width: 62px; height: 62px; }
+  .tok:nth-child(3n+1) img { transform: rotate(-5deg); }
+  .tok:nth-child(3n+2) img { transform: rotate(4deg); }
+  .tok.on::before { content: ""; position: absolute; width: 74px; height: 74px; border-radius: 50%; background: var(--gold);
+    box-shadow: inset -4px -5px 0 #b88d40, inset 3px 3px 0 #f2db94, 0 0 0 4px #fffaf0, 0 4px 8px 4px rgba(74, 50, 32, .2); }
+  .tok.on img { width: 66px; height: 66px; position: relative; transform: rotate(-6deg); }
+  .tok.on .check { position: absolute; right: 4px; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--rasp-deep);
+    display: grid; place-items: center; filter: url(#dc-sm); }
+  .roles { left: 22px; right: 22px; top: 564px; }
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 10px; margin-top: 10px; }
+  .chips .chip:nth-child(2n) { transform: rotate(1.2deg); }
+  .chips .chip:nth-child(3n) { transform: rotate(-1.4deg); }
+  .go { left: 22px; right: 22px; top: 704px; }
+  .fine { left: 22px; right: 22px; top: 784px; }
+</style>
+</head>
+<body class="phone">
+<svg class="defs" aria-hidden="true" focusable="false">
+  <filter id="dc" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.4"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="3.4"/><feOffset dx="1.5" dy="4.5" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-sm" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="2.4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="1.2"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="1.8"/><feOffset dx=".8" dy="2.2" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".32"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-lg" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="3"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="6"/><feOffset dx="2" dy="8" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".30"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dc-type" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.6"/>
+    <feComponentTransfer result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffaf0"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="4"/><feOffset dx="2" dy="6" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".28"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="foil" x="-6%" y="-12%" width="112%" height="124%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".012 .05" numOctaves="2" seed="5" result="streak"/>
+    <feColorMatrix in="streak" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55" result="streakA"/>
+    <feFlood flood-color="#9c7428"/><feComposite in2="streakA" operator="in" result="tarnish"/>
+    <feComposite in="tarnish" in2="SourceAlpha" operator="in" result="tarnishIn"/>
+    <feMerge result="base"><feMergeNode in="SourceGraphic"/><feMergeNode in="tarnishIn"/></feMerge>
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="11" result="grain"/>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="soft"/>
+    <feComposite in="soft" in2="grain" operator="arithmetic" k1="0" k2="1" k3=".1" k4="0" result="bump"/>
+    <feSpecularLighting in="bump" surfaceScale="6" specularConstant="1.1" specularExponent="16" lighting-color="#fff2c8" result="spec">
+      <feDistantLight azimuth="225" elevation="40"/>
+    </feSpecularLighting>
+    <feComposite in="spec" in2="SourceAlpha" operator="in" result="sheen"/>
+    <feComposite in="base" in2="sheen" operator="arithmetic" k1="0" k2="1" k3=".7" k4="0"/>
+  </filter>
+</svg>
+
+<div class="bar">
+  <span class="brand">Body <b>Double</b></span>
+  <span class="code-chip"><small>Village</small><span class="foil">HXQR</span></span>
+</div>
+
+<h1 class="abs cut-letters title">Enter the village</h1>
+
+<div class="abs name">
+  <div class="label">Your name</div>
+  <div class="field">Maya<span class="caret"></span></div>
+</div>
+
+<div class="abs tokens">
+  <div class="label">Pick your token</div>
+  <div class="grid">
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/potion.svg" alt="Potion"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/eat-me.svg" alt="Eat Me Cake"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/lamp.svg" alt="Wishing Lamp"></div>
+    <div class="tok on"><img class="st-sm" src="../_fantasy/icons/slipper.svg" alt="Glass Slipper, selected"><span class="check"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2,7.5 L5.6,11 L12,3.5" fill="none" stroke="#fff8ec" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/mirror.svg" alt="Magic Mirror"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/tree.svg" alt="Enchanted Tree"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/apple.svg" alt="Poison Apple"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/spindle.svg" alt="Spindle"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/frog-prince.svg" alt="Frog Prince"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/pumpkin.svg" alt="Pumpkin"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/golden-egg.svg" alt="Golden Egg"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/beanstalk.svg" alt="Beanstalk"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/crystal-ball.svg" alt="Crystal Ball"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/red-hood.svg" alt="Red Hood"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/wand.svg" alt="Wand"></div>
+    <div class="tok"><img class="st-sm" src="../_fantasy/icons/key.svg" alt="Golden Key"></div>
+  </div>
+</div>
+
+<div class="abs roles">
+  <div class="label">Your role in the tale</div>
+  <div class="chips">
+    <span class="chip">woodcutter</span><span class="chip">baker</span><span class="chip on">bard</span>
+    <span class="chip">knight</span><span class="chip">witch</span><span class="chip">fairy</span>
+  </div>
+</div>
+
+<div class="abs go"><span class="btn">Enter the village</span></div>
+<p class="abs note fine">18+ only. Everything is deleted when the game ends.</p>
+</body>
+</html>

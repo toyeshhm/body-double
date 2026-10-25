@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440, height=900">
+<title>The Village · Body Double</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..800,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Nanum+Pen+Script&family=Alegreya+Sans:wght@400;500;700;800&display=block" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { width: 1440px; height: 900px; position: relative; }
+
+  .bookplate {
+    position: absolute; left: 54px; top: 44px; padding: 12px 22px 12px;
+    background: #fbf6ea;
+    box-shadow: inset 0 0 0 1.5px var(--ink), inset 0 0 0 5px #fbf6ea, inset 0 0 0 6px rgba(43,33,29,.6), 0 4px 8px rgba(40,26,12,.18);
+    transform: rotate(-1.2deg);
+  }
+  .bookplate .brand { font-size: 30px; line-height: 1; }
+  .bookplate .brand em { color: var(--madder); }
+  .bookplate .hand { font-size: 25px; color: var(--ink-2); margin-top: 4px; }
+
+  h1.title { position: absolute; left: 50px; top: 118px; font-size: 124px; line-height: .95; font-style: italic; font-weight: 600; }
+  .arrived { position: absolute; left: 58px; top: 248px; font-size: 36px; color: var(--sienna-ink); }
+
+  .map { position: absolute; left: 0; top: 284px; width: 700px; height: 562px; overflow: hidden;
+         -webkit-mask: linear-gradient(90deg, #000 82%, transparent 99%); }
+  .map img { position: absolute; left: -14px; top: -96px; width: 1238px; }
+
+  .trail { position: absolute; left: 0; top: 0; width: 704px; height: 850px; z-index: 1; pointer-events: none; }
+  .polaroid { z-index: 3; width: 158px; }
+  .polaroid .rl { white-space: nowrap; font-size: 26px; }
+  .polaroid .rl { font-size: 25px; }
+
+  .p1 { left: 24px;  top: 318px; transform: rotate(-5deg); }
+  .p2 { left: 170px; top: 294px; transform: rotate(3deg); z-index: 4; }
+  .p3 { left: 318px; top: 332px; transform: rotate(-2deg); }
+  .p4 { left: 462px; top: 300px; transform: rotate(4.5deg); }
+  .p5 { left: 552px; top: 488px; transform: rotate(-4deg); }
+  .p1 .win { background-position: 22% 40%; }
+  .p2 .win { background-position: 60% 45%; }
+  .p3 .win { background-position: 40% 55%; }
+  .p4 .win { background-position: 75% 40%; }
+  .p5 .win { background-position: 30% 50%; }
+
+  .waiting { white-space: nowrap; position: absolute; left: 470px; top: 738px; padding: 8px 14px 8px 18px; font-size: 29px; color: var(--ink); background: #fbf6ea; transform: rotate(-4deg); z-index: 4; line-height: 1; box-shadow: 0 3px 6px rgba(40,26,12,.25); clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%); }
+  .waiting::before { content: ""; position: absolute; left: 9px; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: #8a7a66; }
+
+  .map-note { position: absolute; z-index: 2; font-size: 27px; color: var(--ink); transform: rotate(-6deg); background: rgba(247,241,228,.78); padding: 0 6px; border-radius: 6px; }
+  .fern-l { position: absolute; left: 568px; top: -18px; height: 300px; transform: rotate(-24deg); opacity: .95; z-index: 1; }
+  .fern-l-tape { left: 560px; top: 150px; transform: rotate(38deg); width: 96px; }
+
+  /* right page */
+  .code-sheet { left: 744px; top: 46px; width: 612px; height: 436px; transform: rotate(1.3deg); }
+  .code-sheet .lbl { position: absolute; left: 76px; top: 44px; font-size: 38px; color: var(--sienna-ink); }
+  .code-wash { position: absolute; left: 30px; top: 92px; width: 590px; height: 230px; background: url(art/wash-green.png) 50% 46% / 112% auto no-repeat; opacity: .42; }
+  .code { position: absolute; left: 60px; top: 96px; font-size: 176px; line-height: 1; font-weight: 700; font-style: normal;
+          letter-spacing: .02em; font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 144; color: #231a16; }
+  .url { position: absolute; left: 76px; top: 330px; font-size: 26px; color: var(--ink-2); line-height: 1.25; }
+  .url b { display: block; font-size: 34px; font-weight: 800; color: var(--ink); letter-spacing: .005em; }
+  .tape-a { left: 724px; top: 40px; transform: rotate(-32deg); }
+  .tape-b { left: 1262px; top: 32px; transform: rotate(28deg); }
+
+  .qr-card { position: absolute; left: 758px; top: 530px; width: 226px; height: 226px; background: #fff; padding: 14px; transform: rotate(-2.2deg);
+             box-shadow: 0 1px 1px rgba(60,40,20,.3), 0 10px 16px rgba(40,26,12,.25); }
+  .qr-card img { width: 198px; height: 198px; }
+  .scan { position: absolute; left: 782px; top: 772px; font-size: 31px; color: var(--sienna-ink); transform: rotate(-1.5deg); }
+
+  .oak { position: absolute; left: 1250px; top: 400px; height: 170px; transform: rotate(-28deg); opacity: .92; }
+
+  .label-card { position: absolute; left: 1026px; top: 520px; width: 328px; padding: 16px 22px 12px; background: #fbf6ea;
+                box-shadow: inset 0 0 0 1.5px var(--ink), inset 0 0 0 5px #fbf6ea, inset 0 0 0 6px rgba(43,33,29,.55), 0 4px 10px rgba(40,26,12,.2);
+                transform: rotate(.8deg); }
+  .label-card h2 { font-size: 28px; font-style: italic; font-weight: 600; margin-bottom: 6px; }
+  .row { display: flex; align-items: baseline; font-size: 24px; height: 38px; }
+  .row span { color: var(--ink-2); font-weight: 500; }
+  .row i { flex: 1; border-bottom: 2px dotted rgba(43,33,29,.45); margin: 0 8px; transform: translateY(-6px); }
+  .row b { font-weight: 800; }
+
+  .begin { left: 1026px; top: 752px; width: 328px; height: 80px; font-size: 32px; }
+</style>
+</head>
+<body class="desk">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<main class="spread">
+  <!-- left page: the village and who has arrived -->
+  <section class="page left paper">
+    <div class="bookplate">
+      <div class="brand display">Body <em>Double</em></div>
+      <div class="hand">field notes on the wolf, kept by Gran</div>
+    </div>
+    <img class="fern-l" src="art/fern-small.svg" alt="">
+    <div class="tape green fern-l-tape"></div>
+
+    <h1 class="title display">The Village</h1>
+    <p class="arrived hand">five villagers have come down the path so far</p>
+
+    <div class="map"><img src="art/map-cut.png" alt=""></div>
+
+    <svg class="trail" viewBox="0 0 704 850" aria-hidden="true">
+      <path d="M60 560 C 90 600, 160 470, 240 520 S 330 580, 390 540 S 470 470, 530 520 S 600 640, 640 700 S 660 770, 610 820" fill="none" stroke="#3d2a1f" stroke-width="3.5" stroke-dasharray="1 11" stroke-linecap="round" opacity=".8"/>
+    </svg>
+
+    <figure class="polaroid p1"><div class="tape sienna"></div><div class="win w-indigo"><span class="emo">🦉</span></div><figcaption><div class="nm">Maya</div><div class="rl">the bard</div></figcaption></figure>
+    <figure class="polaroid p2"><div class="tape ochre"></div><div class="win w-sienna"><span class="emo">🦊</span></div><figcaption><div class="nm">Jordan</div><div class="rl">the woodcutter</div></figcaption></figure>
+    <figure class="polaroid p3"><div class="tape green"></div><div class="win w-green"><span class="emo">🍄</span></div><figcaption><div class="nm">Priya</div><div class="rl">the witch</div></figcaption></figure>
+    <figure class="polaroid p4"><div class="tape indigo"></div><div class="win w-ochre"><span class="emo">🐻</span></div><figcaption><div class="nm">Sam</div><div class="rl">the baker</div></figcaption></figure>
+    <figure class="polaroid p5"><div class="tape madder"></div><div class="win w-green"><span class="emo">🐸</span></div><figcaption><div class="nm">Theo</div><div class="rl">the knight</div></figcaption></figure>
+
+    <p class="map-note hand" style="left:396px;top:632px">the old bridge</p>
+    <p class="waiting hand">more on the way...</p>
+  </section>
+
+  <div class="gutter"></div>
+
+  <!-- right page: how to get in, and the start -->
+  <section class="page right paper">
+  </section>
+
+  <img class="oak" src="art/leaf-oak.svg" alt="">
+  <div class="sheet-wrap code-sheet"><div class="sheet">
+    <div class="code-wash"></div>
+    <p class="lbl hand">the village code, write it down</p>
+    <div class="code display" aria-label="Village code H X Q R">HXQR</div>
+    <p class="url">Scan the code, or go to<b>bodydouble.tech/play/HXQR</b></p>
+  </div></div>
+  <div class="tape sienna tape-a"></div>
+  <div class="tape indigo tape-b"></div>
+
+  <div class="qr-card corners"><img src="../_shared/qr.svg" alt="QR code to join village HXQR"></div>
+  <p class="scan hand">scan with a phone ↑</p>
+
+  <div class="label-card">
+    <h2 class="display">How the tale goes</h2>
+    <div class="row"><span>Chapters</span><i></i><b>6</b></div>
+    <div class="row"><span>Answer time</span><i></i><b>60s</b></div>
+    <div class="row"><span>Vote time</span><i></i><b>20s</b></div>
+    <div class="row"><span>Demo mode</span><i></i><b>Off</b></div>
+  </div>
+
+  <button class="btn-paint begin">Begin the tale <span class="arrow">→</span></button>
+</main>
+<div class="ribbon"></div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440, initial-scale=1">
+<title>Body Double · Chapter III</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .sign.prompt { top: 92px; height: 150px; left: 196px; width: 688px; transform: rotate(1deg); }
+  .sign.prompt .string { height: 140px; }
+  .sign .chapter { margin: 0 0 8px; font: italic 25px/1 var(--f-story); color: var(--red); }
+  .sign .q { margin: 0; font: 400 41px/1.02 var(--f-story); color: var(--ink); white-space: nowrap; letter-spacing: -.005em; }
+
+  .flapcard { position: absolute; top: 452px; z-index: 22; --w: 350px; --h: 246px; }
+  .flapcard[data-slot="A"] { left: 172px; }
+  .flapcard[data-slot="B"] { left: 556px; }
+  .flapcard .flap { z-index: 3; }
+  .flapcard .inside { z-index: 2; }
+  .flapcard.lifted { perspective: 1400px; }
+  .flapcard.lifted .flap { z-index: 0; --lift: 119deg; }
+  .flapcard .face .answer-text, .flapcard .inside .answer-text { flex: 1; }
+  .inside .slip { position: absolute; inset: 18px 16px 16px 18px; padding: 12px 14px 10px 16px; display: flex; flex-direction: column; isolation: isolate; transform: rotate(-.6deg); }
+  .inside .slip::before { content: ""; position: absolute; inset: 0; z-index: -1;
+    background: url(art/grain.svg), linear-gradient(#f6ead0, #ead8b0); filter: url(#rough) drop-shadow(0 1px 0 #a88d5a) drop-shadow(0 4px 4px rgba(0,0,0,.45)); }
+  .inside .slip .pin { top: -6px; left: calc(50% - 8px); }
+  .inside .shadow { position: absolute; inset: 0 0 auto; height: 60px; background: linear-gradient(rgba(0,0,0,.45), transparent); z-index: 1; pointer-events: none; }
+
+  .voters { display: flex; gap: 16px; align-items: center; }
+  .voter { display: inline-flex; align-items: center; gap: 6px; font: 700 22px/1 var(--f-ui); color: var(--ink); }
+  .voter .roundel { width: 40px; height: 40px; }
+  .voter .roundel .emo { font-size: 21px; }
+  .voter-wrap { filter: drop-shadow(0 1px 0 #a88d5a) drop-shadow(1px 2px 2px rgba(0,0,0,.35)); }
+
+  /* a limelight picks out the Wolf as he rises */
+  .limelight { position: absolute; z-index: 21; left: 520px; top: 150px; width: 460px; height: 600px; pointer-events: none;
+    background: radial-gradient(50% 45% at 62% 38%, rgba(255, 214, 130, .38), transparent 70%); mix-blend-mode: screen; }
+  /* who stands behind each card */
+  .wolf { position: absolute; z-index: 1; right: 6px; top: -214px; height: 548px; filter: drop-shadow(0 2px 0 #a88d5a) drop-shadow(6px 10px 10px rgba(0,0,0,.55)); transform: rotate(3deg); }
+  .owl { position: absolute; z-index: 1; right: 30px; top: -92px; transform: rotate(6deg); }
+  .owl .stick { position: absolute; left: 50%; top: 60px; width: 9px; height: 160px; margin-left: -4.5px; background: linear-gradient(90deg, #8a5a2b, #d9a86a 40%, #6e4420); }
+
+  /* verdict ribbons hang from the bottom edge of each card */
+  .verdict { position: absolute; z-index: 30; top: 682px; height: 64px; display: grid; place-items: center; padding: 0 40px;
+    filter: drop-shadow(0 2px 0 rgba(0,0,0,.35)) drop-shadow(0 8px 8px rgba(0,0,0,.45)); }
+  .verdict span { position: relative; z-index: 1; }
+  .verdict::before { content: ""; position: absolute; inset: 0; z-index: 0;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 50%, 100% 100%, 0 100%, 22px 50%); }
+  .verdict.real { left: 182px; width: 330px; white-space: nowrap; transform: rotate(-2deg); font: italic 38px/1 var(--f-story); color: #fff3d6; }
+  .verdict.real::before { background: url(art/grain.svg), linear-gradient(#b42a2f, #8f1d22 55%, #6d1418); }
+  .verdict.wolfish { left: 548px; width: 376px; transform: rotate(2deg); font: 400 28px/1 var(--f-display); white-space: nowrap; color: var(--gold); letter-spacing: .01em; }
+  .verdict.wolfish::before { background: url(art/grain.svg), linear-gradient(#2a221c, #16110e); }
+  .verdict .pin { top: -9px; left: calc(50% - 8px); }
+
+  /* playbill: the tally */
+  .playbill h2.tally { font-size: 38px; line-height: 1.04; margin-top: 6px; }
+  .playbill h2.tally .big { display: block; font-size: 76px; line-height: 1; margin-top: 6px; color: var(--ink); white-space: nowrap; }
+  .points { margin: 20px 0 0; font: 500 23px/1.4 var(--f-ui); color: var(--ink); }
+  .points b { font-weight: 800; color: var(--red); }
+  .heroes { list-style: none; margin: 4px 0 0; padding: 0; }
+  .heroes li { display: grid; grid-template-columns: 66px 1fr auto; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1.5px dashed rgba(74,58,44,.35); }
+  .heroes li:last-child { border-bottom: 0; }
+  .heroes .roundel { width: 64px; height: 64px; }
+  .heroes .roundel .emo { font-size: 33px; }
+  .heroes .name { font: 700 26px/1 var(--f-ui); }
+  .heroes .score { font: 400 34px/1 var(--f-display); color: var(--teal); }
+  .heroes li:first-child .score { color: var(--red); }
+  .playbill .go { margin-top: auto; }
+  .playbill .go { margin-left: -12px; margin-right: -12px; }
+  .playbill .go .ticket { font-size: 22px; padding: 0 16px; white-space: nowrap; }
+</style>
+</head>
+<body class="host">
+<svg class="sr-defs" aria-hidden="true">
+  <filter id="rough" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" seed="5"/>
+    <feDisplacementMap in="SourceGraphic" scale="7"/>
+  </filter>
+</svg>
+
+<main class="theatre" aria-label="Chapter three reveal">
+  <div class="stage" aria-hidden="true">
+    <div class="backcloth"></div>
+    <img class="flat wing l" src="art/flat-wing.svg" alt="">
+    <img class="flat wing r" src="art/flat-wing.svg" alt="">
+    <img class="flat far" src="art/flat-far.svg" alt="">
+    <img class="flat near" src="art/flat-near.svg" alt="">
+    <div class="footlights"></div>
+  </div>
+  <div class="limelight" aria-hidden="true"></div>
+  <img class="frame" src="art/proscenium.png" alt="">
+  <div class="cartouche"><div><span>Body</span><span>Double</span></div></div>
+
+  <section class="sign prompt paper" aria-label="Prompt">
+    <span class="string s1"></span><span class="string s2"></span>
+    <span class="grommet g1"></span><span class="grommet g2"></span>
+    <div class="trim"></div>
+    <div class="body">
+      <p class="chapter">Chapter III of VI</p>
+      <p class="q">Your toxic trait, but make it cute</p>
+    </div>
+  </section>
+
+  <!-- A: the real one. Flap stays down; Maya's own puppet rises behind it. -->
+  <article class="flapcard" data-slot="A" aria-label="Answer A, the real Maya">
+    <div class="owl" aria-hidden="true"><span class="stick"></span><div class="roundel-wrap"><div class="roundel" style="--tint:#2f6670; width:100px; height:100px"><span class="emo" style="font-size:52px">🦉</span></div></div></div>
+    <span class="slot-tab">A</span>
+    <div class="inside"></div>
+    <div class="flap">
+      <div class="face front">
+        <span class="pin hinge h1"></span><span class="pin hinge h2"></span>
+        <p class="answer-text">i will reorganize your spice rack while you shower and call it love</p>
+        <div class="voters">
+          <span class="voter"><span class="voter-wrap"><span class="roundel" style="--tint:#f3e6c8"><span class="emo">🦊</span></span></span>Jordan</span>
+          <span class="voter"><span class="voter-wrap"><span class="roundel" style="--tint:#1d4a52"><span class="emo">🐻</span></span></span>Sam</span>
+        </div>
+      </div>
+      <div class="face back"></div>
+    </div>
+  </article>
+
+  <!-- B: the Wolf. Flap lifted on its hinge; the Wolf pops up from behind. -->
+  <article class="flapcard lifted" data-slot="B" aria-label="Answer B, written by the Wolf">
+    <img class="wolf" src="art/wolf.png" alt="The Wolf puppet in a lace bonnet">
+    <span class="slot-tab">B</span>
+    <div class="flap">
+      <div class="face front"></div>
+      <div class="face back"><span class="pin hinge h1"></span><span class="pin hinge h2"></span></div>
+    </div>
+    <div class="inside">
+      <div class="shadow"></div>
+      <div class="slip">
+        <p class="answer-text">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+        <div class="voters">
+          <span class="voter"><span class="voter-wrap"><span class="roundel" style="--tint:#d4a237"><span class="emo">🍄</span></span></span>Priya</span>
+          <span class="voter"><span class="voter-wrap"><span class="roundel" style="--tint:#8f1d22"><span class="emo">🐸</span></span></span>Theo</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="verdict real"><span class="pin"></span><span>The real Maya</span></div>
+  <div class="verdict wolfish"><span class="pin"></span><span>It was the Wolf!</span></div>
+</main>
+
+<aside class="playbill paper" aria-label="Results">
+  <span class="pin p1"></span><span class="pin p2"></span>
+  <h2 class="tally">The Wolf fooled <span class="big">2 of 4.</span></h2>
+  <p class="points"><b>+100</b> to Jordan and Sam. Maya earns <b>+100</b> (+50 for each friend who knew her).</p>
+  <svg class="rule" viewBox="0 0 220 22" aria-hidden="true"><path d="M4 11H86M134 11H216" stroke="#8f1d22" stroke-width="2"/><path d="M110 3l8 8-8 8-8-8z" fill="#d4a237" stroke="#8f1d22" stroke-width="1.5"/><path d="M92 11c4-7 10-7 10 0M128 11c-4-7-10-7-10 0" fill="none" stroke="#8f1d22" stroke-width="1.8"/></svg>
+  <h3>Village Heroes</h3>
+  <ol class="heroes">
+    <li><span class="roundel-wrap"><span class="roundel" style="--tint:#2f6670"><span class="emo">🦉</span></span></span><span class="name">Maya</span><span class="score">300</span></li>
+    <li><span class="roundel-wrap"><span class="roundel" style="--tint:#f3e6c8"><span class="emo">🦊</span></span></span><span class="name">Jordan</span><span class="score">200</span></li>
+    <li><span class="roundel-wrap"><span class="roundel" style="--tint:#1d4a52"><span class="emo">🐻</span></span></span><span class="name">Sam</span><span class="score">200</span></li>
+  </ol>
+  <div class="go ticket-wrap"><button class="ticket" type="button">Ask what gave it away</button></div>
+</aside>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "slug": "stitchwork-night",
+  "name": "Stitchwork: Night Quilt",
+  "tagline": "The village is a whole-cloth quilt made for a night in the woods, and the Wolf is the patch sewn under one of the labels.",
+  "palette": [
+    { "name": "Midnight indigo cotton (ground)", "hex": "#10152e" },
+    { "name": "Deep blue quilted cotton", "hex": "#1b2350" },
+    { "name": "Indigo felt", "hex": "#27306a" },
+    { "name": "Charcoal felt (the Wolf)", "hex": "#2a2a34" },
+    { "name": "Cream quilting thread", "hex": "#efe6cf" },
+    { "name": "Muslin (labels, QR patch)", "hex": "#efe5cc" },
+    { "name": "Gold thread", "hex": "#d6a443" },
+    { "name": "Gold highlight (text on night)", "hex": "#f7dc8e" },
+    { "name": "Copper thread and binding", "hex": "#c2703f" },
+    { "name": "Lantern felt (warm accents, buttons)", "hex": "#f2b632" },
+    { "name": "Riding-hood wine", "hex": "#8e1f31" },
+    { "name": "Ink (text on muslin)", "hex": "#131931" }
+  ],
+  "fonts": {
+    "display": "Fraunces 800-900 with SOFT 100 (titles as cream felt appliqué with a couched gold-cord outline; the room code and +100 in gold satin stitch); Fraunces italic for captions and roles",
+    "body": "Figtree 600-700 (answers, body copy, names)",
+    "ui": "Figtree 700-800 for buttons, chips and fields"
+  },
+  "motifs": [
+    "Whole-cloth quilting in cream running stitch with real relief: echo rings rippling out from the moon (and from the Wolf on the reveal), quilted pines, crosshatch and clamshells",
+    "Room code in gold satin stitch on indigo velvet inside a pieced flying-geese border with lantern-felt cornerstones",
+    "Appliquéd felt moon with gold blanket stitch; gold star stitches scattered across the sky",
+    "A lantern lights on the gold-thread garland for every villager who arrives; English paper-pieced hexies for avatars",
+    "Countdown as a seam being unpicked: one gold stitch pulled per second, needle holes left behind"
+  ],
+  "reveal": "The Wolf's label is unpicked along its quilting line and drops away on its last thread, leaving a darker footprint ringed with needle holes and a seam ripper beside it; underneath, the charcoal-and-indigo Wolf patch sits in a pool of moonlight with its gold-thread eyes glinting while the quilting ripples out from it, and the real answer gets a pleated gold-and-copper rosette reading 'The real Maya'.",
+  "why": "Deep indigo ground with cream and gold thread keeps glare low in a dark room while the code, labels and lantern-felt buttons stay high-contrast from across it. The only warm light on screen marks what matters (arrivals, actions, the Wolf's eyes), so the room's attention goes exactly where the game needs it.",
+  "images": [
+    "art/wolf-night.png",
+    "art/cottage-night.png",
+    "art/pine-night.png",
+    "art/pine-night-sm.png",
+    "art/felt.png",
+    "art/cotton.png",
+    "art/quilt-lobby.svg",
+    "art/quilt-reveal.svg",
+    "art/geese-code.svg",
+    "art/moon.svg",
+    "art/rosette.svg",
+    "art/medallion.svg",
+    "art/lantern.svg",
+    "art/hood.svg",
+    "art/seam-ripper.svg",
+    "art/dial-14.svg"
+  ]
+}

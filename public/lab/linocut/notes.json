@@ -1,0 +1,33 @@
+{
+  "slug": "linocut",
+  "name": "Linocut Press",
+  "tagline": "Every round is a hand-pulled relief print: black ink, a vermilion plate that never quite lines up, and a Wolf stamped down where it lied.",
+  "palette": [
+    { "name": "Rice paper", "hex": "#F1E7D3" },
+    { "name": "Press ink", "hex": "#1B1714" },
+    { "name": "Carved slab", "hex": "#15110E" },
+    { "name": "Vermilion plate", "hex": "#CF3219" },
+    { "name": "Deep vermilion (small type)", "hex": "#A82612" },
+    { "name": "Kraft ticket", "hex": "#B98C5C" },
+    { "name": "Graphite pencil", "hex": "#4E4842" }
+  ],
+  "fonts": { "display": "Ultra", "body": "Archivo", "ui": "Archivo Extra Condensed 900 (wood-type numerals) + Caveat (pencil edition marks)" },
+  "motifs": [
+    "Two-plate printing: a red plate slightly misregistered under black type",
+    "Type is inked on paper and carved out of the black slab",
+    "Villagers are 16 two-ink carved stamps hung on a drying line with pegs",
+    "Printer's furniture: registration marks, tacks, deckled sheets, pencil edition notes",
+    "Brayer streaks and gouge marks as texture, never as decoration on top"
+  ],
+  "reveal": "The real answer gets a black owl seal and a 'The real Maya' stamp, then the red Wolf block slams down over the fake (press-and-squash motion, ink spatter, slip jolts) and 'It was the Wolf!' is stamped beneath it, with the answer text knocked out so it stays readable.",
+  "why": "The host screen is mostly a carved black slab with one bright sheet of paper, so it glows without blinding a dim room, and the code is set in 262px condensed wood type that reads from across it. Two inks keep every screen instantly parseable at distance: black means the village, red means the Wolf.",
+  "images": [
+    "art/stamps-sheet.png",
+    "art/village-raw.png",
+    "art/wolf-stamp-raw.png",
+    "art/village.png",
+    "art/wolf-red.png",
+    "art/stamp-*.png (16 two-ink stamps cut from stamps-sheet.png)",
+    "art/gouge.png (procedural, not generated)"
+  ]
+}

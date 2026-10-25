@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="56" viewBox="0 0 200 56">
+<defs>
+ <linearGradient id="st" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f9fb"/><stop offset=".45" stop-color="#b9c0c8"/><stop offset=".55" stop-color="#7d858e"/><stop offset="1" stop-color="#d8dde2"/></linearGradient>
+ <linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#cfd5db"/><stop offset=".7" stop-color="#7a828b"/><stop offset="1" stop-color="#aab1b8"/></linearGradient>
+ <filter id="sh" x="-10%" y="-30%" width="120%" height="170%"><feDropShadow dx="1.5" dy="3" stdDeviation="1.6" flood-color="#060a18" flood-opacity=".6"/></filter>
+</defs>
+<g filter="url(#sh)" stroke-linecap="round" fill="none">
+ <!-- pin shaft (goes under the clasp) -->
+ <path d="M30 38 L172 30" stroke="#5d646c" stroke-width="5"/>
+ <path d="M30 38 L172 30" stroke="url(#st)" stroke-width="3.6"/>
+ <!-- spring coil -->
+ <path d="M30 38 C 8 40, 6 14, 26 13 C 40 12, 42 30, 28 33" stroke="#5d646c" stroke-width="5"/>
+ <path d="M30 38 C 8 40, 6 14, 26 13 C 40 12, 42 30, 28 33" stroke="url(#st)" stroke-width="3.6"/>
+ <!-- top bar -->
+ <path d="M28 13 L168 18" stroke="#5d646c" stroke-width="5"/>
+ <path d="M28 13 L168 18" stroke="url(#st)" stroke-width="3.6"/>
+ <!-- clasp head -->
+ <path d="M160 12 h24 a8 8 0 0 1 8 8 v8 a8 8 0 0 1 -8 8 h-24 a4 4 0 0 1 -4 -4 v-16 a4 4 0 0 1 4 -4z" fill="url(#hd)" stroke="#5d646c" stroke-width="1.4"/>
+ <path d="M162 16 h20" stroke="#fff" stroke-width="1.6" opacity=".8"/>
+</g>
+</svg>

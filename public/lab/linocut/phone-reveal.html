@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Double · You found the real Maya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Caveat:wght@500..700&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .win { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
+  .ptitle { font-size: 29px; line-height: 1.05; }
+  .points { position: relative; display: grid; place-items: center; width: 146px; height: 90px; color: var(--red); --r: -6deg; --d: .2s; }
+  .points::before { content: ""; position: absolute; inset: 0; border: 5px solid var(--red); outline: 2px solid var(--red); outline-offset: 3px; filter: url(#inked-lite); }
+  .points b { font-size: 66px; padding-top: 6px; letter-spacing: -.01em; }
+  .score { margin-top: 10px; display: flex; align-items: baseline; gap: 10px; font-size: 18px; font-weight: 700; }
+  .score .wood { font-size: 40px; }
+  .score .pencil { font-size: 21px; margin-left: auto; }
+
+  .slips { margin-top: 18px; display: grid; gap: 16px; }
+  .slip { min-height: 150px; padding: 16px 18px 18px; }
+  .slip-rule { inset: 8px; }
+  .slip-head { display: flex; align-items: center; gap: 9px; }
+  .slip-letter { width: 36px; height: 36px; font-size: 20px; }
+  .slip-head .who { font-family: var(--display); font-size: 17px; display: flex; align-items: center; gap: 4px; }
+  .slip-head .who img { width: 28px; }
+  .slip-text { position: relative; z-index: 5; margin-top: 8px; font-size: 18px; line-height: 1.3; padding-right: 92px; }
+
+  .seal { width: 104px; height: 104px; right: 14px; top: 10px; --r: -10deg; --d: .5s; }
+  .wolf-stamp { width: 112px; right: 6px; top: 4px; --r: 6deg; --d: .9s; }
+  .slip .stamp-label { left: 18px; bottom: 14px; font-size: 19px; padding: 4px 9px 2px; border-width: 3px; outline-width: 1.5px; outline-offset: 2px; }
+  .slip[data-slot="A"] .stamp-label { color: var(--ink); border-color: var(--ink); outline-color: var(--ink); --r: -3deg; --d: .7s; }
+  .slip[data-slot="B"] .stamp-label { --r: -4deg; --d: 1.2s; }
+  .ai { position: absolute; right: 22px; bottom: 18px; z-index: 4; font-size: 14px; font-weight: 800; letter-spacing: .01em; color: var(--paper-hi); background: var(--ink); padding: 4px 8px 3px; transform: rotate(2deg); filter: url(#rough); }
+  .slip { padding-bottom: 52px; }
+
+  .tell { margin-top: 18px; }
+  .tell h2 { font-family: var(--display); font-size: 21px; margin-bottom: 8px; }
+  .tell .btn-block { margin-top: 14px; }
+</style>
+</head>
+<body class="phone">
+<!--defs--><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="inked" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .22" numOctaves="3" seed="21" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -18 13.5" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="9" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 22.6" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="inked-lite" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".012 .2" numOctaves="3" seed="31" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -22 17.4" result="v1"/><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="13" result="s2"/><feColorMatrix in="s2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 23" result="v2"/><feComposite in="v1" in2="v2" operator="in" result="v"/><feComposite in="d" in2="v" operator="in"/></filter>
+    <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="4" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <symbol id="reg" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="15" cy="15" r="8"/><path d="M15 0v30M0 15h30"/></g></symbol>
+    <symbol id="arrow" viewBox="0 0 40 40"><path fill="currentColor" d="M3 17.5c9-.6 18-1.4 25-1.1l-6.3-7.6 4.6-2.9L39 20.2 26 33.8l-4.4-3.2 6.6-7.3c-7.4.5-16.1.6-25.2.1z"/></symbol>
+    <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0l2.6 7.2L20 10l-7.4 2.8L10 20l-2.6-7.2L0 10l7.4-2.8z"/></symbol>
+  </defs>
+</svg><!--/defs-->
+
+<header class="phead">
+  <span class="chap wood">Chapter <em>III</em> of <em>VI</em></span>
+  <span class="codetag"><small>Village</small><b>HXQR</b></span>
+</header>
+
+<main class="pmain">
+  <div class="win">
+    <h1 class="ptitle">You found the real Maya.</h1>
+    <div class="points press" aria-label="plus 100 points"><b class="wood inked-lite">+100</b></div>
+  </div>
+  <p class="score">Your score: <span class="wood">300</span></p>
+
+  <div class="slips">
+    <article class="slip" data-slot="A">
+      <span class="slip-rule"></span>
+      <header class="slip-head"><span class="slip-letter">A</span><span class="who"><img src="art/stamp-owl.png" alt="">Maya</span></header>
+      <p class="slip-text knockout">i will reorganize your spice rack while you shower and call it love</p>
+      <svg class="seal press" viewBox="0 0 240 240" aria-hidden="true">
+        <defs><clipPath id="owlP"><circle cx="120" cy="120" r="84"/></clipPath></defs>
+        <g filter="url(#inked-lite)" fill="none" stroke="#1B1714">
+          <circle cx="120" cy="120" r="112" stroke-width="10"/>
+          <circle cx="120" cy="120" r="96" stroke-width="4"/>
+          <g fill="#1B1714" stroke="none"><use href="#star" x="110" y="6" width="20" height="20"/><use href="#star" x="110" y="214" width="20" height="20"/><use href="#star" x="6" y="110" width="20" height="20"/><use href="#star" x="214" y="110" width="20" height="20"/></g>
+        </g>
+        <image href="art/stamp-owl.png" x="34" y="34" width="172" height="172" clip-path="url(#owlP)" style="mix-blend-mode:multiply"/>
+      </svg>
+      <span class="stamp-label press">The real Maya</span>
+    </article>
+
+    <article class="slip" data-slot="B">
+      <span class="slip-rule"></span>
+      <header class="slip-head"><span class="slip-letter">B</span><span class="who"><img src="art/stamp-owl.png" alt="">Maya</span></header>
+      <p class="slip-text knockout">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+      <img class="wolf-stamp press" src="art/wolf-red.png" alt="The Wolf's stamp">
+      <span class="stamp-label press">It was the Wolf!</span>
+      <span class="ai">AI-written</span>
+    </article>
+  </div>
+
+  <section class="tell">
+    <h2>What gave the Wolf away?</h2>
+    <div class="field"><span class="ph">the 💀 felt like a costume</span></div>
+    <button class="btn-block full">Tell the village <svg class="arrow"><use href="#arrow"/></svg></button>
+  </section>
+</main>
+</body>
+</html>

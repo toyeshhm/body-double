@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which one is really Maya?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Ultra&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .stub { padding-top: 12px; padding-bottom: 12px; }
+  .stub .admit { font-size: 21px; }
+  /* volvelle: a paper wheel turned by a brass pin; the red wedge is the time left */
+  .volvelle { position: relative; width: 82px; height: 82px; flex: none; filter: drop-shadow(0 2px 0 #4a0b10) drop-shadow(0 4px 4px rgba(0,0,0,.4)); }
+  .volvelle .wheel { position: absolute; inset: 0; border-radius: 50%;
+    background:
+      repeating-conic-gradient(from 0deg, rgba(34,26,20,.55) 0 1.2deg, transparent 1.2deg 18deg),
+      conic-gradient(var(--gold) 0 252deg, #e8d6ae 252deg 360deg);
+    -webkit-mask: radial-gradient(circle, transparent 0 25px, #000 25.5px); mask: radial-gradient(circle, transparent 0 25px, #000 25.5px); }
+  .volvelle .face { position: absolute; inset: 13px; border-radius: 50%; display: grid; place-items: center;
+    background: url(art/grain.svg), radial-gradient(circle at 40% 35%, #fbf3dc, #ead8ae); box-shadow: 0 0 0 2px var(--ink), inset 0 2px 3px rgba(0,0,0,.2); }
+  .volvelle .face b { font: 400 30px/1 var(--f-display); color: var(--ink); margin-top: 2px; }
+  .secs { margin: 0; font: italic 19px/1.1 var(--f-story); color: #f6dfae; text-align: right; }
+
+  .stage-panel h1.q { margin: 0; font-size: 26px; line-height: 1.06; color: var(--ink); }
+  .stage-panel h1.q em { font-style: normal; color: var(--red); }
+  .choices { display: flex; flex-direction: column; gap: 44px; }
+  .flapcard { --w: 100%; --h: 188px; cursor: pointer; }
+  .flapcard .face { padding: 24px 22px 18px 30px; }
+  .flapcard .answer-text { font-size: 22px; line-height: 1.3; }
+  .flapcard.picked .face.front::after { content: ""; position: absolute; inset: -8px; border: 4px solid var(--gold); border-radius: 8px; filter: url(#rough); box-shadow: 0 0 18px rgba(212,162,55,.45); }
+  .pick-tag { position: absolute; z-index: 8; right: 14px; top: -20px; height: 38px; padding: 0 22px 0 16px; display: grid; place-items: center;
+    font: 800 17px/1 var(--f-ui); color: #fff3d6; transform: rotate(3deg);
+    filter: drop-shadow(0 2px 0 #4a0b10) drop-shadow(0 5px 5px rgba(0,0,0,.35)); }
+  .pick-tag::before { content: ""; position: absolute; inset: 0; z-index: -1; background: url(art/grain.svg), linear-gradient(#b42a2f, #8a1b20);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 50%, 100% 100%, 0 100%); }
+  .pick-tag .pin { left: -6px; top: 11px; width: 14px; height: 14px; }
+  .helper { margin: auto 0 0; padding-top: 16px; text-align: center; }
+</style>
+</head>
+<body class="phone">
+<svg class="sr-defs" aria-hidden="true">
+  <filter id="rough" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="8"/>
+    <feDisplacementMap in="SourceGraphic" scale="5"/>
+  </filter>
+</svg>
+
+<main class="ticket-card paper">
+  <div class="border" aria-hidden="true"></div>
+  <header class="stub">
+    <p class="admit">Chapter III<b>of VI</b></p>
+    <div style="display:flex; align-items:center; gap:10px">
+      <p class="secs">seconds<br>left</p>
+      <div class="volvelle" role="timer" aria-label="14 seconds left">
+        <div class="wheel"></div>
+        <div class="face"><b>14</b></div>
+      </div>
+    </div>
+  </header>
+  <div class="perf" aria-hidden="true"><span class="notch l"></span><span class="notch r"></span></div>
+
+  <section class="stage-panel">
+    <img class="valance" src="art/valance.svg" alt="" aria-hidden="true">
+    <img class="bank" src="art/flat-near.svg" alt="" aria-hidden="true">
+    <div class="psign paper"><span class="string s1"></span><span class="string s2"></span><h1 class="q">Which one is really <em>Maya</em>?</h1></div>
+    <div class="choices" role="radiogroup" aria-label="Answers">
+      <div class="flapcard picked" data-slot="A" role="radio" aria-checked="true" tabindex="0">
+        <span class="slot-tab">A</span>
+        <span class="pick-tag"><span class="pin"></span>Your pick</span>
+        <div class="flap">
+          <div class="face front">
+            <span class="pin hinge h1"></span><span class="pin hinge h2"></span>
+            <p class="answer-text">i will reorganize your spice rack while you shower and call it love</p>
+          </div>
+        </div>
+      </div>
+      <div class="flapcard" data-slot="B" role="radio" aria-checked="false" tabindex="-1">
+        <span class="slot-tab">B</span>
+        <div class="flap">
+          <div class="face front">
+            <span class="pin hinge h1"></span><span class="pin hinge h2"></span>
+            <p class="answer-text">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="helper">You can change your pick until time runs out.</p>
+  </section>
+</main>
+</body>
+</html>

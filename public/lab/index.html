@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Double · Design Lab</title>
+<style>
+  :root {
+    --bg: #131311; --panel: #1c1c19; --line: #2e2d29; --text: #ecebe6; --muted: #a3a197; --accent: #e8c25a;
+    --radius: 14px;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header.top { position: sticky; top: 0; z-index: 10; background: rgb(19 19 17 / .94); border-bottom: 1px solid var(--line); }
+  .wrap { max-width: 1480px; margin: 0 auto; padding: 0 24px; }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 14px; }
+  h1 { font-size: 18px; margin: 0; font-weight: 650; letter-spacing: -.01em; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+  .seg button { all: unset; cursor: pointer; padding: 7px 14px; border-radius: 999px; color: var(--muted); font-size: 14px; font-weight: 600; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+  .seg button:focus-visible, .chip:focus-visible, .shot:focus-visible, .star:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  nav.jump { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { all: unset; cursor: pointer; font-size: 13px; color: var(--muted); padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px; }
+  .chip:hover { color: var(--text); border-color: #4a4842; }
+  .chip[aria-pressed="true"] { color: var(--bg); background: var(--accent); border-color: var(--accent); }
+  .picks { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+  .picks button { all: unset; cursor: pointer; padding: 7px 12px; border-radius: 10px; background: var(--accent); color: #1a1505; font-weight: 700; }
+  .picks button[disabled] { opacity: .4; cursor: default; }
+  main { padding: 28px 0 80px; }
+  .intro { color: var(--muted); max-width: 70ch; margin: 0 0 28px; }
+  section.dir { border: 1px solid var(--line); background: var(--panel); border-radius: var(--radius); padding: 24px; margin-bottom: 28px; scroll-margin-top: 90px; }
+  .dir-head { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-items: start; }
+  .dir-head h2 { margin: 0; font-size: 28px; letter-spacing: -.02em; }
+  .dir-head .tag { margin: 4px 0 0; color: var(--muted); max-width: 70ch; }
+  .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 28px; margin: 18px 0 20px; font-size: 14px; }
+  .meta h3 { margin: 0 0 6px; font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+  .meta p, .meta ul { margin: 0; }
+  .meta ul { padding-left: 18px; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sw { display: grid; gap: 4px; justify-items: center; font-size: 11px; color: var(--muted); }
+  .sw i { width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgb(255 255 255 / .12); }
+  .hosts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .phones { display: grid; grid-template-columns: repeat(3, minmax(0, 260px)); gap: 16px; margin-top: 16px; }
+  figure { margin: 0; position: relative; }
+  figcaption { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .shot { display: block; width: 100%; border-radius: 10px; border: 1px solid var(--line); background: #0b0b0a; cursor: zoom-in; padding: 0; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 9px; }
+  .missing { aspect-ratio: 16 / 10; display: grid; place-items: center; color: var(--muted); font-size: 13px; border: 1px dashed var(--line); border-radius: 10px; }
+  .phones .missing { aspect-ratio: 390 / 844; }
+  .star { all: unset; cursor: pointer; font-size: 13px; padding: 4px 9px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); }
+  .star[aria-pressed="true"] { color: #1a1505; background: var(--accent); border-color: var(--accent); }
+  .live { font-size: 13px; color: var(--muted); }
+  .live a { color: var(--text); }
+  .grid-compare { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 640px), 1fr)); gap: 22px; }
+  .grid-compare.phones-mode { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .grid-compare h2 { font-size: 16px; margin: 0 0 8px; }
+  dialog { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; }
+  dialog::backdrop { background: rgb(0 0 0 / .86); }
+  dialog img { display: block; max-width: 96vw; max-height: 92vh; border-radius: 10px; }
+  dialog p { color: #ddd; text-align: center; margin: 8px 0 0; font-size: 14px; }
+  @media (max-width: 820px) {
+    .hosts { grid-template-columns: 1fr; }
+    .phones { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .dir-head { grid-template-columns: 1fr; }
+    .picks { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <h1>Body Double · Design Lab</h1>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" data-mode="dir" aria-pressed="true">By direction</button>
+      <button type="button" data-mode="screen" aria-pressed="false">Side by side</button>
+    </div>
+    <nav class="jump" id="jump" aria-label="Directions"></nav>
+    <div class="picks"><span id="pickCount">Star screens you like</span><button type="button" id="copyPicks" disabled>Copy my picks</button></div>
+  </div>
+</header>
+<main class="wrap">
+  <p class="intro">The two fantasy takes first (built on one shared icon set), then Stitchwork and its variants, then the other handmade directions and the current build for reference, all on the same game moment. Every direction shows the host lobby and reveal (projector, 1440×900) and three phone screens (390×844). Click any screen to see it full size. Star the screens or whole directions you like, then copy your picks back into the chat.</p>
+  <div id="root"></div>
+</main>
+<dialog id="zoom"><img alt=""><p></p></dialog>
+<script>
+const SLUGS = ["fantasy-stickers", "stitchwork-enchanted", "stitchwork", "stitchwork-night", "stitchwork-sampler", "stitchwork-denim", "linocut", "paper-theatre", "shadow-play", "field-journal", "current"];
+const SCREENS = [
+  ["host-lobby", "Host · Lobby"], ["host-reveal", "Host · Reveal"],
+  ["phone-join", "Phone · Join"], ["phone-vote", "Phone · Vote"], ["phone-reveal", "Phone · Reveal"],
+];
+const KEY = "bd-lab-picks";
+let picks = new Set();
+try { picks = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) { picks = new Set(); }
+let mode = "dir";
+let screen = "host-reveal";
+let dirs = [];
+
+const el = (tag, attrs = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v);
+  }
+  for (const kid of kids.flat()) if (kid != null) n.append(kid);
+  return n;
+};
+
+function savePicks() {
+  try { localStorage.setItem(KEY, JSON.stringify([...picks])); } catch (e) { /* storage blocked: picks last for this visit */ }
+  const n = picks.size;
+  document.getElementById("pickCount").textContent = n ? `${n} starred` : "Star screens you like";
+  document.getElementById("copyPicks").disabled = n === 0;
+}
+
+function starButton(id, label) {
+  const b = el("button", { type: "button", class: "star", "aria-pressed": String(picks.has(id)), "aria-label": `Star ${label}` }, picks.has(id) ? "★ Starred" : "☆ Star");
+  b.addEventListener("click", () => {
+    picks.has(id) ? picks.delete(id) : picks.add(id);
+    b.setAttribute("aria-pressed", String(picks.has(id)));
+    b.textContent = picks.has(id) ? "★ Starred" : "☆ Star";
+    savePicks();
+  });
+  return b;
+}
+
+function shot(d, key, label) {
+  const src = `${d.slug}/shots/${key}.png`;
+  const fig = el("figure");
+  if (!d.shots[key]) fig.append(el("div", { class: "missing" }, "Not rendered yet"));
+  else {
+    const btn = el("button", { type: "button", class: "shot", "aria-label": `Open ${d.name}, ${label}` }, el("img", { src, alt: `${d.name}: ${label}`, loading: "lazy" }));
+    btn.addEventListener("click", () => openZoom(src, `${d.name} · ${label}`));
+    fig.append(btn);
+  }
+  const live = d.slug === "current" ? null : el("a", { href: `${d.slug}/${key}.html`, target: "_blank", rel: "noopener" }, "open page");
+  fig.append(el("figcaption", {}, el("span", { class: "live" }, label, live ? " · " : "", live), starButton(`${d.name} :: ${label}`, `${d.name} ${label}`)));
+  return fig;
+}
+
+function openZoom(src, caption) {
+  const z = document.getElementById("zoom");
+  z.querySelector("img").src = src;
+  z.querySelector("img").alt = caption;
+  z.querySelector("p").textContent = caption;
+  z.showModal();
+}
+document.getElementById("zoom").addEventListener("click", (e) => e.currentTarget.close());
+
+function renderDir(d) {
+  const notes = d.notes;
+  const pal = (notes.palette || []).map((c) => el("span", { class: "sw", title: c.hex }, el("i", { style: `background:${c.hex}` }), c.name));
+  return el("section", { class: "dir", id: d.slug },
+    el("div", { class: "dir-head" },
+      el("div", {}, el("h2", {}, d.name), el("p", { class: "tag" }, notes.tagline || "")),
+      starButton(`${d.name} :: whole direction`, `${d.name} whole direction`)),
+    el("div", { class: "meta" },
+      el("div", {}, el("h3", {}, "Palette"), el("div", { class: "swatches" }, pal)),
+      el("div", {}, el("h3", {}, "Type"), el("p", {}, [notes.fonts?.display, notes.fonts?.body, notes.fonts?.ui].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).join(" · "))),
+      el("div", {}, el("h3", {}, "Motifs"), el("ul", {}, (notes.motifs || []).map((m) => el("li", {}, m)))),
+      el("div", {}, el("h3", {}, "The reveal"), el("p", {}, notes.reveal || "")),
+      el("div", {}, el("h3", {}, "Why it works"), el("p", {}, notes.why || ""))),
+    el("div", { class: "hosts" }, SCREENS.slice(0, 2).map(([k, l]) => shot(d, k, l))),
+    el("div", { class: "phones" }, SCREENS.slice(2).map(([k, l]) => shot(d, k, l))));
+}
+
+function renderScreen() {
+  const phone = screen.startsWith("phone");
+  const label = SCREENS.find(([k]) => k === screen)[1];
+  return el("div", { class: `grid-compare ${phone ? "phones-mode" : ""}` },
+    dirs.map((d) => el("div", {}, el("h2", {}, d.name), shot(d, screen, label))));
+}
+
+function render() {
+  const root = document.getElementById("root");
+  const jump = document.getElementById("jump");
+  root.replaceChildren();
+  jump.replaceChildren();
+  if (mode === "dir") {
+    dirs.forEach((d) => jump.append(el("a", { class: "chip", href: `#${d.slug}` }, d.name)));
+    dirs.forEach((d) => root.append(renderDir(d)));
+  } else {
+    SCREENS.forEach(([k, l]) => {
+      const b = el("button", { type: "button", class: "chip", "aria-pressed": String(k === screen) }, l);
+      b.addEventListener("click", () => { screen = k; render(); });
+      jump.append(b);
+    });
+    root.append(renderScreen());
+  }
+}
+
+document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {
+  mode = b.dataset.mode;
+  document.querySelectorAll(".seg button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+}));
+
+document.getElementById("copyPicks").addEventListener("click", async (e) => {
+  const text = `My Body Double design picks:\n${[...picks].map((p) => `- ${p}`).join("\n")}`;
+  try { await navigator.clipboard.writeText(text); e.target.textContent = "Copied"; }
+  catch (err) { window.prompt("Copy your picks:", text); }
+  setTimeout(() => { e.target.textContent = "Copy my picks"; }, 1600);
+});
+
+async function exists(url) {
+  try { return (await fetch(url, { method: "HEAD", cache: "no-store" })).ok; } catch (e) { return false; }
+}
+
+(async () => {
+  dirs = (await Promise.all(SLUGS.map(async (slug) => {
+    let notes = null;
+    try { const r = await fetch(`${slug}/notes.json`, { cache: "no-store" }); if (r.ok) notes = await r.json(); } catch (e) { notes = null; }
+    if (!notes) return null;
+    const shots = {};
+    await Promise.all(SCREENS.map(async ([k]) => { shots[k] = await exists(`${slug}/shots/${k}.png`); }));
+    return { slug, name: notes.name || slug, notes, shots };
+  }))).filter(Boolean);
+  if (dirs.length === 0) document.getElementById("root").textContent = "No directions rendered yet.";
+  savePicks();
+  render();
+})();
+</script>
+</body>
+</html>

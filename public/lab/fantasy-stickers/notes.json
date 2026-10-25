@@ -1,0 +1,48 @@
+{
+  "slug": "fantasy-stickers",
+  "name": "Fantasy: Storybook Stickers",
+  "tagline": "A fairy-tale scrapbook of die-cut stickers, where the code shines in a gold-foil magic mirror and the Wolf's mirror cracks.",
+  "palette": [
+    { "name": "Toned paper (ground)", "hex": "#eadfc7" },
+    { "name": "Sticker cream", "hex": "#f8f0de" },
+    { "name": "Die-cut white", "hex": "#fffaf0" },
+    { "name": "Ink", "hex": "#2e2421" },
+    { "name": "Antique gold", "hex": "#dbb35e" },
+    { "name": "Gold text", "hex": "#75561f" },
+    { "name": "Mirror night", "hex": "#263a55" },
+    { "name": "Powder blue", "hex": "#a3c3d8" },
+    { "name": "Silver glass", "hex": "#e4edf1" },
+    { "name": "Sage", "hex": "#a8bc8b" },
+    { "name": "Raspberry", "hex": "#c04f66" },
+    { "name": "Raspberry deep", "hex": "#963248" },
+    { "name": "Burgundy", "hex": "#6e2338" }
+  ],
+  "fonts": {
+    "display": "Fraunces (SOFT 100, opsz 144) for titles, die-cut sticker lettering and the gold-foil code; Fraunces italic for the storyteller's voice",
+    "body": "Figtree 500-700 for answers and body copy",
+    "ui": "Figtree 700-800 for buttons, chips and labels"
+  },
+  "motifs": [
+    "Every token, frame and card is a die-cut sticker: warm white border, soft shadow, slight tilt, one peeled corner",
+    "Room code in embossed gold-foil lettering inside a deep-night magic mirror",
+    "The Wolf peeks out from behind a tree sticker, eyeing the mirror",
+    "Settings on a parchment scroll, the clock tower as the countdown, Village Heroes on a calling card",
+    "A tone-on-tone fairy-tale realm (hills, castle, clock tower) printed faintly on the page"
+  ],
+  "reveal": "Two identical gold mirrors hold the answers; the real one blazes with a gold glory and sparkles under a 'The real Maya' ribbon, while the fake one cracks, clouds over and shows the Wolf's reflection behind the words, with 'It was the Wolf!' on a burgundy ribbon.",
+  "why": "A slightly toned paper ground keeps glare down while ink, raspberry and gold-on-night give every word at least 5:1 contrast, and the oversized foil code and die-cut stickers read cleanly from across a dim room. The magic mirror turns the game's core question into one instantly readable image: which reflection is real.",
+  "images": [
+    "art/mirror-tall.svg",
+    "art/mirror-wide.svg",
+    "art/crest.svg",
+    "art/cracks-wide.svg",
+    "art/cracks-phone.svg",
+    "art/seal.svg",
+    "art/corner.svg",
+    "art/flourish.svg",
+    "art/realm.svg",
+    "art/realm-phone.svg",
+    "art/paper.svg",
+    "../_fantasy/icons/*.svg (shared kit)"
+  ]
+}

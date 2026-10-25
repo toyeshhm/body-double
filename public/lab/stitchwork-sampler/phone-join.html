@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Body Double · Join (Heirloom Sampler)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .title1 { left: 25px; top: 104px; }
+  .title2 { left: 25px; top: 150px; }
+  .t-heart { left: 268px; top: 158px; }
+
+  .name-l { left: 30px; top: 214px; }
+  .field { left: 30px; top: 236px; width: 330px; height: 58px; display: flex; align-items: center; padding: 0 22px; --run-inset: 6px; --run-w: 8px; }
+  .field span { font-size: 23px; font-weight: 600; }
+  .field i { width: 2px; height: 28px; background: var(--madder); margin-left: 2px; }
+
+  .av-l { left: 30px; top: 310px; }
+  .avatars { left: 30px; top: 338px; width: 330px; display: grid; grid-template-columns: repeat(6, 51px); justify-content: space-between; row-gap: 5px; }
+  .av { width: 51px; height: 51px; display: grid; place-items: center; font-size: 27px; border: 0; padding: 0; cursor: pointer;
+    background: var(--linen-clean) url(art/linen-clean.jpg); box-shadow: var(--basted); position: relative; }
+  .av.on { background: var(--linen-clean) url(art/linen-clean.jpg); }
+  .av.on::before { content: ""; position: absolute; inset: -4px; border: 6px solid transparent; border-image: url(art/tile-madder-5.svg) 10 round; }
+  .av.on::after { content: ""; position: absolute; right: -9px; top: -11px; width: 22px; height: 20px; z-index: 2; background: url(art/heart-4.svg) center / contain no-repeat; }
+
+  .role-l { left: 30px; top: 512px; }
+  .roles { left: 30px; top: 534px; width: 330px; display: grid; grid-template-columns: repeat(3, 104px); justify-content: space-between; row-gap: 9px; }
+  .role { height: 48px; border: 0; cursor: pointer; font: 600 17px/1 var(--sans); color: var(--brown);
+    background: var(--linen-clean) url(art/linen-clean.jpg); box-shadow: var(--basted); position: relative; }
+
+  .role.on { color: #fff7e8; font-weight: 700; background: var(--indigo) url(art/tile-indigo-5.svg) 0 0 / 40px 40px;
+    text-shadow: 0 1px 1px rgba(10, 15, 40, .9), 0 0 4px rgba(10, 15, 40, .9); }
+  .role.on::after { content: ""; position: absolute; inset: 4px; border: 7px solid transparent; border-image: url(art/run-ecru.svg) 14 round; }
+
+  .go { top: 650px; }
+  .note { left: 34px; right: 34px; top: 726px; text-wrap: balance; }
+</style>
+</head>
+<body class="phone">
+<img class="frame" src="art/frame-phone.svg" alt="">
+
+<header class="head">
+  <img src="art/brand-phone.svg" alt="Body Double">
+  <img src="art/code-hxqr-phone.svg" alt="Village HXQR">
+</header>
+
+<h1><img class="st title1" src="art/enter-1.svg" alt="Enter the village"><img class="st title2" src="art/enter-2.svg" alt=""></h1>
+<img class="st t-heart" src="art/heart-4.svg" alt="">
+
+<label class="abs lbl-sm name-l" for="nm">Your name</label>
+<div class="abs field patch" id="nm"><span>Maya</span><i></i></div>
+
+<p class="abs lbl-sm av-l">Pick your villager</p>
+<div class="abs avatars">
+  <button class="av">🦊</button><button class="av on" aria-pressed="true">🦉</button><button class="av">🐸</button><button class="av">🐻</button><button class="av">🦔</button><button class="av">🐰</button>
+  <button class="av">🦌</button><button class="av">🐿️</button><button class="av">🍄</button><button class="av">🌻</button><button class="av">🍎</button><button class="av">🍓</button>
+  <button class="av">🧁</button><button class="av">🫖</button><button class="av">🕯️</button><button class="av">🌙</button>
+</div>
+
+<p class="abs lbl-sm role-l">Your role</p>
+<div class="abs roles">
+  <button class="role">woodcutter</button><button class="role">baker</button><button class="role on" aria-pressed="true">bard</button>
+  <button class="role">knight</button><button class="role">witch</button><button class="role">fairy</button>
+</div>
+
+<button class="btn go"><span class="lbl">Enter the village</span></button>
+<p class="abs fine note">18+ only. Everything is deleted when the game ends.</p>
+</body>
+</html>

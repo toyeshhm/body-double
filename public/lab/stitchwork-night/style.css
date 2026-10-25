@@ -1,0 +1,158 @@
+/* Stitchwork: Night Quilt. A whole-cloth quilt made for a night in the woods.
+   Ground: midnight indigo cotton, quilted in cream. Highlights: gold and copper thread. Warmth: lantern felt. */
+:root {
+  --night: #10152e;
+  --indigo: #1b2350;
+  --indigo-2: #27306a;
+  --slate: #3a4372;
+  --charcoal: #2a2a34;
+  --cream: #efe6cf;
+  --muslin: #efe5cc;
+  --ink: #131931;
+  --ink-soft: #3f4566;
+  --gold: #d6a443;
+  --gold-hi: #f7dc8e;
+  --gold-lo: #8a6118;
+  --copper: #c2703f;
+  --lantern: #f2b632;
+  --wine: #8e1f31;
+
+  --display: "Fraunces", Georgia, serif;
+  --sans: "Figtree", system-ui, sans-serif;
+  --lift: 0 2px 0 rgba(0, 0, 0, .35), 0 16px 28px rgba(2, 3, 10, .55);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow: hidden; }
+body {
+  position: relative;
+  font-family: var(--sans);
+  color: var(--cream);
+  background:
+    radial-gradient(ellipse 60% 70% at var(--moon-x, 85%) var(--moon-y, 12%), rgba(120, 140, 230, .16), transparent 70%),
+    url(art/cotton.png) 0 0 / 300px,
+    var(--night);
+  background-blend-mode: normal, overlay, normal;
+  -webkit-font-smoothing: antialiased;
+}
+.host { width: 1440px; height: 900px; }
+.phone { width: 390px; height: 844px; }
+.abs { position: absolute; }
+.defs { position: absolute; width: 0; height: 0; }
+.full { position: absolute; left: 0; top: 0; pointer-events: none; }
+.quilt { z-index: 1; }
+.binding { z-index: 60; }
+.display { font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 0; }
+
+/* ---------- materials: one neutral fibre tile, coloured underneath ---------- */
+.felt { background-image: url(art/felt.png); background-size: 420px; background-blend-mode: overlay; }
+.felt.lantern { background-color: var(--lantern); }
+.felt.indigo { background-color: var(--indigo-2); }
+.felt.night { background-color: #161c40; }
+.felt.charcoal { background-color: var(--charcoal); }
+.felt.cream { background-color: #eadfc4; }
+.felt.wine { background-color: var(--wine); }
+.felt.copper { background-color: var(--copper); }
+.muslin { background: url(art/cotton.png) 0 0 / 300px, var(--muslin); background-blend-mode: hard-light; }
+.velvet {
+  background:
+    radial-gradient(ellipse 70% 80% at 38% 30%, rgba(90, 108, 200, .30), transparent 70%),
+    radial-gradient(ellipse 60% 60% at 80% 90%, rgba(0, 0, 0, .35), transparent 70%),
+    url(art/felt.png) 0 0 / 420px,
+    #151b40;
+  background-blend-mode: normal, normal, soft-light, normal;
+}
+
+/* ---------- stitched edges: 9-slice thread tiles ---------- */
+:where(.st) { position: relative; }
+.st::after {
+  content: ""; position: absolute; pointer-events: none; z-index: 3;
+  inset: var(--si, 7px);
+  border: var(--sw, 12px) solid transparent;
+  border-image: var(--sti, url(art/run-cream.svg)) 16 round;
+}
+.st-gold { --sti: url(art/run-gold.svg); }
+.st-indigo { --sti: url(art/run-indigo.svg); }
+.st-cream { --sti: url(art/run-cream.svg); }
+
+/* ---------- answer labels: cotton labels quilted onto the night (identical for A and B) ---------- */
+.label {
+  position: relative;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -2px 0 rgba(120, 100, 60, .18), var(--lift);
+  --sti: url(art/run-indigo.svg); --si: 8px; --sw: 12px;
+}
+.label .tab {
+  position: absolute; z-index: 4; top: -7px;
+  display: grid; place-items: center;
+  font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 800; color: var(--gold-hi);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .3);
+}
+.label .tab::after {
+  content: ""; position: absolute; inset: 0 5px 8px; border: 1.6px dashed rgba(247, 220, 142, .8); border-top: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+}
+.answer { font-family: var(--sans); font-weight: 650; color: var(--ink); text-wrap: pretty; }
+
+/* ---------- lantern-felt buttons ---------- */
+.btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  min-height: 56px; padding: 0 34px;
+  border: 0; border-radius: 10px; cursor: pointer;
+  font-family: var(--sans); font-weight: 800; color: var(--ink); letter-spacing: .005em;
+  background-color: var(--lantern); background-image: url(art/felt.png); background-size: 420px; background-blend-mode: overlay;
+  box-shadow: 0 4px 0 #8f5a0a, 0 16px 26px rgba(2, 3, 10, .5), 0 0 60px rgba(242, 182, 50, .28);
+  --sti: url(art/run-indigo.svg); --si: 6px; --sw: 11px;
+}
+.btn .ico { width: 30px; height: 30px; flex: none; }
+
+/* ---------- emoji avatar on a cream felt coin ---------- */
+.coin {
+  position: relative; display: inline-grid; place-items: center; flex: none;
+  border-radius: 50%;
+  background: #eadfc4 url(art/felt.png) 0 0 / 420px; background-blend-mode: overlay;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .35), 0 6px 10px rgba(0, 0, 0, .3);
+}
+.coin::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; border: 1.6px dashed var(--gold-lo); }
+
+/* charcoal felt pill: voters, heroes */
+.pill {
+  display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
+  border-radius: 999px; padding: 0 20px 0 6px;
+  background-color: #23283f; background-image: url(art/felt.png); background-size: 420px; background-blend-mode: overlay;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .4), 0 10px 16px rgba(2, 3, 10, .45);
+  color: var(--cream); font-weight: 750;
+  position: relative;
+}
+.pill::after { content: ""; position: absolute; inset: 4px; border-radius: 999px; border: 1.8px dashed rgba(214, 164, 67, .75); pointer-events: none; }
+
+/* metallic thread text (inline svg) */
+.satin-text { font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 0; font-weight: 800; }
+
+/* ---------- motion ---------- */
+@keyframes glint { 0%, 100% { opacity: .2; transform: scale(.6) rotate(0deg); } 50% { opacity: 1; transform: scale(1.1) rotate(20deg); } }
+@keyframes breathe { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+@keyframes sway { 0%, 100% { transform: rotate(var(--sw0, -1.5deg)); } 50% { transform: rotate(var(--sw1, 1.5deg)); } }
+@keyframes drop { 0% { transform: var(--from); } 70% { transform: var(--over); } 100% { transform: var(--to); } }
+@keyframes award { 0% { transform: scale(.3) rotate(-40deg); opacity: 0; } 70% { transform: scale(1.06) rotate(10deg); opacity: 1; } 100% { transform: scale(1) rotate(var(--rr, 6deg)); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+/* ---------- phone shell ---------- */
+.phone .inner { position: absolute; inset: 0; padding: 26px 24px 24px; z-index: 5; display: flex; flex-direction: column; }
+.phone .top { display: flex; align-items: center; justify-content: space-between; height: 46px; flex: none; }
+.brandmark { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-style: italic; font-weight: 600; font-size: 19px; color: var(--cream); font-variation-settings: "SOFT" 100; }
+.brandmark img { width: 22px; height: 22px; }
+.code-tab {
+  display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 14px; border-radius: 8px;
+  font-size: 13px; font-weight: 700; color: var(--cream); letter-spacing: .02em;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .4), 0 8px 14px rgba(2, 3, 10, .45);
+  --sti: url(art/run-gold.svg); --si: 4px; --sw: 10px;
+}
+.code-tab b { font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 800; font-size: 24px; color: var(--gold-hi); letter-spacing: .08em; }
+.p-h { font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 0; font-weight: 800; color: var(--cream); line-height: 1.04; letter-spacing: -.01em; }
+.p-h em { font-style: italic; font-weight: 600; color: var(--gold-hi); }
+.p-label { font-size: 15px; font-weight: 750; color: var(--gold-hi); margin: 0 0 9px 2px; letter-spacing: .01em; }
+.phone .btn { width: 100%; min-height: 60px; font-size: 21px; }
+.fineprint { font-size: 14px; font-weight: 600; color: #c9c3b3; line-height: 1.4; text-align: center; }

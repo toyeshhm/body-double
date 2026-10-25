@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Body Double · Enter the village</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .join { top: 64px; bottom: 10px;
+    background: url(art/paper.png) center / cover, radial-gradient(120% 70% at 78% 4%, var(--hot) 0%, #FDE3AE 30%, #F6BA6C 70%, #E08848 100%);
+    background-blend-mode: multiply; }
+  .join .lantern { right: 18px; top: -40px; width: 50px; }
+  .join .lantern::before { left: -160%; right: -160%; }
+  .join h1 { font-size: 31px; }
+  .join .lede { margin-top: 2px; font: italic 500 17px/1.3 var(--display); color: var(--ink); }
+  .join section { margin-top: 20px; }
+  .join .go { margin-top: 22px; }
+  .join .note { margin-top: 12px; font: 400 15px/1.4 var(--sans); color: var(--ink); text-align: center; text-wrap: balance; }
+</style>
+</head>
+<body>
+<main class="stage stage--phone phone">
+  <div class="backdrop"></div>
+  <div class="falloff"></div>
+
+  <header class="topbar">
+    <span class="brand display">Body Double</span>
+    <span class="codechip">HXQR</span>
+  </header>
+
+  <form class="screen panel join" onsubmit="return false">
+    <div class="lantern"><img src="art/lantern.svg" alt=""></div>
+    <h1 class="display">Enter the village</h1>
+    <p class="lede">The Wolf is listening.</p>
+
+    <section>
+      <label class="label" for="name">Your name</label>
+      <div class="field" id="name">Maya<i class="caret"></i></div>
+    </section>
+
+    <section>
+      <span class="label">Choose your shadow</span>
+      <div class="shadows">
+        <button type="button" aria-label="Fox"><span class="sil">🦊</span></button>
+        <button type="button" aria-label="Owl" aria-pressed="true"><span class="sil">🦉</span></button>
+        <button type="button" aria-label="Frog"><span class="sil">🐸</span></button>
+        <button type="button" aria-label="Bear"><span class="sil">🐻</span></button>
+        <button type="button" aria-label="Hedgehog"><span class="sil">🦔</span></button>
+        <button type="button" aria-label="Rabbit"><span class="sil">🐰</span></button>
+        <button type="button" aria-label="Deer"><span class="sil">🦌</span></button>
+        <button type="button" aria-label="Chipmunk"><span class="sil">🐿️</span></button>
+        <button type="button" aria-label="Mushroom"><span class="sil">🍄</span></button>
+        <button type="button" aria-label="Sunflower"><span class="sil">🌻</span></button>
+        <button type="button" aria-label="Apple"><span class="sil">🍎</span></button>
+        <button type="button" aria-label="Strawberry"><span class="sil">🍓</span></button>
+        <button type="button" aria-label="Cupcake"><span class="sil">🧁</span></button>
+        <button type="button" aria-label="Teapot"><span class="sil">🫖</span></button>
+        <button type="button" aria-label="Candle"><span class="sil">🕯️</span></button>
+        <button type="button" aria-label="Moon"><span class="sil">🌙</span></button>
+      </div>
+    </section>
+
+    <section>
+      <span class="label">Choose your role</span>
+      <div class="roles">
+        <button type="button">woodcutter</button>
+        <button type="button">baker</button>
+        <button type="button" aria-pressed="true">bard</button>
+        <button type="button">knight</button>
+        <button type="button">witch</button>
+        <button type="button">fairy</button>
+      </div>
+    </section>
+
+    <button class="ticket ticket--ink go" type="submit"><span>Enter the village</span></button>
+    <p class="note">18+ only. Everything is deleted when the game ends.</p>
+  </form>
+
+  <div class="grain"></div>
+</main>
+</body>
+</html>

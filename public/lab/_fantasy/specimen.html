@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Fairy-tale icon kit</title>
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..800,50;1,9..144,400..700,50&family=Figtree:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --ground:#efe5d1; --ink:#2e2421; --muted:#6f5d4e; --gold:#b88d40; }
+* { box-sizing:border-box; margin:0; }
+html,body { width:1440px; height:900px; overflow:hidden; }
+body { background:var(--ground); color:var(--ink); font-family:Figtree,system-ui,sans-serif; position:relative; }
+body::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.55; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .36 0 0 0 0 .25 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"); }
+header { position:absolute; left:64px; top:40px; right:64px; display:flex; align-items:baseline; gap:28px; }
+h1 { font-family:Fraunces,serif; font-weight:650; font-size:46px; letter-spacing:-.01em; font-variation-settings:"SOFT" 50, "opsz" 144; }
+h1 em { font-style:italic; font-weight:500; color:var(--gold); }
+header p { font-size:17px; color:var(--muted); font-weight:600; }
+h2 { font-family:Fraunces,serif; font-style:italic; font-weight:600; font-size:24px; color:var(--muted); margin:0 0 6px 6px; }
+.grid { display:grid; justify-items:center; }
+.av { position:absolute; left:52px; top:118px; width:1336px; }
+.av .grid { grid-template-columns:repeat(8, 1fr); row-gap:8px; }
+.ui { position:absolute; left:52px; top:486px; width:1336px; }
+.ui .grid { grid-template-columns:repeat(12, 1fr); }
+.ui .st { width:110px; }
+.ui figcaption b { font-size:14px; white-space:nowrap; }
+.st { display:flex; flex-direction:column; align-items:center; gap:6px; width:150px; }
+.st img { display:block; filter:url(#diecut); }
+.av .st:nth-child(3n+1) img { transform:rotate(-3deg); }
+.av .st:nth-child(3n+2) img { transform:rotate(2deg); }
+.ui .st:nth-child(odd) img { transform:rotate(2deg); }
+.ui .st:nth-child(4n) img { transform:rotate(-2.5deg); }
+figcaption { display:flex; flex-direction:column; align-items:center; line-height:1.15; }
+figcaption b { font-family:Fraunces,serif; font-weight:600; font-size:17px; }
+figcaption code { font-family:Figtree,sans-serif; font-size:12.5px; color:var(--muted); font-weight:600; }
+.pal { position:absolute; left:58px; top:676px; width:880px; }
+.pal ul { list-style:none; padding:0; display:grid; grid-template-columns:repeat(5, 1fr); gap:8px 12px; }
+.mini { position:absolute; left:974px; top:676px; width:420px; }
+.pal li { display:flex; align-items:center; gap:9px; font-size:13px; font-weight:600; }
+.pal li i { width:26px; height:26px; border-radius:50%; border:3px solid #fffdf7; box-shadow:0 1px 3px rgba(70,48,28,.3); flex:none; }
+.pal li span { display:flex; flex-direction:column; line-height:1.1; }
+.pal li code { font-family:Figtree,sans-serif; color:var(--muted); font-size:11.5px; }
+.small { display:grid; grid-template-columns:repeat(8, 48px); gap:10px 4px; }
+.small img { filter:url(#diecut-sm); }
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="diecut" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="2.4" result="b1"/>
+    <feComponentTransfer in="b1" result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffdf7" result="white"/><feComposite in="white" in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="3.2" result="sb"/><feOffset in="sb" dx="1.5" dy="4" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".30"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="diecut-sm" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="2" result="d1"/>
+    <feGaussianBlur in="d1" stdDeviation="1" result="b1"/>
+    <feComponentTransfer in="b1" result="cut"><feFuncA type="linear" slope="9" intercept="-2.2"/></feComponentTransfer>
+    <feFlood flood-color="#fffdf7"/><feComposite in2="cut" operator="in" result="border"/>
+    <feGaussianBlur in="cut" stdDeviation="1.4" result="sb"/><feOffset in="sb" dx=".6" dy="1.6" result="so"/>
+    <feFlood flood-color="#4a3220" flood-opacity=".3"/><feComposite in2="so" operator="in" result="shadow"/>
+    <feMerge><feMergeNode in="shadow"/><feMergeNode in="border"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</svg>
+<header><h1>Fairy-tale <em>icon kit</em></h1><p>16 avatar tokens and 12 story icons. Flat fills, top-left light, one highlight each. 256 px viewBox.</p></header>
+<section class="av"><h2>Avatar tokens</h2><div class="grid"><figure class="st"><img src="icons/potion.svg" alt="" width="104" height="104"><figcaption><b>Potion</b><code>potion</code></figcaption></figure><figure class="st"><img src="icons/eat-me.svg" alt="" width="104" height="104"><figcaption><b>Eat Me Cake</b><code>eat-me</code></figcaption></figure><figure class="st"><img src="icons/lamp.svg" alt="" width="104" height="104"><figcaption><b>Wishing Lamp</b><code>lamp</code></figcaption></figure><figure class="st"><img src="icons/slipper.svg" alt="" width="104" height="104"><figcaption><b>Glass Slipper</b><code>slipper</code></figcaption></figure><figure class="st"><img src="icons/mirror.svg" alt="" width="104" height="104"><figcaption><b>Magic Mirror</b><code>mirror</code></figcaption></figure><figure class="st"><img src="icons/tree.svg" alt="" width="104" height="104"><figcaption><b>Enchanted Tree</b><code>tree</code></figcaption></figure><figure class="st"><img src="icons/apple.svg" alt="" width="104" height="104"><figcaption><b>Poison Apple</b><code>apple</code></figcaption></figure><figure class="st"><img src="icons/spindle.svg" alt="" width="104" height="104"><figcaption><b>Spindle</b><code>spindle</code></figcaption></figure><figure class="st"><img src="icons/frog-prince.svg" alt="" width="104" height="104"><figcaption><b>Frog Prince</b><code>frog-prince</code></figcaption></figure><figure class="st"><img src="icons/pumpkin.svg" alt="" width="104" height="104"><figcaption><b>Pumpkin</b><code>pumpkin</code></figcaption></figure><figure class="st"><img src="icons/golden-egg.svg" alt="" width="104" height="104"><figcaption><b>Golden Egg</b><code>golden-egg</code></figcaption></figure><figure class="st"><img src="icons/beanstalk.svg" alt="" width="104" height="104"><figcaption><b>Beanstalk</b><code>beanstalk</code></figcaption></figure><figure class="st"><img src="icons/crystal-ball.svg" alt="" width="104" height="104"><figcaption><b>Crystal Ball</b><code>crystal-ball</code></figcaption></figure><figure class="st"><img src="icons/red-hood.svg" alt="" width="104" height="104"><figcaption><b>Red Hood</b><code>red-hood</code></figcaption></figure><figure class="st"><img src="icons/wand.svg" alt="" width="104" height="104"><figcaption><b>Wand</b><code>wand</code></figcaption></figure><figure class="st"><img src="icons/key.svg" alt="" width="104" height="104"><figcaption><b>Golden Key</b><code>key</code></figcaption></figure></div></section>
+<section class="ui"><h2>Story and UI icons</h2><div class="grid"><figure class="st"><img src="icons/wolf.svg" alt="" width="84" height="84"><figcaption><b>The Wolf</b><code>wolf</code></figcaption></figure><figure class="st"><img src="icons/clock-tower.svg" alt="" width="84" height="84"><figcaption><b>Clock Tower</b><code>clock-tower</code></figcaption></figure><figure class="st"><img src="icons/castle.svg" alt="" width="84" height="84"><figcaption><b>Castle</b><code>castle</code></figcaption></figure><figure class="st"><img src="icons/scroll.svg" alt="" width="84" height="84"><figcaption><b>Scroll</b><code>scroll</code></figcaption></figure><figure class="st"><img src="icons/quill.svg" alt="" width="84" height="84"><figcaption><b>Quill</b><code>quill</code></figcaption></figure><figure class="st"><img src="icons/map.svg" alt="" width="84" height="84"><figcaption><b>Map</b><code>map</code></figcaption></figure><figure class="st"><img src="icons/crown.svg" alt="" width="84" height="84"><figcaption><b>Crown</b><code>crown</code></figcaption></figure><figure class="st"><img src="icons/lantern.svg" alt="" width="84" height="84"><figcaption><b>Lantern</b><code>lantern</code></figcaption></figure><figure class="st"><img src="icons/cottage.svg" alt="" width="84" height="84"><figcaption><b>Cottage</b><code>cottage</code></figcaption></figure><figure class="st"><img src="icons/storybook.svg" alt="" width="84" height="84"><figcaption><b>Storybook</b><code>storybook</code></figcaption></figure><figure class="st"><img src="icons/sparkles.svg" alt="" width="84" height="84"><figcaption><b>Sparkles</b><code>sparkles</code></figcaption></figure><figure class="st"><img src="icons/cracked-mirror.svg" alt="" width="84" height="84"><figcaption><b>Cracked Mirror</b><code>cracked-mirror</code></figcaption></figure></div></section>
+<section class="pal"><h2>Palette</h2><ul><li><i style="background:#2e2421"></i><span>Ink (brown-black)<code>#2e2421</code></span></li><li><i style="background:#f8f0de"></i><span>Cream<code>#f8f0de</code></span></li><li><i style="background:#f0dfb9"></i><span>Parchment<code>#f0dfb9</code></span></li><li><i style="background:#d2e3ec"></i><span>Powder blue light<code>#d2e3ec</code></span></li><li><i style="background:#a3c3d8"></i><span>Powder blue<code>#a3c3d8</code></span></li><li><i style="background:#7a9fbd"></i><span>Powder blue shade<code>#7a9fbd</code></span></li><li><i style="background:#56789a"></i><span>Powder blue deep<code>#56789a</code></span></li><li><i style="background:#f2db94"></i><span>Antique gold light<code>#f2db94</code></span></li><li><i style="background:#dbb35e"></i><span>Antique gold<code>#dbb35e</code></span></li><li><i style="background:#b88d40"></i><span>Antique gold shade<code>#b88d40</code></span></li><li><i style="background:#8e6a2f"></i><span>Antique gold deep<code>#8e6a2f</code></span></li><li><i style="background:#a8bc8b"></i><span>Sage<code>#a8bc8b</code></span></li><li><i style="background:#83a06c"></i><span>Sage shade<code>#83a06c</code></span></li><li><i style="background:#768845"></i><span>Olive<code>#768845</code></span></li><li><i style="background:#45522a"></i><span>Olive deep<code>#45522a</code></span></li><li><i style="background:#e6939f"></i><span>Raspberry light<code>#e6939f</code></span></li><li><i style="background:#c04f66"></i><span>Raspberry<code>#c04f66</code></span></li><li><i style="background:#963248"></i><span>Raspberry shade<code>#963248</code></span></li><li><i style="background:#6e2338"></i><span>Burgundy<code>#6e2338</code></span></li><li><i style="background:#de9d58"></i><span>Pumpkin amber<code>#de9d58</code></span></li><li><i style="background:#a57550"></i><span>Wood<code>#a57550</code></span></li><li><i style="background:#7f8898"></i><span>Wolf slate<code>#7f8898</code></span></li></ul></section>
+<section class="mini"><h2>Avatars at 48 px</h2><div class="small"><img src="icons/potion.svg" alt="" width="48" height="48"><img src="icons/eat-me.svg" alt="" width="48" height="48"><img src="icons/lamp.svg" alt="" width="48" height="48"><img src="icons/slipper.svg" alt="" width="48" height="48"><img src="icons/mirror.svg" alt="" width="48" height="48"><img src="icons/tree.svg" alt="" width="48" height="48"><img src="icons/apple.svg" alt="" width="48" height="48"><img src="icons/spindle.svg" alt="" width="48" height="48"><img src="icons/frog-prince.svg" alt="" width="48" height="48"><img src="icons/pumpkin.svg" alt="" width="48" height="48"><img src="icons/golden-egg.svg" alt="" width="48" height="48"><img src="icons/beanstalk.svg" alt="" width="48" height="48"><img src="icons/crystal-ball.svg" alt="" width="48" height="48"><img src="icons/red-hood.svg" alt="" width="48" height="48"><img src="icons/wand.svg" alt="" width="48" height="48"><img src="icons/key.svg" alt="" width="48" height="48"></div></section>
+</body></html>

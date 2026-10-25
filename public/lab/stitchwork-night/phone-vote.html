@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Double · Vote (Stitchwork: Night Quilt)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Figtree:wght@500..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .ask { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 26px; }
+  h1 { font-size: 35px; }
+
+  /* countdown: the seam is unpicked one stitch per second */
+  .dial { position: relative; flex: none; width: 96px; height: 104px; }
+  .dial img { position: absolute; inset: 0; width: 96px; height: 104px; filter: drop-shadow(0 6px 8px rgba(2,3,10,.5)); }
+  .dial .t { position: absolute; left: 0; top: 0; width: 96px; height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+  .dial b { font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 800; font-size: 36px; color: var(--cream); }
+  .dial small { font-size: 13px; font-weight: 700; color: var(--gold-hi); margin-top: 1px; }
+
+  .cards { display: flex; flex-direction: column; gap: 26px; margin-top: 26px; }
+  .label { padding: 38px 24px 30px 30px; min-height: 168px; display: flex; align-items: center; }
+  .label .tab { left: 18px; width: 44px; height: 56px; font-size: 27px; }
+  .label .answer { font-size: 21px; line-height: 1.38; margin-top: 8px; }
+  .card { position: relative; border: 0; background: none; text-align: left; padding: 0; cursor: pointer; font: inherit; }
+  .card-a { transform: rotate(-.7deg); }
+  .card-b { transform: rotate(.7deg); }
+  /* picked: couched in gold cord, lit like a lantern */
+  .card.picked .label { box-shadow: 0 0 0 3px var(--gold), 0 0 0 5px rgba(42, 26, 5, .7), 0 0 34px rgba(242, 182, 50, .35), 0 16px 28px rgba(2,3,10,.55); }
+  .pick-tag { position: absolute; z-index: 6; right: 14px; top: -20px; height: 40px; padding: 0 16px 0 14px; display: flex; align-items: center; gap: 7px;
+    font-size: 16px; font-weight: 800; color: var(--ink); border-radius: 4px; transform: rotate(3deg);
+    box-shadow: 0 2px 0 #8f5a0a, 0 8px 12px rgba(2,3,10,.45); --sti: url(art/run-indigo.svg); --si: 3px; --sw: 8px; }
+  .pick-tag svg { width: 14px; height: 14px; }
+  .pick-tag::before { content: ""; position: absolute; left: -16px; top: 50%; width: 20px; height: 2px; background: var(--gold); transform: rotate(-20deg); }
+
+  .help { margin-top: 26px; text-align: center; font-size: 16px; font-weight: 600; line-height: 1.45; color: #d9d2c0; }
+  .help b { color: var(--gold-hi); font-weight: 750; }
+
+  /* a forest edge appliquéd along the hem */
+  .forest { position: absolute; left: 0; right: 0; bottom: 0; height: 170px; z-index: 4; pointer-events: none; }
+  .forest img { position: absolute; bottom: 0; filter: drop-shadow(0 6px 8px rgba(2,3,10,.6)); }
+  .forest .hood { filter: drop-shadow(0 6px 6px rgba(2,3,10,.6)); }
+</style>
+</head>
+<body class="phone">
+<img class="full quilt" src="art/quilt-phone-vote.svg" width="390" height="844" alt="">
+<div class="forest" aria-hidden="true">
+  <img src="art/pine-night.png" alt="" style="left:6px;width:84px;bottom:-14px">
+  <img src="art/pine-night-sm.png" alt="" style="left:72px;width:58px;bottom:-10px">
+  <img class="hood" src="art/hood.svg" alt="" style="left:168px;width:74px;bottom:6px">
+  <img src="art/pine-night-sm.png" alt="" style="left:280px;width:56px;bottom:-12px">
+  <img src="art/pine-night.png" alt="" style="left:318px;width:78px;bottom:-18px">
+</div>
+<div class="inner">
+  <header class="top">
+    <span class="brandmark"><img src="art/star.svg" alt="">Body Double</span>
+    <span class="code-tab velvet st">Village <b>HXQR</b></span>
+  </header>
+
+  <div class="ask">
+    <h1 class="p-h">Which one is really <em>Maya</em>?</h1>
+    <div class="dial" role="timer" aria-label="14 seconds left">
+      <img src="art/dial-14.svg" alt="">
+      <div class="t"><b>14</b><small>sec</small></div>
+    </div>
+  </div>
+
+  <div class="cards">
+    <button class="card card-a picked" aria-pressed="true">
+      <span class="pick-tag felt lantern st"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 0 L8.4 5.6 L14 7 L8.4 8.4 L7 14 L5.6 8.4 L0 7 L5.6 5.6Z" fill="#131931"/></svg>Your pick</span>
+      <span class="label muslin st"><span class="tab felt indigo">A</span><span class="answer">i will reorganize your spice rack while you shower and call it love</span></span>
+    </button>
+    <button class="card card-b">
+      <span class="label muslin st"><span class="tab felt indigo">B</span><span class="answer">overthinking a text for 40 minutes then just sending 'k' 💀</span></span>
+    </button>
+  </div>
+
+  <p class="help">You can change your pick<br><b>until time runs out.</b></p>
+</div>
+<img class="full binding" src="art/binding-phone.svg" width="390" height="844" alt="">
+</body>
+</html>

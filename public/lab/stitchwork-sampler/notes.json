@@ -1,0 +1,46 @@
+{
+  "slug": "stitchwork-sampler",
+  "name": "Stitchwork: Heirloom Sampler",
+  "tagline": "The village is an antique cross-stitch sampler, and the Wolf's forged signature gets unpicked in front of everyone.",
+  "palette": [
+    { "name": "Oatmeal linen, aged (ground)", "hex": "#d6c7a6" },
+    { "name": "Clean linen (basted patches)", "hex": "#e9dfc8" },
+    { "name": "Madder red thread", "hex": "#a8322a" },
+    { "name": "Madder ink (red text)", "hex": "#93271f" },
+    { "name": "Indigo thread", "hex": "#2b3a67" },
+    { "name": "Ochre thread", "hex": "#c4912f" },
+    { "name": "Moss thread", "hex": "#5f6a2c" },
+    { "name": "Near-black brown thread (body text)", "hex": "#2d1f17" },
+    { "name": "Wolf grey thread", "hex": "#6f6a63" },
+    { "name": "Foxing rust", "hex": "#926238" }
+  ],
+  "fonts": {
+    "display": "No font: every heading, the room code, scores and signatures are cross-stitched by a generator (5x7 sampler alphabet with bold stems, one SVG X per stitch, two thread legs, dye-lot shade, twist and sheen per stitch)",
+    "body": "Instrument Sans 500-700 (answers, body, buttons)",
+    "ui": "Instrument Sans for labels; IM Fell English italic for sampler captions (Village code, Tale settings, roles, knew her)"
+  },
+  "motifs": [
+    "Room code HXQR stitched double-scale in madder inside an indigo and ochre cartouche, 126px tall",
+    "Wolf-tooth border bands (the village sits between the Wolf's jaws) with heart corner blocks",
+    "A story band along the bottom: Red Hood walks through the pines toward the cottage while the grey Wolf slinks behind a tree",
+    "Sampler alphabet and stitched numerals: settings values, villager numbers 1-5, +100, 300, the countdown",
+    "Every answer is signed 'Maya' in stitches, like a sampler's maker's mark"
+  ],
+  "reveal": "The Wolf's forged 'Maya' signature is picked out with a seam ripper, leaving a pale ghost of clean linen, a grid of needle holes and loose indigo thread, while the Wolf is stitched in red over the slip's corner and the real answer is crowned with a stitched laurel wreath under 'The real Maya'.",
+  "why": "Big two-stitch-thick letters in madder and near-black on mid-oatmeal linen read from the back of a dim room, and the ground is warm and textured rather than white, so it doesn't glare. The reveal works without words: everyone knows what an unpicked name means, so the twist lands instantly from 5 m.",
+  "images": [
+    "art/linen-host.jpg",
+    "art/linen-phone.jpg",
+    "art/linen-clean.jpg",
+    "art/frame-host.svg",
+    "art/frame-host-full.svg",
+    "art/frame-phone.svg",
+    "art/code-hxqr.svg",
+    "art/story-band.svg",
+    "art/wolf-red-7.svg",
+    "art/wreath-6.svg",
+    "art/sig-maya-6-ripped.svg",
+    "art/prompt.svg",
+    "art/alphabet.svg"
+  ]
+}

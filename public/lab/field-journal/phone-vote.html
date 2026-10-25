@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Which one is Maya? · Body Double</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..800,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Nanum+Pen+Script&family=Alegreya+Sans:wght@400;500;700;800&display=block" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .chap { position: absolute; left: 24px; top: 86px; font-size: 20px; font-style: italic; font-weight: 500; color: var(--ink-2); }
+  h1 { position: absolute; left: 22px; top: 114px; width: 240px; font-size: 35px; line-height: 1.02; font-style: italic; }
+  .prompt { position: absolute; left: 24px; top: 196px; width: 330px; font-size: 25px; color: var(--sienna-ink); }
+
+  .clock { position: absolute; right: 30px; top: 84px; width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; z-index: 2;
+           background: radial-gradient(circle, var(--sheet) 0 58%, transparent 59%),
+                       conic-gradient(rgba(180,101,42,.62) 0 70%, rgba(214,196,160,.28) 70% 100%);
+           box-shadow: 0 0 0 2.5px var(--ink), 0 4px 10px rgba(40,26,12,.2); }
+  .clock::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
+                   background: url(art/wash-sienna.png) 50% 50% / 400% auto; mix-blend-mode: multiply; opacity: .35;
+                   -webkit-mask: radial-gradient(circle, transparent 0 58%, #000 59%), conic-gradient(#000 0 70%, transparent 70%); -webkit-mask-composite: source-in; }
+  .clock .n { font-family: var(--f-display); font-variation-settings: "SOFT" 100, "WONK" 0; font-weight: 700; font-size: 42px; line-height: 1; margin-top: 8px; }
+  .clock .s { font-family: var(--f-hand); font-size: 20px; color: var(--ink-2); margin-top: -18px; }
+  .clock .knob { position: absolute; top: -13px; left: 50%; width: 18px; height: 12px; margin-left: -9px; background: var(--ink); border-radius: 4px 4px 2px 2px; }
+
+  .answer { position: absolute; left: 22px; width: 340px; height: 164px; padding: 0; }
+  .answer.a { top: 240px; }
+  .answer.b { top: 446px; }
+  .answer .slip { inset: 0; --lh: 34px; --rule-top: 20px; }
+  .answer .letter { left: 14px; top: 16px; width: 40px; height: 40px; font-size: 24px; border-width: 2px; }
+  .answer .txt { position: absolute; left: 66px; right: 18px; top: 20px; font-size: 22px; line-height: 34px; }
+  .answer .slip-tape { left: 128px; top: -12px; width: 86px; height: 26px; }
+
+  .pick-loop { position: absolute; left: -12px; top: -14px; width: 364px; height: 196px; z-index: 6; pointer-events: none; overflow: visible; }
+  .pick-tag { position: absolute; right: -6px; bottom: -22px; z-index: 7; display: flex; align-items: center; gap: 8px;
+              height: 40px; padding: 0 16px 0 28px; background: var(--sap-ink); color: #fbf7ec;
+              font-family: var(--f-ui); font-weight: 800; font-size: 18px; transform: rotate(-4deg);
+              clip-path: polygon(16px 0, 100% 0, 100% 100%, 16px 100%, 0 50%);
+              box-shadow: 0 3px 6px rgba(40,26,12,.25); }
+  .pick-tag::before { content: ""; position: absolute; left: 14px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--paper); }
+
+  .help { position: absolute; left: 24px; right: 32px; top: 640px; text-align: center; font-size: 17px; line-height: 1.35; color: var(--ink-2); }
+
+  .fern { position: absolute; left: 80px; top: 626px; height: 300px; transform: rotate(-78deg); opacity: .92; }
+  .maya { left: 262px; top: 700px; width: 104px; padding: 7px 7px 0; transform: rotate(6deg); }
+  .maya .win { height: 70px; background-position: 22% 40%; }
+  .maya .emo { font-size: 40px; }
+  .maya .nm { font-size: 20px; padding-top: 6px; }
+  .maya .rl { font-size: 19px; padding-bottom: 7px; }
+  .maya .tape { width: 60px; height: 20px; top: -10px; left: 22px; }
+  .maya-q { position: absolute; left: 56px; top: 690px; font-size: 26px; color: var(--ink); transform: rotate(-5deg); z-index: 3; }
+</style>
+</head>
+<body class="phone desk">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="deckle" x="-3%" y="-3%" width="106%" height="106%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="3" seed="5" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="3" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.2 1.4" result="ga"/>
+    <feComposite in="SourceGraphic" in2="ga" operator="in"/>
+  </filter>
+</svg>
+<main class="leaf paper">
+  <header class="p-head">
+    <div class="brand display">Body <em>Double</em></div>
+    <div class="codechip"><div class="tape green"></div><span class="hand">village</span><b>HXQR</b></div>
+  </header>
+
+  <p class="chap display">Chapter III of VI</p>
+  <h1 class="display">Which one is really Maya?</h1>
+  <div class="clock" role="timer" aria-label="14 seconds left"><span class="knob"></span><span class="n">14</span><span class="s hand">seconds</span></div>
+  <p class="prompt hand">"your toxic trait, but make it cute"</p>
+
+  <button class="answer a slot-a" aria-pressed="true" style="border:0;background:none;text-align:left">
+    <div class="slip"></div>
+    <div class="tape ochre slip-tape"></div>
+    <div class="letter">A</div>
+    <p class="txt">i will reorganize your spice rack while you shower and call it love</p>
+    <svg class="pick-loop" viewBox="0 0 364 196" aria-hidden="true">
+      <path filter="url(#pencil)" d="M30 22 C 120 4, 270 2, 344 18 C 362 40, 362 150, 346 178 C 250 194, 100 194, 22 182 C 4 150, 2 60, 22 26 C 40 10, 90 6, 120 8" fill="none" stroke="#3a5c22" stroke-width="3.5" stroke-linecap="round"/>
+    </svg>
+    <span class="pick-tag">Your pick ✓</span>
+  </button>
+
+  <button class="answer b slot-b" aria-pressed="false" style="border:0;background:none;text-align:left">
+    <div class="slip"></div>
+    <div class="tape ochre slip-tape"></div>
+    <div class="letter">B</div>
+    <p class="txt">overthinking a text for 40 minutes then just sending 'k' 💀</p>
+  </button>
+
+  <p class="help">You can change your pick until time runs out.</p>
+
+  <img class="fern" src="art/fern-small.svg" alt="">
+  <p class="maya-q hand">is it you, Maya? →</p>
+  <figure class="polaroid maya"><div class="tape indigo"></div><div class="win w-indigo"><span class="emo">🦉</span></div><figcaption><div class="nm">Maya</div><div class="rl">the bard</div></figcaption></figure>
+</main>
+</body>
+</html>
