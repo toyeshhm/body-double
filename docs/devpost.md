@@ -69,7 +69,7 @@ Each model falls back to the other, and if both are down the game still plays wi
 ## What's next
 
 - Real places in the quests: attach a nearby venue, hours and a calendar invite to each plan.
-- Remote play for friends in different cities.
+- A no-TV mode: friends already join from anywhere, but the map, notebook and quests only show on the host's screen. Putting those moments on every phone would make it work without a shared screen or a screen share.
 
 ## Built with
 
