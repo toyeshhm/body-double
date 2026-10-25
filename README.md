@@ -15,8 +15,9 @@ Built at HackTX 2026.
 5. **Reveal and tells.** The mirror shows the truth. Players who spotted the Wolf say what gave it away ("too many commas"). The Wolf remembers, and avoids it next time.
 6. **The Wolf gets smarter.** From chapter 3 it goes after whoever the room knows least. From chapter 4 it also sees the room's answers and the tells that caught it.
 7. **The forest map.** Every vote is a data point about who knows whom. The map draws it.
-8. **Quests.** The Wolf turns what it learned into real plans: one for each pair who barely know each other, built on things they actually wrote, plus a group plan with an illustrated poster.
-9. **The tale.** A recap story, village heroes, and a picture to save. Then the book closes and every answer is deleted.
+8. **The Wolf's notebook.** The Wolf shows its first fake next to its last one, with what it knew each time and how many it fooled, then reads its notes on each villager: interests, humor, slang, how they type, and the tell that caught it. Each phone shows only its owner's page.
+9. **Quests.** The Wolf turns what it learned into real plans: one for each pair who barely know each other, built on things they actually wrote, plus a group plan with an illustrated poster.
+10. **The tale.** A recap story, village heroes, and a picture to save. Then the book closes and every answer is deleted.
 
 ## Where the AI is
 

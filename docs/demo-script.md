@@ -4,9 +4,9 @@ Meta's rubric, and where the video earns each part:
 
 | Criterion | Weight | Shown at |
 |---|---|---|
-| Human Connection | 30% | 1:45 map and quests, 2:25 ending line |
-| AI Centrality | 25% | 0:40 mirror, 1:10 the Wolf adapting, 1:30 curve |
-| Originality | 20% | 0:00 hook, 1:45 quests |
+| Human Connection | 30% | 1:30 map, 2:05 quests, 2:20 ending line |
+| AI Centrality | 25% | 0:40 mirror, 1:10 the Wolf adapting, 1:45 notebook, 2:32 curve |
+| Originality | 20% | 0:00 hook, 1:45 notebook, 2:05 quests |
 | Execution & Demo | 25% | the whole video runs on the live site with real phones |
 
 ## Before recording
@@ -42,19 +42,24 @@ Meta's rubric, and where the video earns each part:
 - Next chapter's intro: "The Wolf noticed nobody really knows ___ yet."
 > "When you catch it, you tell it why. It remembers. By chapter three it goes after whoever this group knows least."
 
-**1:30 to 1:45: the curve** (landing page or recap, Wolf curve)
-> "Every vote is logged anonymously on Tiger Data. Across every game tonight, the Wolf fooled people X% of the time in chapter one and Y% by chapter six. It's learning."
-- Read the real numbers off the chart.
+**1:30 to 1:45: the forest map** (host)
+- Lines between people who know each other's voice.
+> "Every vote also says who knows whom. Here's the village's map."
 
-**1:45 to 2:15: the payoff** (host: forest map, then quests)
-- Forest map: lines between people who know each other's voice.
-- Quests: a pair plan with its quoted evidence, then the group plan and poster.
-> "Every vote also says who knows whom. So the Wolf ends the night by planning real hangouts for the pairs who barely know each other, built on things they actually wrote."
+**1:45 to 2:05: the notebook** (host, right after the map)
+- The Wolf's first fake beside its last: "It knew only the warmup answers" vs "It knew every earlier answer and their style", and the fooled counts under the headline.
+- Its notes on each villager, and the tell that caught it.
+> "Then the Wolf opens its notebook: its first fake next to its last, and what it learned about each of you. It got better."
 
-**2:15 to 2:30: the tale and the privacy promise** (host recap, then "The End")
+**2:05 to 2:20: quests** (host)
+- A pair plan with its quoted evidence, then the group plan and poster.
+> "So it ends the night by planning real hangouts for the pairs who barely know each other, built on things they actually wrote."
+
+**2:20 to 2:32: the tale and the privacy promise** (host recap, then "The End")
 > "A story of the night, a picture to save, and then the book closes and every answer is deleted."
 
-**2:30 to 2:45: how it's built** (one slide or the README's AI table)
+**2:32 to 2:45: how it's built** (recap's Wolf curve, then one slide or the README's AI table)
+> "Every vote is logged anonymously on Tiger Data, so across every game tonight you can watch the Wolf's fooled rate climb by chapter." (Read the real numbers off the curve.)
 > "Muse writes the Wolf and plans the quests. Gemini moderates and learns each player's style. Tiger Data tracks whether the Wolf is getting smarter. It all runs on Vercel."
 > "Body Double. Come for the game, leave with a plan."
 

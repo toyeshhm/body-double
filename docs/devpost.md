@@ -24,6 +24,7 @@ Body Double is a storybook party game for a room of friends (best with 4 to 10):
 - **Each chapter, it wears someone's words.** A question goes up. Everyone answers, by typing or speaking. The Wolf writes a fake answer in one player's voice, and the magic mirror shows both side by side. Everyone else votes on which one their friend really wrote.
 - **It learns from getting caught.** After the reveal, players who spotted the fake say what gave it away ("too many commas"). The Wolf avoids those tells next time. From chapter 3 it targets whoever the room knows least: "The Wolf noticed nobody really knows Maya yet."
 - **Every vote maps the friendships.** A correct vote means you know that person's voice. The forest map draws who knows whom.
+- **The Wolf opens its notebook.** Its first fake sits next to its last, with what it knew each time and how many it fooled, under a headline like "It learned. Chapter I fooled 50% of you. Chapter IV fooled 75%." Then it reads its notes on each of you.
 - **The night ends with quests.** The Wolf turns the map into real plans: one for each pair who barely know each other, built on things they actually wrote ("you both mentioned late-night tacos"), plus a group plan with an illustrated poster.
 - **Then it forgets everything.** A recap story and a picture to save, and every answer is deleted.
 
@@ -68,7 +69,6 @@ Each model falls back to the other, and if both are down the game still plays wi
 ## What's next
 
 - Real places in the quests: attach a nearby venue, hours and a calendar invite to each plan.
-- A "Wolf's notebook" screen showing what it learned about each player, and a round-1 vs round-4 fake side by side.
 - Remote play for friends in different cities.
 
 ## Built with
