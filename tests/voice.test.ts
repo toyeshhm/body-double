@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { POST as transcribeRoute } from "../app/api/rooms/[code]/transcribe/route";
 import { encodeWav, wavInfo } from "../lib/ai/wav";
+import { MAX_VOICE_PER_NIGHT, takeVoiceBudget } from "../lib/game/budget";
 import { authHeaders, type Auth } from "../lib/game/events";
 import { MAX_VOICE_PER_PLAYER, MAX_VOICE_PER_ROOM } from "../lib/game/http";
 import { BASE, host, phone } from "./screen";
@@ -75,4 +76,19 @@ void test("the transcribe route: players only, answer pages only, WAV only, 30s 
   }
   const late = (await phone(board.code, "Late")).auth;
   assert.equal((await send(board.code, late, short)).status, 429, "the room's budget is spent for everyone");
+});
+
+void test("tonight's voice budget is shared by every game, and a fresh room can't get around it", async () => {
+  let taken = 0;
+  while (await takeVoiceBudget()) taken++; // earlier tests in this file already spent some
+  assert.ok(taken <= MAX_VOICE_PER_NIGHT);
+  assert.equal(await takeVoiceBudget(), false, "spent stays spent");
+
+  const board = await host();
+  const night = await phone(board.code, "Night");
+  await phone(board.code, "Owl");
+  await board.send({ type: "host:start" });
+  const res = await send(board.code, night.auth, encodeWav(new Float32Array(8_000)));
+  assert.equal(res.status, 429);
+  assert.match(JSON.stringify(res.body), /out of voice for tonight/);
 });

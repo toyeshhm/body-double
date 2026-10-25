@@ -3,6 +3,7 @@ import { networkInterfaces } from "node:os";
 import { transcribe } from "../ai/provider";
 import { MAX_SECONDS, wavInfo } from "../ai/wav";
 import { log } from "../log";
+import { takeVoiceBudget } from "./budget";
 import { Action, HEADER, JoinInput } from "./events";
 import { giveConsent, joinPlayer, updateSettings } from "./lobby";
 import { MAX_ANSWER, advance, startGame, submitAnswer, submitTell, submitVote, tick, vetoFake } from "./machine";
@@ -176,6 +177,7 @@ export async function handleTranscribe(req: Request, code: string): Promise<Resp
   if (counted?.result !== "ok") {
     return counted?.result === "spent" ? fail(429, "The Wolf has listened enough for one night. Type the rest.") : fail(409, "That page has already turned.");
   }
+  if (!(await takeVoiceBudget())) return fail(429, "The Wolf has run out of voice for tonight. Type your answer instead.");
   try {
     const text = await transcribe({ audio, mime: "audio/wav" });
     log.info("transcribe", { room: stored.room.code, seconds: Math.round(wav.seconds), heard: text.length > 0 });
