@@ -43,6 +43,8 @@ Every revealed vote becomes one anonymous row: the time, the chapter, and whethe
 
 Live rooms are stored in the same database, one row per village, deleted when the tale ends and swept after 2 hours idle.
 
+Spoken answers are capped three ways so nobody can drain the AI credits: 20 per player and 120 per room each game, and 300 a night across every game. The nightly count is one Tiger row per day, taken in a single statement so parallel games can't overshoot.
+
 ## Privacy
 
 - 18+ only, with clear consent at join.
