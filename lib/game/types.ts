@@ -119,6 +119,8 @@ export type Room = {
   settings: Settings;
   knows: Record<string, Record<string, { correct: number; total: number }>>; // voter -> target
   wolf: { fooled: number; total: number };
+  /** Spoken answers sent to speech-to-text in this room, all players together (see voiceUses on Player). */
+  voiceUses: number;
   usedTargets: string[];
   usedPrompts: string[];
   plans: Plans | null;

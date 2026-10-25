@@ -107,6 +107,7 @@ export function newRoom(code: string, now = Date.now()): Room {
     settings: { rounds: 6, answerSeconds: 60, voteSeconds: 20, demoMode: false },
     knows: {},
     wolf: { fooled: 0, total: 0 },
+    voiceUses: 0,
     usedTargets: [],
     usedPrompts: [],
     plans: null,

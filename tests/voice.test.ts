@@ -6,7 +6,7 @@ import { test } from "node:test";
 import { POST as transcribeRoute } from "../app/api/rooms/[code]/transcribe/route";
 import { encodeWav, wavInfo } from "../lib/ai/wav";
 import { authHeaders, type Auth } from "../lib/game/events";
-import { MAX_VOICE_PER_PLAYER } from "../lib/game/http";
+import { MAX_VOICE_PER_PLAYER, MAX_VOICE_PER_ROOM } from "../lib/game/http";
 import { BASE, host, phone } from "./screen";
 
 delete process.env.MUSE_API_KEY;
@@ -65,5 +65,14 @@ void test("the transcribe route: players only, answer pages only, WAV only, 30s 
   assert.equal(spent.status, 429, "one phone can't burn the AI credits");
   assert.match(JSON.stringify(spent.body), /Type the rest/);
   const other = (await phone(board.code, "Cy")).auth;
-  assert.equal((await send(board.code, other, short)).status, 503, "the limit is per player, not per room");
+  assert.equal((await send(board.code, other, short)).status, 503, "another player still has their own allowance");
+
+  // ...but extra villagers can't multiply it: the room has a budget of its own.
+  let used = MAX_VOICE_PER_PLAYER + 1;
+  for (let n = 0; used < MAX_VOICE_PER_ROOM; n++) {
+    const extra = (await phone(board.code, `Extra ${String(n)}`)).auth;
+    for (let i = 0; i < MAX_VOICE_PER_PLAYER && used < MAX_VOICE_PER_ROOM; i++, used++) await send(board.code, extra, short);
+  }
+  const late = (await phone(board.code, "Late")).auth;
+  assert.equal((await send(board.code, late, short)).status, 429, "the room's budget is spent for everyone");
 });

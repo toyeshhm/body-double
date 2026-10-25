@@ -143,6 +143,8 @@ const MAX_AUDIO_BYTES = 2_000_000; // 30s of 16 kHz mono WAV is about 960 KB
 // ponytail: a flat cap per player per game. The default game has 9 answers (3 warmup + 6 chapters), so this
 // allows about two tries each; raise it if long games (up to 12 chapters) hit it in practice.
 export const MAX_VOICE_PER_PLAYER = 20;
+// The room's own budget, so joining as many villagers as the room allows can't multiply the per-player cap.
+export const MAX_VOICE_PER_ROOM = 120;
 
 /**
  * POST audio/wav from a phone (lib/ai/wav.ts format): the spoken answer as text, which the player edits and
@@ -166,8 +168,9 @@ export async function handleTranscribe(req: Request, code: string): Promise<Resp
   const counted = await updateRoom(code, (room) => {
     const player = room.players[who];
     if (!player) return { result: "gone" as const, dirty: false };
-    if (player.voiceUses >= MAX_VOICE_PER_PLAYER) return { result: "spent" as const, dirty: false };
+    if (player.voiceUses >= MAX_VOICE_PER_PLAYER || room.voiceUses >= MAX_VOICE_PER_ROOM) return { result: "spent" as const, dirty: false };
     player.voiceUses += 1;
+    room.voiceUses += 1;
     return { result: "ok" as const, dirty: true };
   });
   if (counted?.result !== "ok") {
