@@ -6,6 +6,7 @@ import { Ended, Recap } from "./Finale";
 import { ForestMap } from "./ForestMap";
 import { HostFrame } from "./Frame";
 import { Lobby } from "./Lobby";
+import { Notebook } from "./Notebook";
 import { Quests } from "./Quests";
 import { Showdown } from "./Showdown";
 import { Tells } from "./Tells";
@@ -35,6 +36,8 @@ function PhaseView({ state, onStart, onSettings, onRestart }: { state: ClientSta
       return <Tells state={state} />;
     case "MAP":
       return <ForestMap state={state} />;
+    case "NOTEBOOK":
+      return <Notebook state={state} />;
     case "PLANS":
       return <Quests state={state} />;
     case "RECAP":

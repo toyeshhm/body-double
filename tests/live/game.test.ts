@@ -37,6 +37,8 @@ void test("a demo game with the real Wolf: AI fake in time for voting, then AI p
   assert.ok(ready.plans && ready.plans.pairPlans.length > 0, "plans landed during MAP");
   assert.notEqual(ready.plans.groupPlan.title, "Lantern Night at Zilker", "AI plans, not the stub");
   await board.send({ type: "host:next" });
+  assert.equal(board.state.phase, "NOTEBOOK");
+  await board.send({ type: "host:next" });
   assert.equal(board.state.plans?.groupPlan.title, ready.plans.groupPlan.title, "PLANS shows the Wolf's plans");
   await board.send({ type: "host:next" });
   assert.ok(board.state.recap?.story.startsWith("Once upon a time"));

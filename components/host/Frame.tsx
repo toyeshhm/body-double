@@ -29,6 +29,8 @@ export function nextLabel(state: ClientState): string | null {
       return round.n < round.total ? "Next chapter" : "Into the forest";
     }
     case "MAP":
+      return "Open the Wolf's notebook";
+    case "NOTEBOOK":
       return "See the quests";
     case "PLANS":
       return "Read the tale";

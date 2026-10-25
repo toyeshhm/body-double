@@ -123,6 +123,23 @@ void test("a full tale: lobby, warmup, rounds, reveal, tells, map, plans, recap,
   await board.send({ type: "host:next" });
   assert.equal(board.state.phase, "MAP");
   await board.send({ type: "host:next" });
+  assert.equal(board.state.phase, "NOTEBOOK");
+  const book = board.state.notebook;
+  assert.ok(book);
+  assert.equal(book.first, null, "a fake vetoed with 'Not me' is never shown again");
+  assert.deepEqual(
+    book.pages.find((p) => p.playerId === targetId),
+    { playerId: targetId, style: book.pages.find((p) => p.playerId === targetId)?.style, fooled: 1, votes: 2 },
+    "but it still counts toward the stats",
+  );
+  assert.ok(!book.pages.some((p) => p.playerId === cat.state.me?.id), "players who kept their voice get no page");
+  await right.poll();
+  assert.deepEqual(
+    right.state.notebook?.pages.map((p) => p.playerId),
+    [right.state.me?.id],
+    "a phone gets only its own page",
+  );
+  await board.send({ type: "host:next" });
   assert.equal(board.state.phase, "PLANS");
   assert.ok((board.state.plans?.pairPlans.length ?? 0) > 0, "PLANS never waits on the Wolf: stub when the AI isn't ready");
   assert.ok(board.state.plans?.pairPlans.every((p) => p.evidence.every((e) => !e.includes("(stub)"))));

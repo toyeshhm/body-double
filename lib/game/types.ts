@@ -10,6 +10,7 @@ export const PHASES = [
   "REVEAL",
   "TELLS",
   "MAP",
+  "NOTEBOOK",
   "PLANS",
   "RECAP",
   "ENDED",
@@ -128,7 +129,7 @@ export type Room = {
 };
 
 // ---- What clients receive (room:state). Never contains which slot is real before REVEAL,
-// ---- and never another player's style profile.
+// ---- and a phone never gets another player's style profile (the host's notebook shows every page at the end).
 
 export type PublicPlayer = Pick<Player, "id" | "name" | "avatar" | "role" | "score" | "isBot" | "consented" | "canBeTarget"> & {
   connected: boolean;
@@ -154,6 +155,12 @@ export type RoundView = {
 };
 
 export type MapEdge = { a: string; b: string; score: number; samples: number };
+
+/** One villager's page in the Wolf's notebook: what it learned, and how it did wearing their voice. */
+export type NotebookPage = { playerId: string; style: StyleProfile; fooled: number; votes: number };
+/** One fake the Wolf wrote, for the early-versus-late comparison. */
+export type FakeSample = { round: number; targetId: string; question: string; real: string; fake: string; fooled: number; votes: number };
+export type Notebook = { pages: NotebookPage[]; first: FakeSample | null; last: FakeSample | null };
 
 export type MeView = {
   id: string;
@@ -181,5 +188,7 @@ export type ClientState = {
   wolf: { fooled: number; total: number };
   plans: Plans | null;
   recap: Recap | null;
+  /** NOTEBOOK only. The host gets every page and both fakes; a phone gets only its own page. */
+  notebook: Notebook | null;
   me: MeView | null;
 };

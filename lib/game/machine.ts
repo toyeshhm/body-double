@@ -1,5 +1,5 @@
 // The game state machine (spec 4):
-//   LOBBY -> WARMUP -> [ROUND x N] -> MAP -> PLANS -> RECAP -> ENDED
+//   LOBBY -> WARMUP -> [ROUND x N] -> MAP -> NOTEBOOK -> PLANS -> RECAP -> ENDED
 //   ROUND = PROMPT -> ANSWERING -> GENERATING -> VOTING -> REVEAL -> TELLS
 // No timers: deadlines and bot moves are stored on the room and applied by tick(), which every
 // request runs first. That keeps it correct on serverless (Vercel), where nothing outlives a request.
@@ -150,6 +150,7 @@ function enter(room: Room, phase: Phase): void {
     case "WARMUP":
     case "TELLS":
     case "MAP":
+    case "NOTEBOOK":
       break;
   }
   if (["WARMUP", "ANSWERING", "VOTING", "REVEAL"].includes(phase)) queueBots(room);
@@ -212,6 +213,9 @@ export function advance(room: Room): string | null {
       } else finishRound(room);
       return null;
     case "MAP":
+      enter(room, "NOTEBOOK");
+      return null;
+    case "NOTEBOOK":
       enter(room, "PLANS");
       return null;
     case "PLANS":
@@ -314,16 +318,16 @@ export function deliverFake(room: Room, n: number, targetId: string, text: strin
   return true;
 }
 
-/** Spec 6d plans from the background. Only taken while the room is still on the map; after that the stub stands. */
+/** Spec 6d plans from the background. Taken until the quests page opens; after that the stub stands. */
 export function deliverPlans(room: Room, plans: Plans): boolean {
-  if (room.phase !== "MAP" || room.plans) return false;
+  if ((room.phase !== "MAP" && room.phase !== "NOTEBOOK") || room.plans) return false;
   room.plans = plans;
   return true;
 }
 
 /** The AI recap, taken until the RECAP page opens. */
 export function deliverRecap(room: Room, recap: Recap): boolean {
-  if ((room.phase !== "MAP" && room.phase !== "PLANS") || room.recap) return false;
+  if ((room.phase !== "MAP" && room.phase !== "NOTEBOOK" && room.phase !== "PLANS") || room.recap) return false;
   room.recap = recap;
   return true;
 }

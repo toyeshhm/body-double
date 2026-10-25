@@ -23,7 +23,7 @@ export function Consent({ onAgree }: { onAgree: (canBeTarget: boolean) => void }
 
       <div className="card p-5">
         <p className="text-[1.1rem] font-medium leading-relaxed text-ink">
-          Body Double uses your answers during this game to imitate you. Everything is deleted when the game ends.
+          Body Double uses your answers during this game to imitate you. At the end, the Wolf reads the group its notes on how you write. Everything is deleted when the game ends.
         </p>
         <label className="mt-5 flex min-h-12 cursor-pointer items-center gap-3 font-bold text-ink">
           <input

@@ -102,6 +102,7 @@ export function PlayScreen({
           ) : null,
         };
       case "MAP":
+      case "NOTEBOOK":
       case "PLANS":
       case "RECAP":
         return { key: state.phase, node: <Finale state={state} me={me} /> };
@@ -147,6 +148,7 @@ export function PlayScreen({
               setKnowsOpen(false);
             }}
             style={me.style}
+            shared={me.canBeTarget}
           />
         )}
       </main>

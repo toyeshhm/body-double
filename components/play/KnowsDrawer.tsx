@@ -1,26 +1,40 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { notes } from "@/components/ui/notes";
 import { Icon } from "@/components/ui/Villager";
 import type { StyleProfile } from "@/lib/game/types";
 
-const CASING = { lower: "all lowercase", sentence: "Sentence case", mixed: "a bit of everything" } as const;
-
-function notes(style: StyleProfile): { label: string; value: string | null }[] {
-  const seen = style.avgLength > 0;
-  const list = (items: string[]): string | null => (items.length > 0 ? items.join(", ") : null);
-  return [
-    { label: "Typical length", value: seen ? `About ${String(style.avgLength)} characters` : null },
-    { label: "Casing", value: seen ? CASING[style.casing] : null },
-    { label: "Emoji", value: style.usesEmoji ? style.emojiExamples.join(" ") : seen ? "None so far" : null },
-    { label: "Punctuation", value: style.punctuation || null },
-    { label: "Slang", value: list(style.slang) },
-    { label: "Humor", value: style.humor || null },
-    { label: "Interests", value: list(style.interests) },
-  ];
+/** The Wolf's notes on you: labeled rows, then the tells that caught it. Shared by the drawer and your notebook page. */
+export function StyleNotes({ style, unknown = "Still watching." }: { style: StyleProfile; unknown?: string }) {
+  return (
+    <>
+      <dl className="mt-5 divide-y divide-dashed divide-[#c9ae7c] border-y border-dashed border-[#c9ae7c]">
+        {notes(style).map((n) => (
+          <div key={n.label} className="flex items-baseline justify-between gap-4 py-3">
+            <dt className="shrink-0 font-bold">{n.label}</dt>
+            <dd className={`text-right font-medium ${n.value ? "" : "voice text-ink-soft"}`}>{n.value ?? unknown}</dd>
+          </div>
+        ))}
+      </dl>
+      {style.caughtTells.length > 0 && (
+        <div className="mt-5">
+          <h3 className="font-bold">Friends caught the Wolf because:</h3>
+          <ul className="mt-2 flex flex-col gap-1.5">
+            {style.caughtTells.map((t) => (
+              <li key={t} className="voice text-[1.15rem]">
+                &ldquo;{t}&rdquo;
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
+  );
 }
 
 /** "What the AI knows about you" (spec 3): only ever your own profile, as a native bottom-sheet dialog. */
-export function KnowsDrawer({ open, onClose, style }: { open: boolean; onClose: () => void; style: StyleProfile }) {
+/** `shared`: the Wolf reads this page to the group at the end (players it may impersonate). */
+export function KnowsDrawer({ open, onClose, style, shared }: { open: boolean; onClose: () => void; style: StyleProfile; shared: boolean }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const dialog = ref.current;
@@ -50,32 +64,16 @@ export function KnowsDrawer({ open, onClose, style }: { open: boolean; onClose: 
             Close
           </button>
         </div>
-        <p className="mt-2 text-[0.95rem] font-medium text-ink-soft">Only you can see these notes. They vanish when the game ends.</p>
+        <p className="mt-2 text-[0.95rem] font-medium text-ink-soft">
+          {shared
+            ? "Only you can see these notes until the end, when the Wolf reads its notebook to the group. Then they vanish."
+            : "Only you can see these notes. They vanish when the game ends."}
+        </p>
 
         {empty ? (
           <p className="voice my-8 text-[1.25rem] text-ink-soft">Nothing yet. Answer a prompt and the Wolf starts taking notes.</p>
         ) : (
-          <dl className="mt-5 divide-y divide-dashed divide-[#c9ae7c] border-y border-dashed border-[#c9ae7c]">
-            {notes(style).map((n) => (
-              <div key={n.label} className="flex items-baseline justify-between gap-4 py-3">
-                <dt className="shrink-0 font-bold">{n.label}</dt>
-                <dd className={`text-right font-medium ${n.value ? "" : "voice text-ink-soft"}`}>{n.value ?? "Still watching."}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-
-        {style.caughtTells.length > 0 && (
-          <div className="mt-5">
-            <h3 className="font-bold">Friends caught the Wolf because:</h3>
-            <ul className="mt-2 flex flex-col gap-1.5">
-              {style.caughtTells.map((t) => (
-                <li key={t} className="voice text-[1.15rem]">
-                  &ldquo;{t}&rdquo;
-                </li>
-              ))}
-            </ul>
-          </div>
+          <StyleNotes style={style} />
         )}
       </div>
     </dialog>

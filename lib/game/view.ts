@@ -1,5 +1,6 @@
 import { friendshipEdges } from "./map";
 import { activeTarget, currentRound, isConnected, list, realChoice, warmupDone } from "./machine";
+import { notebookFor } from "./notebook";
 import type { Choice, ClientState, PairView, RevealView, Room, RoundView, SlotKind } from "./types";
 import { ROUND_PHASES } from "./types";
 
@@ -76,6 +77,7 @@ export function viewFor(room: Room, viewerId: string | null, joinUrl: string, ve
     // The poster can be a large data URL and only the host screen draws it, so phones never download it.
     plans: room.plans && viewerId !== null ? { ...room.plans, groupPlan: { ...room.plans.groupPlan, posterUrl: null } } : room.plans,
     recap: room.recap,
+    notebook: notebookFor(room, viewerId),
     me: me
       ? {
           id: me.id,

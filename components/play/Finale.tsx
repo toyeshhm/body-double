@@ -4,6 +4,7 @@ import { SaveImage } from "@/components/ui/SaveImage";
 import { Icon, Token } from "@/components/ui/Villager";
 import type { ClientState, MeView } from "@/lib/game/types";
 import { Lede, Pause, Title, Voice } from "./bits";
+import { StyleNotes } from "./KnowsDrawer";
 
 const SOFT = { fontVariationSettings: '"SOFT" 100' } as const;
 
@@ -44,6 +45,39 @@ function Paths({ state, me }: { state: ClientState; me: MeView }) {
         <Lede>No paths through the forest for you yet. They grow with every vote.</Lede>
       )}
       <Lede>The whole map is on the big screen.</Lede>
+    </div>
+  );
+}
+
+/** NOTEBOOK on the phone: only your own page (the server sends no one else's). */
+function YourPage({ state, me }: { state: ClientState; me: MeView }) {
+  const page = state.notebook?.pages.find((p) => p.playerId === me.id);
+  return (
+    <div className="flex flex-1 flex-col gap-5">
+      <div className="flex items-end justify-between gap-3">
+        <div>
+          <Voice>The Wolf&rsquo;s notebook</Voice>
+          <Title>Your page</Title>
+        </div>
+        <Icon id="quill" className="size-20 shrink-0" />
+      </div>
+      {page ? (
+        <div>
+          <p className="card px-5 py-4 font-display text-[1.35rem] font-bold leading-snug text-ink" style={SOFT}>
+            {page.votes > 0 ? (
+              <>
+                Wearing your voice, it fooled <span className="text-rasp-deep">{`${String(page.fooled)} of ${String(page.votes)}`}</span>.
+              </>
+            ) : (
+              "It never got to wear your voice."
+            )}
+          </p>
+          <StyleNotes style={page.style} unknown="Nothing noted." />
+        </div>
+      ) : (
+        <Lede>You kept your voice to yourself, so your page is blank.</Lede>
+      )}
+      <Lede>The whole notebook is on the big screen. Every page burns when the book closes.</Lede>
     </div>
   );
 }
@@ -126,6 +160,7 @@ function Story({ state, me }: { state: ClientState; me: MeView }) {
 /** End of the night on the phone: MAP, PLANS, RECAP. */
 export function Finale({ state, me }: { state: ClientState; me: MeView }) {
   if (state.phase === "MAP") return <Paths state={state} me={me} />;
+  if (state.phase === "NOTEBOOK") return <YourPage state={state} me={me} />;
   if (state.phase === "PLANS") return <Quests state={state} me={me} />;
   return <Story state={state} me={me} />;
 }
